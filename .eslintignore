@@ -7,3 +7,6 @@ test
 dist
 public
 node_modules
+
+# uni-axios 库
+uni - axios

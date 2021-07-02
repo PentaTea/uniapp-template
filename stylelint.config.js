@@ -9,12 +9,6 @@ module.exports = {
         ignorePseudoClasses: ['global'],
       },
     ],
-    'at-rule-no-unknown': [
-      true,
-      {
-        ignoreAtRules: ['function', 'if', 'each', 'include', 'mixin', 'for'],
-      },
-    ],
     'no-duplicate-selectors': null,
     'no-empty-source': null,
     'unicode-bom': 'never',

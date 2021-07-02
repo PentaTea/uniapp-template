@@ -1,0 +1,44 @@
+{
+  "entryPagePath": "pages/index/index",
+  "pages": [
+    {
+      "path": "pages/index/index"
+    }
+  ],
+  // "tabBar": {
+  //   "list": []
+  // },
+  // "subPackages": [
+  //   {
+  //     "root": "xxx/xxx/",
+  //     "pages": [
+  //       {
+  //         "path": "xxx"
+  //       }
+  //     ]
+  //   }
+  // ],
+  "preloadRule": {},
+  "globalStyle": {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "uni-typescript",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#fff",
+    "backgroundColorTop": "#6FBCFF",
+    "usingComponents": {
+      "ri": "/wxcomponents/remixicon2.5.0/index"
+    },
+    "app-plus": {
+      "bounce": "none"
+    },
+    "mp-alipay": {
+      "allowsBounceVertical": "NO"
+    }
+  },
+  "condition": {
+    //模式配置，仅开发期间生效
+    "current": 0, //当前激活的模式(list 的索引项)
+    "list": []
+  }
+}

@@ -1,0 +1,1 @@
+<view class="{{ classPrefix }} {{ name }}" style="{{ size?'font-size:'+size+'px;':'' + rpxSize?'font-size:'+rpxSize+'rpx;':'' + color?'color:'+color+';':''}}"></view>

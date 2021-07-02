@@ -1,0 +1,11 @@
+$zindex: (
+  modal: 9000,
+  overlay: 7000,
+  main: 5000,
+  bottom: 3000,
+  hidden: 0,
+);
+
+@function z($label) {
+  @return map-get($zindex, $label);
+}

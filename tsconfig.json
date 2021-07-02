@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUmdGlobalAccess": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "strictBindCallApply": true,
+    "preserveConstEnums": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "pretty": false,
+    "baseUrl": ".",
+    "types": ["node", "webpack-env", "vue/types", "@dcloudio/types", "./src/types"],
+    "paths": {
+      "@app": ["./src"],
+      "@app/*": ["./src/*"],
+      "@api": ["./src/api"],
+      "@api/*": ["./src/api/*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "outDir": "./"
+  },
+  "exclude": ["node_modules", "muya-editor", "unpackage", "src/**/*.nvue", "dist", "./*.js"]
+  //"include": ["src/**/*"]
+}

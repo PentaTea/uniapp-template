@@ -8,5 +8,7 @@ dist
 public
 node_modules
 
-# uni-axios 库
-uni - axios
+# 微信原生插件
+wxcomponents
+# uni-axios库
+uni-axios

@@ -2,3 +2,13 @@
 src/unpackage
 # 忽略uni-app官方的组件库错误和警告
 src/components/uni-**
+
+test
+dist
+public
+node_modules
+
+# 微信原生插件
+wxcomponents
+# uni-axios库
+uni-axios

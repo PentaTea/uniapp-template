@@ -9,10 +9,14 @@ module.exports = {
     uni: 'readonly',
     plus: 'readonly',
     wx: 'readonly',
+    swan: 'readonly',
+    my: 'readonly',
+    getCurrentPages: 'readonly',
   },
   extends: ['plugin:vue/essential', 'eslint:recommended', '@vue/prettier'],
+  plugins: ['@typescript-eslint', 'prettier'],
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
     sourceType: 'module',
   },
   rules: {
@@ -149,7 +153,7 @@ module.exports = {
     'no-trailing-spaces': 0,
     'no-undef': 2,
     'no-undef-init': 2,
-    'no-unexpected-multiline': 2,
+    'no-unexpected-multiline': 'off',
     'no-unmodified-loop-condition': 2,
     'no-unneeded-ternary': [
       2,
@@ -159,13 +163,7 @@ module.exports = {
     ],
     'no-unreachable': 2,
     'no-unsafe-finally': 2,
-    'no-unused-vars': [
-      2,
-      {
-        vars: 'all',
-        args: 'none',
-      },
-    ],
+    'no-unused-vars': 0,
     'no-useless-call': 2,
     'no-useless-computed-key': 2,
     'no-useless-constructor': 2,

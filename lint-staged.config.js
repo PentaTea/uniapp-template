@@ -1,5 +1,5 @@
 module.exports = {
-  '*.{js,jsx,ts,tsx}': ['eslint --fix', 'prettier --write'],
+  '*.{vue,js,ts}': ['eslint --fix', 'prettier --write'],
   '{!(package)*.json,*.code-snippets,.!(browserslist)*rc}': ['prettier --write--parser json'],
   'package.json': ['prettier --write'],
   '*.vue': ['prettier --write', 'stylelint --fix --allow-empty-input'],

@@ -11,7 +11,7 @@ const ModuleList = {} as {
 }
 const ModuleTree = {}
 
-export function SetModule(Module) {
+export function generator(Module) {
   for (const key in Module) {
     if (Object.prototype.hasOwnProperty.call(Module, key)) {
       const e = Module[key]

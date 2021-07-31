@@ -1,11 +1,11 @@
 import { Global, User } from '@app/store/module'
-import { SetModule } from './set'
+import { generator } from '@app/store/helper'
 
 export const Module = {
   Global,
   User,
 }
 
-const { ModuleList, store } = SetModule(Module)
+const { ModuleList, store } = generator(Module)
 export default ModuleList
 export { store }

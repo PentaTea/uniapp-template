@@ -9,7 +9,7 @@ module.exports = {
     },
     {
       value: '💄 样式',
-      name: 'style:    不改变代码功能的变动(如删除空格、格式化、去掉末尾分号等)',
+      name: 'style:    更改css,scss,less样式',
     },
     {
       value: '♻️ 重构',
@@ -34,13 +34,12 @@ module.exports = {
 
   // scope 类型
   scopes: [
-    ['components', '组件相关'],
+    ['layout', '布局'],
+    ['components', '组件'],
     ['deps', '项目依赖'],
 
     //在这里添加scope,最好聚焦到具体服务
-    ['auth', '对权限的修改'],
-
-    ['other', '其他修改'],
+    ['api', '接口'],
   ].map(([value, description]) => {
     return {
       value,
@@ -73,7 +72,7 @@ module.exports = {
     subject: '填写一个简短精炼的描述语句:\n',
     body:
       '添加一个更加详细的描述，可以附上新增功能的描述或 bug 链接、截图链接 (可选)。使用 "|" 换行:\n',
-    breaking: '列举非兼容性重大的变更 (可选):\n',
+    // breaking: '列举非兼容性重大的变更 (可选):\n',
     footer: '列举出所有变更的 ISSUES CLOSED  (可选)。 例如.: #31, #34:\n',
     confirmCommit: '确认提交?',
   },

@@ -62,7 +62,7 @@ module.exports = {
     'comma-dangle': [2, 'only-multiline'],
     'comma-style': [2, 'last'],
     'constructor-super': 2,
-    curly: [2, 'multi-line'],
+    curly: 'off',
     'dot-location': [2, 'property'],
     'eol-last': 2,
     eqeqeq: [

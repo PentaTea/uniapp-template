@@ -2,10 +2,7 @@ import { axios } from '@app/request'
 import { AxiosResponse } from 'axios'
 
 const post = {
-  /**
-   * @获取用户信息
-   */
-  getUser: '/getUser',
+  // name:'/path',
 }
 
 uni.post = new Proxy(post, {
@@ -20,7 +17,7 @@ declare global {
   namespace UniApp {
     interface Uni {
       post: {
-        [K in keyof typeof post]: (...args: any[]) => Promise<AxiosResponse<any>>
+        [K in keyof typeof post]: (...args: any[]) => Promise<any>
       }
     }
   }

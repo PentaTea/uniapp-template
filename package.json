@@ -55,8 +55,7 @@
     "vue-data-object-path": "^1.8.0",
     "vue-property-decorator": "^9.0.0",
     "vuex": "^3.5.1",
-    "vuex-class-component": "^2.3.5",
-    "webpack-bundle-analyzer": "^4.4.0"
+    "vuex-class-component": "^2.3.5"
   },
   "devDependencies": {
     "@babel/plugin-syntax-typescript": "^7.10.4",

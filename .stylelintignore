@@ -3,12 +3,16 @@ unpackage
 # 忽略uni-app官方的组件库错误和警告
 components/uni-**
 
+*.min.js
 test
 dist
 public
 node_modules
+manifest.json
 
-# 微信原生插件
+# 微信原生组件
 wxcomponents
 # uni-axios库
 uni-axios
+# mescroll库
+mescroll

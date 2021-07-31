@@ -7,11 +7,14 @@ module.exports = {
   // 配置js全局变量，因为是uni-app，全局的uni是不需要引入的，还有5+的plus对象
   globals: {
     uni: 'readonly',
+    UniApp: 'readonly',
     plus: 'readonly',
     wx: 'readonly',
     swan: 'readonly',
     my: 'readonly',
     getCurrentPages: 'readonly',
+    _: 'readonly',
+    app: 'readonly',
   },
   extends: ['plugin:vue/essential', 'eslint:recommended', '@vue/prettier'],
   plugins: ['@typescript-eslint', 'prettier'],

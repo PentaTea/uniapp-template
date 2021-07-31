@@ -1,7 +1,9 @@
 const path = require('path')
 const resolve = (dir) => path.join(__dirname, dir)
+const webpack = require('webpack')
 
 module.exports = {
+  lintOnSave: false,
   chainWebpack: (config) => {
     config.resolve.alias.set('@app', resolve('src'))
     config.resolve.alias.set('@api', resolve('src/api'))
@@ -26,6 +28,11 @@ module.exports = {
     //   .end
   },
   configureWebpack: {
-    plugins: [],
+    plugins: [
+      new webpack.ProvidePlugin({
+        _: 'lodash',
+        app: resolve('src/utils/__provider'),
+      }),
+    ],
   },
 }

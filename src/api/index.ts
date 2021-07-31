@@ -4,5 +4,7 @@ export const post = {
   // name:'/path',
 }
 
+console.log(_.tail, app.time)
+
 generator(post)
 export {}

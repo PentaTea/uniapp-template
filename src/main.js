@@ -4,10 +4,10 @@ import Vue from 'vue'
 import App from './App'
 
 //#ifdef MP-WEIXIN
-import '@app/utils/patchVueCompositionApi'
+import '@app/common/patchVueCompositionApi'
 //#endif
-import '@app/utils/mixinUniApi'
-import '@app/utils/vueFilter'
+import '@app/utils'
+import '@app/common/vueFilter'
 import '@app/api'
 Vue.config.productionTip = false
 

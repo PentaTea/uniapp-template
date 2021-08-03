@@ -1,23 +1,6 @@
+//建议使用 app.config.js 进行路由配置
 {
-  "entryPagePath": "pages/index/index",
-  "pages": [
-    {
-      "path": "pages/index/index"
-    }
-  ],
-  // "tabBar": {
-  //   "list": []
-  // },
-  // "subPackages": [
-  //   {
-  //     "root": "xxx/xxx/",
-  //     "pages": [
-  //       {
-  //         "path": "xxx"
-  //       }
-  //     ]
-  //   }
-  // ],
+  "pages": [],
   "preloadRule": {},
   "globalStyle": {
     "navigationStyle": "custom",

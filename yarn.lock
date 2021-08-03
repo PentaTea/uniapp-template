@@ -2758,7 +2758,7 @@ callsites@^2.0.0:
   resolved "https://registry.nlark.com/callsites/download/callsites-2.0.0.tgz#06eb84f00eea413da86affefacbffb36093b3c50"
   integrity sha1-BuuE8A7qQT2oav/vrL/7Ngk7PFA=
 
-callsites@^3.0.0:
+callsites@^3.0.0, callsites@^3.1.0:
   version "3.1.0"
   resolved "https://registry.nlark.com/callsites/download/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha1-s2MKvYlDQy9Us/BRkjjjPNffL3M=
@@ -10145,6 +10145,13 @@ unbox-primitive@^1.0.1:
     has-bigints "^1.0.1"
     has-symbols "^1.0.2"
     which-boxed-primitive "^1.0.2"
+
+uni-pages-hot-modules@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.nlark.com/uni-pages-hot-modules/download/uni-pages-hot-modules-0.1.1.tgz#5de627d2dfe95de5342cad88d05fde11f6482b8f"
+  integrity sha1-XeYn0t/pXeU0LK2I0F/eEfZIK48=
+  dependencies:
+    callsites "^3.1.0"
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

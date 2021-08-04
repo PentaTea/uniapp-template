@@ -3,8 +3,6 @@ import { Router } from '@app/enums'
 import is from 'is'
 import querystring from 'querystring'
 
-console.log(12344)
-
 //混入不需要 MVVM 的变量
 orgVue.prototype.uni = uni
 orgVue.prototype.app = app

@@ -9,8 +9,22 @@ module.exports = {
    */
   packages: {
     index: {
-      _index: { tabBar: { text: '首页' } },
-      _my: { tabBar: { text: '关于我' } },
+      _index: {},
     },
+  },
+
+  tabBar: {
+    list: [
+      {
+        pagePath: 'pages/index/_index',
+        text: '主页',
+        // iconPath: '/static/images/xxx.png',
+        // selectedIconPath: '/static/images/xxx.png',
+      },
+      {
+        pagePath: 'pages/index/_my',
+        text: '关于我',
+      },
+    ],
   },
 }

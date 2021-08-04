@@ -5,6 +5,7 @@ import { debounce } from 'lodash'
 export default {
   to: debounce(
     (path: string, obj?: any) => {
+      path = '/pages/' + path
       const querystr = qs.stringify(obj, { encode: false })
       console.log(`to ${path}`, obj ? `\n` : '', obj || '', obj ? `\n=> ${querystr}` : '')
       ;(uni as any).navigateTo({

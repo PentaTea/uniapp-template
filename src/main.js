@@ -20,8 +20,12 @@ Vue.use(VueDataObjectPath)
 import Component from 'vue-class-component'
 Component.registerHooks(['setup', 'beforeRouteUpdate', 'beforeRouteEnter', 'beforeRouteLeave'])
 
-//全局组件
-// import xxx from '@app/components/xxx'
-// Vue.component('xxx', xxx)
+//基础全局组件
+import BasePage from '@app/components/BasePage/BasePage'
+Vue.component('BasePage', BasePage)
+//通用全局组件
+//...
+//组件库常用组件
+//...
 
 new App({}).$mount()

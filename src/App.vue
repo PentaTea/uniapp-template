@@ -24,11 +24,16 @@ export default Vue.extend({
 
 <style lang="scss">
 // #ifndef APP-PLUS-NVUE
+
 //color-ui
+@import 'styles/color-ui-custom.css';
+@import 'styles/color-ui-main-theme.css';
 @import 'styles/color-ui-animation.css';
 
-/* @import url('styles/color-ui-icon.css'); */
-@import 'styles/color-ui-main-theme.css';
+/* @import 'styles/color-ui-icon.css' */
+
+// 自定义工具类
+@import 'styles/tools.scss';
 
 // 自定义主题
 @import '~@app/styles/themes/index.scss';

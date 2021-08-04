@@ -20,12 +20,12 @@ module.exports = {
     //     .end()
     // })
 
-    // config.module
-    //   .rule('md')
-    //   .test(/\.md$/)
-    //   .use('text-loader')
-    //   .loader('text-loader')
-    //   .end
+    config.module
+      .rule('page')
+      .enforce('pre')
+      .test(/\.vue$/)
+      .use('addMeta')
+      .loader(resolve('loader/addMeta.loader.js')).end
   },
   configureWebpack: {
     plugins: [

@@ -37,7 +37,9 @@ export default global['__wxComponents']['remixicon2.5.0/index']
 */
 @font-face {
   font-family: "remixicon";
-  src: url('/static/remixicon.woff2') format('woff2');
+  /* #ifndef MP */
+  src: url('/static/font/remixicon.woff2') format('woff2');
+  /* #endif */
   src: url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.eot');
   /* IE9*/
   src: url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.eot#iefix') format('embedded-opentype'),
@@ -47,7 +49,6 @@ export default global['__wxComponents']['remixicon2.5.0/index']
     url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.ttf') format('truetype'),
     /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
     url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.svg') format('svg');
-  src: url('/static/remixicon.woff2') format('woff2');
   /* iOS 4.1- */
   font-display: swap;
 }

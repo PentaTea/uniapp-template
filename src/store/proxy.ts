@@ -2,19 +2,18 @@ import is from 'is'
 
 export default {
   set(target, property, value, storeName) {
-    console.log('[vuex]', storeName, property, value)
+    console.log('[vuex]', storeName + '.' + property, value)
     save(target, property, value, storeName)
     target[property] = value
     return true
   },
   get(target, property, storeName) {
-    if (is.empty(target[property])) {
-      const r = restore(target, property, storeName)
-      if (r !== undefined) {
-        target[property] = r
-        console.log('[restore]', target[property])
-      }
+    const r = restore(target, property, storeName)
+    if (!is.empty(r)) {
+      target[property] = r
+      console.log('[restore]', target[property])
     }
+
     return target[property]
   },
 }
@@ -38,5 +37,9 @@ async function save(target, property, value, storeName) {
 }
 function restore(target, property, storeName) {
   if (target.__noCache || !is.string(property)) return null
-  else return Cache[[storeName, property].join('.')]
+  else {
+    const r = Cache[[storeName, property].join('.')]
+    delete Cache[[storeName, property].join('.')]
+    return r
+  }
 }

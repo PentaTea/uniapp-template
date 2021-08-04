@@ -4,4 +4,6 @@ import { Theme } from '@app/enums'
 
 export class Global extends createModule({
   namespaced: 'global',
-}) {}
+}) {
+  rootFontSize = 16
+}

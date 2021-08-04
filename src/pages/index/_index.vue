@@ -1,17 +1,28 @@
 <template>
-  <div class="flex flex-direction">
-    Hello, world
+  <div class="page flex-center flex-direction padding">
+    <div>
+      <span @click="() => app.Global.rootFontSize++">1rem文字</span>
+      <span>rootFontSize={{ a(app.Global.rootFontSize) }}</span>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Mixins } from '@app/mixins'
 
 @Component({
   components: {},
   setup(props, context) {},
 })
-export default class extends Vue {}
+export default class extends Mixins(Vue) {}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.page {
+  height: 400rpx;
+  padding: 100rpx;
+  font-size: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+</style>

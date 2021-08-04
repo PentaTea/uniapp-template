@@ -10,7 +10,7 @@ module.exports = {
   packages: {
     index: {
       _index: { tabBar: { text: '首页' } },
-      // my: { tabBar: { text: '关于我' } },
+      _my: { tabBar: { text: '关于我' } },
     },
   },
 }

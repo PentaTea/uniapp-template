@@ -9,6 +9,7 @@ export default {
       console.log(`to ${path}`, obj ? `\n` : '', obj || '', obj ? `\n=> ${querystr}` : '')
       ;(uni as any).navigateTo({
         url: path + '?' + querystr,
+        fail: (err) => console.log(err),
       })
     },
     500,

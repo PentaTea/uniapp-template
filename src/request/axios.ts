@@ -110,7 +110,7 @@ instance.interceptors.request.use(
      * 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。
      */
 
-    uni.User.token && (config.headers.token = uni.User.token)
+    app.User.token && (config.headers.token = app.User.token)
 
     return config
   },

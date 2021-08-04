@@ -1,7 +1,12 @@
 import Vue from 'vue'
+import is from 'is'
 
 declare module 'vue/types/vue' {
   interface Vue {
+    uni: typeof uni
+    app: typeof app
+    is: typeof is
+    log(...args: any[]): void
     $op: {
       set(path: string | string[], value: any): any
       get(path: string | string[]): any

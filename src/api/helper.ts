@@ -2,7 +2,7 @@ import { axios } from '@app/request'
 import { post } from '@api'
 
 export function generator(requestList) {
-  uni.post = new Proxy(requestList, {
+  app.post = new Proxy(requestList, {
     get: function(target, property) {
       return (data) => {
         return axios.post(target[property], data)
@@ -12,11 +12,9 @@ export function generator(requestList) {
 }
 
 declare global {
-  namespace UniApp {
-    interface Uni {
-      post: {
-        [K in keyof typeof post]: (...args: any[]) => Promise<any>
-      }
+  interface App {
+    post: {
+      [K in keyof typeof post]: (...args: any[]) => Promise<any>
     }
   }
 }

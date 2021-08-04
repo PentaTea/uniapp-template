@@ -37,9 +37,6 @@ async function save(target, property, value, storeName) {
   uni.setStorageSync(`__vuex.${storeName}.${property}`, value)
 }
 function restore(target, property, storeName) {
-  if (target.__noCache) return null
-  //   else return Cache[[storeName, property].join('.')]
-  else {
-    return Cache[[storeName, property].join('.')]
-  }
+  if (target.__noCache || !is.string(property)) return null
+  else return Cache[[storeName, property].join('.')]
 }

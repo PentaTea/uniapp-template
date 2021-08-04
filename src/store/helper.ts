@@ -30,7 +30,7 @@ export function generator(Module) {
 
   //vuex代理,使用代理做一些拦截操作
   Object.keys(ModuleList).forEach((key) => {
-    uni[key] = new Proxy(
+    app[key] = new Proxy(
       {},
       {
         set: (target, property, value, receiver) =>
@@ -48,7 +48,5 @@ export function generator(Module) {
 type ModuleType = typeof ModuleList
 
 declare global {
-  namespace UniApp {
-    interface Uni extends ModuleType {}
-  }
+  interface App extends ModuleType {}
 }

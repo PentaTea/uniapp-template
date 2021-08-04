@@ -35,7 +35,7 @@ module.exports = hot((pagesJson) => {
     }
 
     //分包配置
-    PackagesNames = PackagesNames.filter((name) => name !== mainKey)
+    PackagesNames = PackagesNames.filter((name) => pages[name] && name !== mainKey)
     PackagesNames.forEach((PackagesName) => {
       const subPackagesPages = []
       for (const key in pages[PackagesName]) {

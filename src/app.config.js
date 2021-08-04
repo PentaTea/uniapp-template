@@ -11,6 +11,8 @@ module.exports = {
     index: {
       _index: {},
     },
+    //生产环境禁用 playground 分包
+    playground: process.env.NODE_ENV === 'production' ? false : {},
   },
 
   tabBar: {

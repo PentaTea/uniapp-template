@@ -11,7 +11,7 @@ export default {
     const r = restore(target, property, storeName)
     if (!is.empty(r)) {
       target[property] = r
-      console.log('[restore]', target[property])
+      console.log('[restore]', storeName + '.' + property, target[property])
     }
 
     return target[property]

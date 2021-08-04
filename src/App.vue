@@ -30,6 +30,7 @@ export default Vue.extend({
 @import 'styles/color-ui-main-theme.css';
 @import 'styles/color-ui-animation.css';
 @import 'styles/color-ui-icon.css';
+@import 'styles/remixicon.css';
 
 // 自定义工具类
 @import 'styles/tools.scss';

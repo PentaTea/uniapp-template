@@ -1,7 +1,23 @@
 <template>
   <BasePage title="演练场">
-    <div class="cu-list grid col-5 no-border margin-top">
-      <div class="cu-item">123</div>
+    <div class="cu-bar bg-white solid-bottom margin-top">
+      <div class="action">
+        grid布局
+      </div>
+    </div>
+    <div class="cu-list grid col-5 no-border">
+      <div class="cu-item">
+        <i class="ri-text-spacing text-olive"></i>
+        <text>rem适配</text>
+      </div>
+    </div>
+    <div class="cu-bar bg-white solid-bottom margin-top">
+      <div class="action">
+        列表
+      </div>
+    </div>
+    <div class="cu-list menu sm-border">
+      <div class="cu-item arrow">带箭头的cell项</div>
     </div>
   </BasePage>
 </template>

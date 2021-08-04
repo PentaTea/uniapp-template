@@ -1,5 +1,24 @@
+/* flex 补全 */
 .flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* rimixicon 适配 */
+.cu-list.grid > .cu-item [class^='ri-'],
+.cu-list.grid > .cu-item [class*=' ri-'] {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: 20rpx;
+  font-size: 48rpx;
+}
+
+.cu-list.menu > .cu-item .content > text[class^='ri-'],
+.cu-list.menu > .cu-item .content > text[class*=' ri-'] {
+  display: inline-block;
+  width: 1.6em;
+  margin-right: 10rpx;
+  text-align: center;
 }

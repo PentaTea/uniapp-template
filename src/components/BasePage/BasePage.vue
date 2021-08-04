@@ -25,9 +25,11 @@
       >
         <slot name="navLeft">
           <div class="flex-center">
-            <div class="exhot" @click="app.back()">
-              <ri name="ri-arrow-left-s-line" :size="navHeight * 0.55"></ri>
-            </div>
+            <i
+              class="ri-arrow-left-s-line exhot"
+              :style="{ fontSize: navHeight * 0.55 + 'px' }"
+              @click="app.back()"
+            ></i>
 
             <div class="margin-left-sm">
               {{ title }}

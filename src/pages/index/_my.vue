@@ -4,7 +4,7 @@
       <div>关于我</div>
     </template>
     <template #navRight>
-      <div>这个插槽挨着胶囊</div>
+      <div>右插槽</div>
     </template>
     <div class="flex-center flex-direction padding">
       Hello, world

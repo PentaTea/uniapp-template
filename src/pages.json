@@ -9,9 +9,7 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#fff",
     "backgroundColorTop": "#6FBCFF",
-    "usingComponents": {
-      "ri": "/wxcomponents/remixicon2.5.0/index"
-    },
+    "usingComponents": {},
     "app-plus": {
       "bounce": "none"
     },

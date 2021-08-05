@@ -22,3 +22,10 @@
   margin-right: 10rpx;
   text-align: center;
 }
+
+.cu-form-group slider {
+  position: relative;
+  padding-right: 40rpx;
+  flex: 1;
+  line-height: 100rpx;
+}

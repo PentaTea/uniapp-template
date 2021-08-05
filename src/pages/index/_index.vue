@@ -4,7 +4,7 @@
       <div>主页</div>
     </template>
     <div class="cu-list menu sm-border margin-top">
-      <div class="cu-item arrow" @click="app.to('playground/index')">演练场</div>
+      <div class="cu-item arrow" @click="app.to('/pages/playground/index')">演练场</div>
     </div>
   </BasePage>
 </template>

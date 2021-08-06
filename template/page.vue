@@ -1,13 +1,12 @@
 <template>
-  <div></div>
+  <BasePage></BasePage>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component } from '@app/mixins'
 
 @Component({
   components: {},
-  setup(props, context) {},
 })
 export default class extends Vue {}
 </script>

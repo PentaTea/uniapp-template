@@ -15,17 +15,11 @@
   src: url('/static/font/remixicon.woff2') format('woff2');
 
   /* #endif */
+
+  /* #ifdef MP */
   src: url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.eot');
 
-  /* IE9 */
-  src: url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.eot#iefix')
-      format('embedded-opentype'),
-    /* IE6-IE8 */ url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.woff2')
-      format('woff2'),
-    url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.woff') format('woff'),
-    url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.ttf') format('truetype'),
-    /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-      url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.svg') format('svg');
+  /* #endif */
 
   /* iOS 4.1- */
   font-display: swap;

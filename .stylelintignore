@@ -8,6 +8,7 @@ test
 dist
 public
 node_modules
+uni_modules
 manifest.json
 
 # 微信原生组件

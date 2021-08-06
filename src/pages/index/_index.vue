@@ -16,7 +16,11 @@ import { Vue, Component, Mixins } from '@app/mixins'
   components: {},
   setup(props, context) {},
 })
-export default class extends Mixins(Vue) {}
+export default class extends Mixins(Vue) {
+  onLoad() {
+    uni.hideTabBar()
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

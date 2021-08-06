@@ -3,6 +3,7 @@
 技术栈
 
 - uniapp
+- unicloud （需要使用 HBuilderX 编辑器辅助开发）
 - typescript
 - vue2
 - vuex

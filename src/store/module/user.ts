@@ -6,4 +6,5 @@ export class User extends createModule({
   namespaced: 'user',
 }) {
   token = ''
+  tokenExpired = ''
 }

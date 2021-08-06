@@ -8,6 +8,7 @@ module.exports = {
   globals: {
     uni: 'readonly',
     UniApp: 'readonly',
+    uniCloud: 'readonly',
     plus: 'readonly',
     wx: 'readonly',
     swan: 'readonly',

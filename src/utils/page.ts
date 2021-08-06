@@ -5,6 +5,20 @@ import { debounce } from 'lodash'
 export default {
   to: debounce(
     (path: string, obj?: any) => {
+      if (!path.startsWith('/')) {
+        const currentPath = [...getCurrentPages()].pop()['route'].split('/')
+        let pathArray = path.split('/')
+        switch (pathArray.length) {
+          case 1:
+            pathArray = ['', currentPath[0], currentPath[1], pathArray[0]]
+            break
+          case 2:
+            pathArray = ['', currentPath[0], pathArray[0], pathArray[1]]
+            break
+        }
+        path = pathArray.join('/')
+      }
+
       const querystr = qs.stringify(obj, { encode: false })
       console.log(`to ${path}`, obj ? `\n` : '', obj || '', obj ? `\n=> ${querystr}` : '')
       ;(uni as any).navigateTo({
@@ -27,6 +41,7 @@ export default {
 
       if (pages.length > 1) (uni as any).navigateBack({})
       else {
+        console.log('pages.ts')
         ;(uni as any).switchTab({
           url: Router.INDEX,
         })

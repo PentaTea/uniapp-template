@@ -102,3 +102,23 @@ button {
     opacity: 0.1;
   }
 }
+
+// 定位
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+}

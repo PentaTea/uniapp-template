@@ -5,6 +5,19 @@ declare global {
   const app: App
   const _: typeof lodash
 
+  namespace UniApp {
+    interface Uni {
+      addInterceptor(name: string, options: UniApp.InterceptorOptions): void
+    }
+  }
+
+  namespace UniCloud {
+    interface Db {
+      on: Function
+      off: Function
+    }
+  }
+
   //扩展window
   interface Window {
     uni: UniApp.Uni

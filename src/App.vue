@@ -1,12 +1,18 @@
 <script lang="ts">
 import Vue from 'vue'
 import { store } from '@app/store'
+import cloudInit from '@app/common/cloudInit'
 
 export default Vue.extend({
   mpType: 'app',
   store,
   onLaunch() {
     console.log('onLaunch')
+    uni.hideTabBar()
+    cloudInit()
+    window['uniCloud'] = uniCloud
+  },
+  onLoad() {
     uni.hideTabBar()
   },
   onShow() {

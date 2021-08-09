@@ -7,6 +7,7 @@ declare global {
 if (window) {
   Object.assign(window, {
     uni,
+    uniCloud,
     app,
     _,
   })

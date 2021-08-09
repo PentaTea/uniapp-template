@@ -1,0 +1,15 @@
+//本文件将会被混入进每个页面中
+
+@mixin inset0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@mixin inset($val) {
+  top: $val;
+  right: $val;
+  bottom: $val;
+  left: $val;
+}

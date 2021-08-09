@@ -142,7 +142,7 @@ module.exports = {
     'no-octal': 2,
     'no-octal-escape': 2,
     'no-path-concat': 2,
-    'no-proto': 2,
+    'no-proto': 'off',
     'no-redeclare': 2,
     'no-regex-spaces': 2,
     'no-return-assign': [2, 'except-parens'],

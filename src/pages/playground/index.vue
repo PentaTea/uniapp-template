@@ -5,10 +5,18 @@
         grid布局
       </div>
     </div>
-    <div class="cu-list grid col-5 no-border">
+    <div class="cu-list grid col-4 no-border">
+      <div class="cu-item" @click="app.to('null/testIntercept')">
+        <i class="ri-router-line text-blue"></i>
+        <text>路由拦截</text>
+      </div>
+      <div class="cu-item" @click="app.to('user/login')">
+        <i class="ri-account-box-line text-purple"></i>
+        <text>登录</text>
+      </div>
       <div class="cu-item" @click="app.to('card')">
         <i class="ri-bank-card-fill text-olive"></i>
-        <text>高色彩卡片</text>
+        <text>颜色容器生成</text>
       </div>
     </div>
     <div class="cu-bar bg-white solid-bottom margin-top">

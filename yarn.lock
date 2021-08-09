@@ -775,7 +775,7 @@
   dependencies:
     chalk "^4.0.0"
 
-"@dcloudio/types@^2.0.6":
+"@dcloudio/types@^2.4.5":
   version "2.4.5"
   resolved "https://registry.nlark.com/@dcloudio/types/download/@dcloudio/types-2.4.5.tgz#3ead18599a6da0052afb814b522bc007043d814c"
   integrity sha1-Pq0YWZptoAUq+4FLUivABwQ9gUw=
@@ -1174,6 +1174,11 @@
   version "6.9.7"
   resolved "https://registry.nlark.com/@types/qs/download/@types/qs-6.9.7.tgz?cache=0&sync_timestamp=1625678662862&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fqs%2Fdownload%2F%40types%2Fqs-6.9.7.tgz#63bb7d067db107cc1e457c303bc25d511febf6cb"
   integrity sha1-Y7t9Bn2xB8weRXwwO8JdUR/r9ss=
+
+"@types/randomcolor@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.nlark.com/@types/randomcolor/download/@types/randomcolor-0.5.6.tgz#c1085077c4ae0f6af60e0ad229d14721b9b3b58c"
+  integrity sha1-wQhQd8SuD2r2DgrSKdFHIbmztYw=
 
 "@types/range-parser@*":
   version "1.2.4"
@@ -2904,6 +2909,11 @@ chownr@^1.1.1:
   version "1.1.4"
   resolved "https://registry.npm.taobao.org/chownr/download/chownr-1.1.4.tgz#6fc9d7b42d32a583596337666e7d08084da2cc6b"
   integrity sha1-b8nXtC0ypYNZYzdmbn0ICE2izGs=
+
+chroma.ts@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.nlark.com/chroma.ts/download/chroma.ts-1.0.10.tgz#2b965d8f2c2eee44d25072902e5787fe259d4565"
+  integrity sha1-K5Zdjywu7kTSUHKQLleH/iWdRWU=
 
 chrome-trace-event@^1.0.0, chrome-trace-event@^1.0.2:
   version "1.0.3"
@@ -8445,6 +8455,11 @@ randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   integrity sha1-32+ENy8CcNxlzfYpE0mrekc9Tyo=
   dependencies:
     safe-buffer "^5.1.0"
+
+randomcolor@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.nlark.com/randomcolor/download/randomcolor-0.6.2.tgz#7a57362ae1a1278439aeed2c15e5deb8ea33f56d"
+  integrity sha1-elc2KuGhJ4Q5ru0sFeXeuOoz9W0=
 
 randomfill@^1.0.3:
   version "1.0.4"

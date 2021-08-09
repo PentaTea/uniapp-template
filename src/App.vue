@@ -10,7 +10,6 @@ export default Vue.extend({
     console.log('onLaunch')
     uni.hideTabBar()
     cloudInit()
-    window['uniCloud'] = uniCloud
   },
   onLoad() {
     uni.hideTabBar()

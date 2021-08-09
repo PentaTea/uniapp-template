@@ -31,6 +31,6 @@
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "outDir": "./"
   },
-  "exclude": ["node_modules", "muya-editor", "unpackage", "src/**/*.nvue", "dist", "./*.js"]
+  "exclude": ["node_modules", "muya-editor", "unpackage", "src/**/*.nvue", "dist", "./**/*.js"]
   //"include": ["src/**/*"]
 }

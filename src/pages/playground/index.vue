@@ -1,6 +1,7 @@
 <template>
   <BasePage title="演练场">
-    <div class="cu-bar bg-white solid-bottom margin-top">
+    <div class="padding-top"></div>
+    <div class="cu-bar bg-white solid-bottom">
       <div class="action">
         grid布局
       </div>
@@ -18,10 +19,14 @@
         <i class="ri-bank-card-fill text-olive"></i>
         <text>颜色容器生成</text>
       </div>
+      <div class="cu-item" @click="app.to('form')">
+        <i class="ri-layout-row-fill text-red"></i>
+        <text>表单生成</text>
+      </div>
     </div>
     <div class="cu-bar bg-white solid-bottom margin-top">
       <div class="action">
-        表单
+        表单布局
       </div>
     </div>
     <div class="cu-form-group">
@@ -37,12 +42,12 @@
         "
         @change="(e) => (app.Global.rootFontSize = e.detail.value)"
       ></slider>
-      <div>{{ a(app.Global.rootFontSize) + 'px' }}</div>
+      <div style="width: 50rpx;">{{ a(app.Global.rootFontSize) + 'px' }}</div>
     </div>
     <div class="cu-form-group">
       <text class="rem padding-sm">
         {{
-          '这是一段尺寸为 1rem 的文字。\n究急個都出人洲算樣改時館到好進我出開把？有兒你總研一早生就民：拿手藝還十為們良。\n國不製；規來王！看風日經地；流市而，運也雖法銷的際不麼沒友；生路以清開天華的通來雜……'
+          '这是一段尺寸为 1rem 的文字。\n怒发冲冠，凭栏处、潇潇雨歇。抬望眼，仰天长啸，壮怀激烈。三十功名尘与土，八千里路云和月。莫等闲，白了少年头，空悲切！\n靖康耻，犹未雪。臣子恨，何时灭！驾长车，踏破贺兰山缺。壮志饥餐胡虏肉，笑谈渴饮匈奴血。待从头、收拾旧山河，朝天阙。'
         }}
       </text>
     </div>

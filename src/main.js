@@ -24,7 +24,8 @@ Component.registerHooks(['setup', 'beforeRouteUpdate', 'beforeRouteEnter', 'befo
 import BasePage from '@app/components/BasePage/BasePage'
 Vue.component('BasePage', BasePage)
 //通用全局组件
-//...
+import UniForm from '@app/components/UniForm'
+Vue.component('UniForm', UniForm)
 //组件库常用组件
 //...
 

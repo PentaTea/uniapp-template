@@ -29,3 +29,34 @@
   flex: 1;
   line-height: 100rpx;
 }
+
+.cu-form-group .button {
+  position: relative;
+  padding-right: 40rpx;
+  flex: 1;
+}
+
+.cu-form-group .button {
+  overflow: hidden;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cu-form-group .button::after {
+  position: absolute;
+  top: 0;
+  right: -20rpx;
+  bottom: 0;
+  display: block;
+  width: 60rpx;
+  margin: auto;
+  font-family: cuIcon;
+  font-size: 34rpx;
+  line-height: 100rpx;
+  color: var(--grey);
+  text-align: center;
+  content: '\e6a3';
+}

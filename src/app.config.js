@@ -75,6 +75,10 @@ module.exports = {
   packages,
   loginPage,
   tabBar,
+  globalStyle: {
+    // 默认状态栏颜色
+    navigationBarTextStyle: 'black',
+  },
   h5: {
     url: '', //	前端域名
     // 在h5端全局悬浮引导用户下载app => src/common/openApp.ts

@@ -17,7 +17,6 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new webpack.ProvidePlugin({
-        _: 'lodash',
         app: resolve('src/utils/__provider'),
       }),
     ],

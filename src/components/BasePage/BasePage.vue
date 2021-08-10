@@ -50,7 +50,9 @@
       @down="(page) => ($emit('down', page), page.resetUpScroll())"
       @up="(page) => $emit('up', page)"
     >
-      <slot></slot>
+      <div style="border-top: 1rpx solid transparent;">
+        <slot></slot>
+      </div>
     </mescroll-uni>
     <Tabbar v-if="tabBar" :current="tabBar - 1" :tabBar="tabbarList" @click="tabbarSwitch"></Tabbar>
   </div>

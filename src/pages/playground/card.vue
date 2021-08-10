@@ -2,7 +2,7 @@
   <BasePage title="颜色容器生成" background="white">
     <div class="grid col-5">
       <div class="cu-item padding-tb flex-center" v-for="i in 50" :key="i">
-        <ColorfulCard height="48rpx" width="48rpx" :delay="i * 20"></ColorfulCard>
+        <ColorfulCard height="48rpx" width="48rpx" :delay="i * 40"></ColorfulCard>
       </div>
     </div>
   </BasePage>

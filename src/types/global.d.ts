@@ -1,9 +1,7 @@
-import lodash from 'lodash'
 declare global {
   //全局属性
   interface App {}
   const app: App
-  const _: typeof lodash
 
   namespace UniApp {
     interface Uni {
@@ -22,7 +20,6 @@ declare global {
   interface Window {
     uni: UniApp.Uni
     app: App
-    _: typeof lodash
   }
 
   //工具type

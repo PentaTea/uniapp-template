@@ -15,6 +15,7 @@
     "strictNullChecks": false,
     "strictBindCallApply": true,
     "preserveConstEnums": true,
+    "resolveJsonModule": true,
     "isolatedModules": true,
     "allowJs": true,
     "noImplicitAny": false,

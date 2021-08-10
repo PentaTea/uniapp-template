@@ -14,7 +14,6 @@ module.exports = {
     swan: 'readonly',
     my: 'readonly',
     getCurrentPages: 'readonly',
-    _: 'readonly',
     app: 'readonly',
   },
   extends: ['plugin:vue/essential', 'eslint:recommended', '@vue/prettier'],
@@ -24,12 +23,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    'no-console': [
-      'warn',
-      {
-        allow: ['warn', 'error'],
-      },
-    ],
+    'no-console': 'off',
     'no-eval': 'error',
     'no-alert': 'error',
     'no-empty': 'off',
@@ -69,13 +63,7 @@ module.exports = {
     curly: 'off',
     'dot-location': [2, 'property'],
     'eol-last': 2,
-    eqeqeq: [
-      'warn',
-      'always',
-      {
-        null: 'ignore',
-      },
-    ],
+    eqeqeq: 'off',
     'generator-star-spacing': [
       2,
       {

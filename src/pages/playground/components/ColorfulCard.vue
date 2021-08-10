@@ -94,7 +94,6 @@ export default class extends Vue {
       var count = 0
       do {
         count++
-        console.log(111, colorHue)
         color = app
           .randomcolor({
             hue: colorHue,

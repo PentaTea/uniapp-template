@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-for="(item, field) in getProperties()">
+    <template v-for="(item, field) in properties">
       <label
         v-if="isDisplay(item, field)"
         :key="field"
@@ -8,8 +8,9 @@
         :class="{ 'align-start': getComponent(item) == 'textarea' }"
         @click="click(item, field)"
       >
-        <div class="title" :style="{ minWidth: 'calc(' + labelCount + 'em + 15px)' }">
+        <div class="title" :style="{ minWidth: 'calc( ' + labelCount * 1.4 + 'em )' }">
           {{ item.title || item.label }}
+          <span v-if="required.includes(field)" class="sup">*</span>
         </div>
         <input
           v-if="getComponent(item) == 'input'"
@@ -50,18 +51,30 @@
         <div v-if="getComponent(item) == 'actionsheet'" class="button">
           <div>{{ item.enum.find((e) => e.value == h(field)).text }}</div>
         </div>
-        <text v-if="item.tip" class="width100 padding-tb-xs text-gray text-sm text-right">
+        <text
+          v-if="is.array(errorStatus[field])"
+          class="width100 padding-bottom-xs text-red text-sm text-right"
+        >
+          {{ errorStatus[field].join('\n') }}
+        </text>
+        <text v-if="item.tip" class="width100 padding-bottom-xs text-gray text-sm text-right">
           {{ item.tip }}
         </text>
       </label>
     </template>
+    <slot name="submit">
+      <div class="bg-white padding">
+        <div class="flex-center padding light bg-cyan" @click="submit">
+          {{ submitText }}
+        </div>
+      </div>
+    </slot>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from '@app/mixins'
+import { Vue, Component, Prop, Watch, Emit } from '@app/mixins'
 import anymatch from 'anymatch'
-import * as _ from 'lodash'
 
 @Component({
   components: {},
@@ -71,8 +84,9 @@ export default class extends Vue {
   @Prop() schema: object
   @Prop({ default: () => '' }) match: Array<string> | string
   @Prop({ default: 4 }) labelCount: number
+  @Prop({ default: '保存' }) submitText: string
 
-  getProperties() {
+  get properties() {
     return this.schema['schema']?.['properties'] || this.schema['properties'] || this.schema
   }
 
@@ -99,24 +113,25 @@ export default class extends Vue {
 
   updateData = {}
   set(field, data) {
-    console.log(field, data)
-
     if (this.default(field) == data) this.$delete(this.updateData, field)
     else this.$set(this.updateData, field, data)
+    this.validator(field)
   }
 
   h(field) {
-    return this.updateData[field] ?? this.data[field] ?? this.getProperties()[field].defaultValue
+    return this.updateData[field] ?? this.data[field] ?? this.properties[field].defaultValue
   }
 
   default(field) {
-    return this.data[field] ?? this.getProperties()[field].defaultValue
+    return this.data[field] ?? this.properties[field].defaultValue
   }
 
   focusItem = ''
+  focusItemSync = ''
   click(item, field) {
     this.focusItem = ''
     setTimeout(() => (this.focusItem = field), 0)
+    this.focusItemSync = field
     switch (this.getComponent(item)) {
       case 'actionsheet':
         uni.showActionSheet({
@@ -133,6 +148,66 @@ export default class extends Vue {
   isFocus(field) {
     return this.focusItem == field
   }
+
+  formatter = {
+    email: /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/,
+    url: /^((https?:)(\/\/\/?)([\w]*(?::[\w]*)?@)?([\d\w\.-]+)(?::(\d+))?)?([\/\\\w\.()-]*)?(?:([?][^#]*)?(#.*)?)*/,
+  }
+
+  get required() {
+    return this.schema['schema']?.['required'] || this.schema['required'] || []
+  }
+
+  errorMessage = {} as { [field: string]: Array<string> | 'clear' }
+
+  errorStatus = {} as { [field: string]: 'waiting' | 'clear' | Array<string> }
+
+  @Watch('focusItemSync') blur(newVal, oldVal) {
+    if (!oldVal) return
+    if (!newVal) return
+    this.$set(this.errorStatus, oldVal, this.errorMessage[oldVal])
+    if (!this.errorStatus[newVal]) this.$set(this.errorStatus, newVal, 'waiting')
+  }
+
+  validator(field) {
+    const item = this.properties[field]
+    const error = []
+
+    if (this.updateData[field]) {
+      //format
+      if (item.format && !this.formatter[item.format].test(this.updateData[field]))
+        error.push('请输入正确的' + (item.title || item.label))
+      //pattern
+      if (item.pattern && !RegExp(item.pattern).test(this.updateData[field]))
+        error.push('请输入正确的' + (item.title || item.label))
+    } else {
+      //required
+      if (this.required.includes(field) && !this.updateData[field])
+        error.push((item.title || item.label) + '不能为空')
+    }
+
+    if (error.length) this.$set(this.errorMessage, field, [...error])
+    else this.$set(this.errorMessage, field, 'clear')
+    if (this.is.array(this.errorStatus[field])) this.errorStatus[field] = this.errorMessage[field]
+    return error.length
+  }
+
+  @Emit()
+  submit() {
+    return new Promise((resolve, reject) => {
+      let count = 0
+      Object.keys(this.properties).forEach((key) => (count += this.validator(key)))
+      if (!count) resolve(this.updateData)
+      else {
+        this.errorStatus = { ...this.errorMessage }
+
+        const errorkey = Object.keys(this.errorStatus).find((key) =>
+          this.is.array(this.errorStatus[key])
+        )
+        console.log(this.errorStatus[errorkey][0])
+      }
+    })
+  }
 }
 </script>
 
@@ -142,13 +217,59 @@ export default class extends Vue {
   padding: 10rpx 30rpx;
 }
 
+.cu-form-group + .cu-form-group {
+  border-top: none;
+}
+
+.cu-form-group .title {
+  display: flex;
+  height: 80rpx;
+  align-items: center;
+}
+
 .cu-form-group.align-start .title {
-  height: 1em;
-  margin-top: 20rpx;
-  line-height: 1em;
+  height: 1.6em;
+  margin-top: 32rpx;
+  line-height: 1.6em;
 }
 
 .cu-form-group textarea {
-  margin: 20rpx 0;
+  padding: 17rpx;
+  margin: 15rpx 0;
+  line-height: 1.6em;
+}
+
+.cu-form-group input {
+  height: 70rpx;
+  padding: 0 17rpx;
+}
+
+.cu-form-group {
+  textarea,
+  input {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      top: 0rpx;
+      left: 0;
+      width: 160%;
+      height: 160%;
+      pointer-events: none;
+      border: 1rpx solid var(--alpha-dark-90);
+      border-radius: inherit;
+      content: ' ';
+      transform: scale(0.625);
+      box-sizing: border-box;
+      transform-origin: 0 0;
+    }
+  }
+}
+
+.sup {
+  margin-left: 12rpx;
+  font-size: 32rpx;
+  color: var(--light60);
+  vertical-align: text-top;
 }
 </style>

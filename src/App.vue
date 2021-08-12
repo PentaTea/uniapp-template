@@ -29,7 +29,6 @@ export default Vue.extend({
 
 <style lang="scss">
 // #ifndef APP-PLUS-NVUE
-
 //color-ui
 @import 'styles/color-ui-custom.css';
 @import 'styles/color-ui-main-theme.css';
@@ -43,5 +42,11 @@ export default Vue.extend({
 // 自定义主题
 @import '~@app/styles/themes/index.scss';
 
+// #endif
+
+// #ifdef H5
+#webpack-dev-server-client-overlay {
+  display: none;
+}
 // #endif
 </style>

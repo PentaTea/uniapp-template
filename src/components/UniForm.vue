@@ -62,6 +62,13 @@
         </text>
       </label>
     </template>
+    <tui-actionsheet
+      :show="showActionSheet"
+      :item-list="itemList"
+      @click="(e) => (set(focusItemSync, e.index), (showActionSheet = false))"
+      @cancel="() => (showActionSheet = false)"
+    >
+    </tui-actionsheet>
     <slot name="submit">
       <div class="bg-white padding">
         <div class="flex-center padding light bg-cyan" @click="submit">
@@ -74,10 +81,11 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Emit } from '@app/mixins'
+import tuiActionsheet from '@app/components/tui-actionsheet.vue'
 import anymatch from 'anymatch'
 
 @Component({
-  components: {},
+  components: { tuiActionsheet },
 })
 export default class extends Vue {
   @Prop({ default: () => ({}) }) data: object
@@ -128,16 +136,16 @@ export default class extends Vue {
 
   focusItem = ''
   focusItemSync = ''
+  showActionSheet = false
+  itemList = []
   click(item, field) {
     this.focusItem = ''
     setTimeout(() => (this.focusItem = field), 0)
     this.focusItemSync = field
     switch (this.getComponent(item)) {
       case 'actionsheet':
-        uni.showActionSheet({
-          itemList: item.enum.map((e) => e.text),
-          success: (e) => this.set(field, e.tapIndex),
-        })
+        this.showActionSheet = true
+        this.itemList = item.enum
         break
 
       default:

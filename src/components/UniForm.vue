@@ -23,17 +23,18 @@
           :value="h(field)"
           @input="(e) => set(field, e.detail.value)"
         />
-        <textarea
-          v-if="getComponent(item) == 'textarea'"
-          :placeholder="
-            getProp(item).placeholder || item.description || '请输入' + item.title || item.label
-          "
-          :maxlength="-1"
-          :focus="isFocus(field)"
-          auto-height
-          :value="h(field)"
-          @input="(e) => set(field, e.detail.value)"
-        />
+        <div v-if="getComponent(item) == 'textarea'" class="textarea">
+          <textarea
+            :placeholder="
+              getProp(item).placeholder || item.description || '请输入' + item.title || item.label
+            "
+            :maxlength="-1"
+            :focus="isFocus(field)"
+            auto-height
+            :value="h(field)"
+            @input="(e) => set(field, e.detail.value)"
+          />
+        </div>
         <switch
           v-if="getComponent(item) == 'switch'"
           @change="(e) => set(field, e.detail.value)"
@@ -241,10 +242,14 @@ export default class extends Vue {
   line-height: 1.6em;
 }
 
-.cu-form-group textarea {
+.cu-form-group .textarea {
   padding: 17rpx;
   margin: 15rpx 0;
-  line-height: 1.6em;
+  flex: 1;
+
+  textarea {
+    margin: 0;
+  }
 }
 
 .cu-form-group input {
@@ -253,7 +258,7 @@ export default class extends Vue {
 }
 
 .cu-form-group {
-  textarea,
+  .textarea,
   input {
     position: relative;
 

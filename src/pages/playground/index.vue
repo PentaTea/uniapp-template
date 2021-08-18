@@ -51,14 +51,16 @@
         }}
       </text>
     </div>
+    <MagicWindow></MagicWindow>
   </BasePage>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Mixins } from '@app/mixins'
+import MagicWindow from './components/MagicWindow/MagicWindow.vue'
 
 @Component({
-  components: {},
+  components: { MagicWindow },
   setup(props, context) {},
 })
 export default class extends Mixins(Vue) {}

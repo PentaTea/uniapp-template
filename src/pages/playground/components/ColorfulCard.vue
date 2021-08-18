@@ -22,8 +22,7 @@
         class="card"
         :style="{
           'border-radius': radius,
-          background: `radial-gradient(
-      farthest-corner at 30% 20%, ${colorVal[0]} 0%, ${colorVal[1]} 100%)`,
+          background: `radial-gradient(farthest-corner at 30% 20%, ${colorVal[0]} 0%, ${colorVal[1]} 100%)`,
         }"
       >
         <div

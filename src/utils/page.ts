@@ -1,6 +1,6 @@
 import { Router } from '@app/enums'
 import qs from 'qs'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 
 export default {
   to: debounce(

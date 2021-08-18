@@ -3,7 +3,7 @@ import is from 'is'
 
 declare module 'vue/types/vue' {
   interface Vue {
-    uni: typeof uni
+    uni: UniApp.Uni
     app: typeof app
     is: typeof is
     log(...args: any[]): void

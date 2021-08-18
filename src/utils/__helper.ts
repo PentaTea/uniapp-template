@@ -9,6 +9,5 @@ if (window) {
     uni,
     uniCloud,
     app,
-    _,
   })
 }

@@ -27,6 +27,10 @@
         <i class="ri-phone-fill"></i>
         <text>小程序trtc</text>
       </div>
+      <div class="cu-item" @click="app.to('meeting')">
+        <i class="ri-slideshow-line text-pink"></i>
+        <text>webview会议</text>
+      </div>
     </div>
     <div class="cu-bar bg-white solid-bottom margin-top">
       <div class="action">

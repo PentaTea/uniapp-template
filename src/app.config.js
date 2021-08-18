@@ -11,7 +11,17 @@ const packages = {
     _index: {},
   },
   //生产环境禁用 playground 分包
-  playground: process.env.NODE_ENV === 'production' ? false : {},
+  playground:
+    process.env.NODE_ENV === 'production'
+      ? false
+      : {
+          trtc: {
+            disableScroll: true,
+            usingComponents: {
+              trtc: '/wxcomponents/TRTCCalling/TRTCCalling',
+            },
+          },
+        },
 }
 
 const loginPage = '/pages/user/login'

@@ -23,6 +23,10 @@
         <i class="ri-layout-row-fill text-red"></i>
         <text>表单生成</text>
       </div>
+      <div class="cu-item" @click="app.to('trtc')">
+        <i class="ri-phone-fill"></i>
+        <text>小程序trtc</text>
+      </div>
     </div>
     <div class="cu-bar bg-white solid-bottom margin-top">
       <div class="action">

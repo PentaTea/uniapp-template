@@ -55,22 +55,9 @@ module.exports = hot((pagesJson) => {
 
 function PackPage(path, config, target) {
   if (is.object(config)) {
-    let style = {}
-    if (config.tabBar) {
-      target.tabBar = target.tabBar || {}
-      target.tabBar.list = target.tabBar.list || []
-      target.tabBar.list.push({
-        pagePath: path,
-        ...config.tabBar,
-      })
-    }
-    if (config.style) {
-      style = config.style
-    }
-
     return {
       path,
-      ...style,
+      style: config,
     }
   } else return { path }
 }

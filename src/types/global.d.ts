@@ -2,6 +2,7 @@ declare global {
   //全局属性
   interface App {}
   const app: App
+  const wx: any
 
   namespace UniApp {
     interface Uni {

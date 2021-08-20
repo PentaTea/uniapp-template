@@ -1,5 +1,7 @@
 <template>
-  <Muya></Muya>
+  <BasePage customNav>
+    <Muya></Muya>
+  </BasePage>
 </template>
 
 <script lang="ts">

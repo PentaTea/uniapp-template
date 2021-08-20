@@ -1,13 +1,11 @@
 <template>
   <div
     class="container"
-    :css="css"
-    :change:css="editor.useCssVar(css)"
+    :class="{ loading: muya.loading }"
+    :style="cssStr"
     :markdown="log(muya.markdown)"
-    :style="{
-      opacity: muya.loading ? 0 : 1,
-    }"
   >
+    <div class="loading-mask"></div>
     <div class="status-bar">
       <div class="status">
         <i class="ri-close-line" @click.stop="() => app.back()"></i>
@@ -29,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch } from '@app/mixins'
+import { Vue, Component, Prop } from '@app/mixins'
 import { initData, stateDocText } from './init'
 
 @Component({
@@ -37,15 +35,20 @@ import { initData, stateDocText } from './init'
 })
 export default class extends Vue {
   muya = initData()
-  css = {}
   get stateDoc() {
     return stateDocText[this.muya.stateDoc]
   }
   update(data) {
     this.$set(this.muya, data.property, data.value)
   }
-  mounted() {
-    this.css = { statusBarHeight: uni.getSystemInfoSync().statusBarHeight }
+  mounted() {}
+  get cssStr() {
+    let str = ''
+    const css = {
+      statusBarHeight: uni.getSystemInfoSync().statusBarHeight,
+    }
+    for (const key in css) str += '--' + key + ':' + css[key] + 'px;'
+    return str
   }
 }
 </script>
@@ -115,12 +118,7 @@ export default {
     this.instance = muya
   },
   methods: {
-    useCssVar(target, option) {
-      var { element = document.body, prefix = '--', unit = 'px' } = option || {}
-      for (const key in target)
-        if (Object.prototype.hasOwnProperty.call(target, key))
-          element.style.setProperty(prefix + key, target[key] + unit)
-    },
+
   },
 }
 </script>
@@ -129,13 +127,28 @@ export default {
 @import './muya.override';
 
 .container {
+  position: relative;
+  width: 100%;
+  height: 100%;
   padding-top: calc(var(--statusBarHeight) + 56px);
-  transition: all 1s cubic-bezier(0.18, 0.89, 0.32, 1);
-  transition-delay: 1s;
+
+  .loading-mask {
+    position: fixed;
+    z-index: 99999;
+    pointer-events: none;
+    background: #fff;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.18, 0.89, 0.32, 1);
+    @include inset0;
+  }
+
+  &.loading .loading-mask {
+    opacity: 1;
+  }
 }
 
 .status-bar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 9999;
@@ -145,7 +158,7 @@ export default {
   backdrop-filter: blur(4px);
 
   .status {
-    position: fixed !important;
+    position: absolute !important;
     top: var(--statusBarHeight) !important;
     display: flex;
     width: 100%;

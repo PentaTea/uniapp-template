@@ -229,4 +229,12 @@ module.exports = {
     'arrow-spacing': 0,
     'object-curly-spacing': 0,
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'no-dupe-class-members': 'off',
+      },
+    },
+  ],
 }

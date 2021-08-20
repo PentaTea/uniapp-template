@@ -23,6 +23,10 @@
         <i class="ri-layout-row-fill text-red"></i>
         <text>表单生成</text>
       </div>
+      <div class="cu-item" @click="app.to('editor')">
+        <i class="ri-markdown-fill"></i>
+        <text>Muya编辑器</text>
+      </div>
     </div>
     <div class="cu-bar bg-white solid-bottom margin-top">
       <div class="action">

@@ -4,6 +4,7 @@ const webpack = require('webpack')
 
 module.exports = {
   lintOnSave: false,
+  publicPath: './',
   chainWebpack: (config) => {
     config.resolve.alias.set('@app', resolve('src'))
     config.resolve.alias.set('@api', resolve('src/api'))

@@ -40,7 +40,7 @@ export default Vue.extend({
 @import 'styles/tools.scss';
 
 // 自定义主题
-@import '~@app/styles/themes/index.scss';
+@import 'styles/themes/index.scss';
 
 // #endif
 

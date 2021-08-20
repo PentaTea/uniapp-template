@@ -12,28 +12,33 @@ const wholeSubMenu = Object.keys(quickInsertObj).reduce((acc, key) => {
 
 const COMMAND_KEY = isOsx ? '⌘' : '⌃'
 
-export const menu = [{
-  icon: copyIcon,
-  label: 'duplicate',
-  text: '复制到下一行',
-  shortCut: `⇧${COMMAND_KEY}P`
-}, {
-  icon: turnIcon,
-  label: 'turnInto',
-  text: '转换为...'
-}, {
-  icon: newIcon,
-  label: 'new',
-  text: '换行',
-  shortCut: `⇧${COMMAND_KEY}N`
-}, {
-  icon: deleteIcon,
-  label: 'delete',
-  text: '删除',
-  shortCut: `⇧${COMMAND_KEY}D`
-}]
+export const menu = [
+  {
+    icon: copyIcon,
+    label: 'duplicate',
+    text: '复制到下一行',
+    shortCut: `⇧${COMMAND_KEY}P`,
+  },
+  {
+    icon: turnIcon,
+    label: 'turnInto',
+    text: '转换为...',
+  },
+  {
+    icon: newIcon,
+    label: 'new',
+    text: '换行',
+    shortCut: `⇧${COMMAND_KEY}N`,
+  },
+  {
+    icon: deleteIcon,
+    label: 'delete',
+    text: '删除',
+    shortCut: `⇧${COMMAND_KEY}D`,
+  },
+]
 
-export const getLabel = block => {
+export const getLabel = (block) => {
   const { type, functionType, listType } = block
   let label = ''
   switch (type) {
@@ -114,10 +119,11 @@ export const getSubMenu = (block, startBlock, endBlock) => {
   const { type } = block
   switch (type) {
     case 'p': {
-      return wholeSubMenu.filter(menuItem => {
-        const REG_EXP = startBlock.key === endBlock.key
-          ? /front-matter|hr|table/
-          : /front-matter|hr|table|heading/
+      return wholeSubMenu.filter((menuItem) => {
+        const REG_EXP =
+          startBlock.key === endBlock.key
+            ? /front-matter|hr|table/
+            : /front-matter|hr|table|heading/
 
         return !REG_EXP.test(menuItem.label)
       })
@@ -128,13 +134,13 @@ export const getSubMenu = (block, startBlock, endBlock) => {
     case 'h4':
     case 'h5':
     case 'h6': {
-      return wholeSubMenu.filter(menuItem => {
+      return wholeSubMenu.filter((menuItem) => {
         return /heading|paragraph/.test(menuItem.label)
       })
     }
     case 'ul':
     case 'ol': {
-      return wholeSubMenu.filter(menuItem => {
+      return wholeSubMenu.filter((menuItem) => {
         return /ul|ol/.test(menuItem.label)
       })
     }

@@ -4,30 +4,30 @@
 }
 
 .ag-format-picker {
-  height: 28px;
   width: 265px;
+  height: 28px;
 }
 
 .ag-format-picker ul,
 .ag-format-picker li {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 .ag-format-picker ul {
-  padding: 0 7px;
   display: flex;
+  padding: 0 7px;
 }
 
 .ag-format-picker li.item {
   position: relative;
-  list-style: none;
+  display: flex;
   width: 35px;
   height: 28px;
-  display: flex;
+  list-style: none;
+  cursor: pointer;
   justify-content: space-around;
   align-items: center;
-  cursor: pointer;
 }
 
 .ag-format-picker li.item:hover {
@@ -38,14 +38,14 @@
   margin-left: 6px;
 }
 
-.ag-format-picker li.item:last-of-type:before {
-  content: '';
-  width: 1px;
+.ag-format-picker li.item:last-of-type::before {
   position: absolute;
+  top: 6px;
+  left: -3px;
+  width: 1px;
   height: 18px;
   background: var(--editorColor10);
-  left: -3px;
-  top: 6px;
+  content: '';
 }
 
 .ag-format-picker li.item .icon-wrapper {
@@ -55,22 +55,22 @@
 }
 
 .ag-format-picker li.item .icon-wrapper i.icon {
-  display: inline-block;
   position: relative;
-  height: 100%;
+  display: inline-block;
   width: 100%;
+  height: 100%;
   overflow: hidden;
   color: var(--iconColor);
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
-.ag-format-picker li.item .icon-wrapper i.icon>i[class^=icon-] {
+.ag-format-picker li.item .icon-wrapper i.icon > i[class^='icon-'] {
+  position: relative;
+  left: -16px;
   display: inline-block;
   width: 100%;
   height: 100%;
   filter: drop-shadow(16px 0 currentColor);
-  position: relative;
-  left: -16px;
 }
 
 .ag-format-picker li.item.active .icon-wrapper i.icon {

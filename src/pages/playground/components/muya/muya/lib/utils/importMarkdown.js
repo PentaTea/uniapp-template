@@ -15,25 +15,24 @@ import { loadLanguage } from '../prism/index'
 import { CURSOR_ANCHOR_DNA, CURSOR_FOCUS_DNA } from '../config'
 
 // Just because turndown change `\n`(soft line break) to space, So we add `span.ag-soft-line-break` to workaround.
-const turnSoftBreakToSpan = html => {
+const turnSoftBreakToSpan = (html) => {
   const parser = new DOMParser()
-  const doc = parser.parseFromString(
-    `<x-mt id="turn-root">${html}</x-mt>`,
-    'text/html'
-  )
+  const doc = parser.parseFromString(`<x-mt id="turn-root">${html}</x-mt>`, 'text/html')
   const root = doc.querySelector('#turn-root')
-  const travel = childNodes => {
+  const travel = (childNodes) => {
     for (const node of childNodes) {
       if (node.nodeType === 3 && node.parentNode.tagName !== 'CODE') {
         let startLen = 0
         let endLen = 0
-        const text = node.nodeValue.replace(/^(\n+)/, (_, p) => {
-          startLen = p.length
-          return ''
-        }).replace(/(\n+)$/, (_, p) => {
-          endLen = p.length
-          return ''
-        })
+        const text = node.nodeValue
+          .replace(/^(\n+)/, (_, p) => {
+            startLen = p.length
+            return ''
+          })
+          .replace(/(\n+)$/, (_, p) => {
+            endLen = p.length
+            return ''
+          })
         if (/\n/.test(text)) {
           const tokens = text.split('\n')
           const params = []
@@ -64,9 +63,9 @@ const turnSoftBreakToSpan = html => {
   return root.innerHTML.trim()
 }
 
-const importRegister = ContentState => {
+const importRegister = (ContentState) => {
   // turn markdown to blocks
-  ContentState.prototype.markdownToState = function (markdown) {
+  ContentState.prototype.markdownToState = function(markdown) {
     // mock a root block...
     const rootState = {
       key: null,
@@ -75,7 +74,7 @@ const importRegister = ContentState => {
       parent: null,
       preSibling: null,
       nextSibling: null,
-      children: []
+      children: [],
     }
 
     const { trimUnnecessaryCodeBlockEmptyLines, footnote } = this.muya.options
@@ -91,23 +90,21 @@ const importRegister = ContentState => {
       switch (token.type) {
         case 'frontmatter': {
           const { lang, style } = token
-          value = token.text
-            .replace(/^\s+/, '')
-            .replace(/\s$/, '')
+          value = token.text.replace(/^\s+/, '').replace(/\s$/, '')
           block = this.createBlock('pre', {
             functionType: token.type,
             lang,
-            style
+            style,
           })
 
           const codeBlock = this.createBlock('code', {
-            lang
+            lang,
           })
 
           const codeContent = this.createBlock('span', {
             text: value,
             lang,
-            functionType: 'codeContent'
+            functionType: 'codeContent',
           })
 
           this.appendChild(codeBlock, codeContent)
@@ -121,7 +118,7 @@ const importRegister = ContentState => {
           block = this.createBlock('hr')
           const thematicBreakContent = this.createBlock('span', {
             text: value,
-            functionType: 'thematicBreakLine'
+            functionType: 'thematicBreakLine',
           })
           this.appendChild(block, thematicBreakContent)
           this.appendChild(parentList[0], block)
@@ -132,12 +129,12 @@ const importRegister = ContentState => {
           const { headingStyle, depth, text, marker } = token
           value = headingStyle === 'atx' ? '#'.repeat(+depth) + ` ${text}` : text
           block = this.createBlock(`h${depth}`, {
-            headingStyle
+            headingStyle,
           })
 
           const headingContent = this.createBlock('span', {
             text: value,
-            functionType: headingStyle === 'atx' ? 'atxLine' : 'paragraphContent'
+            functionType: headingStyle === 'atx' ? 'atxLine' : 'paragraphContent',
           })
 
           this.appendChild(block, headingContent)
@@ -165,9 +162,11 @@ const importRegister = ContentState => {
 
           value = text
           // Fix: #1265.
-          if (trimUnnecessaryCodeBlockEmptyLines && (value.endsWith('\n') || value.startsWith('\n'))) {
-            value = value.replace(/\n+$/, '')
-              .replace(/^\n+/, '')
+          if (
+            trimUnnecessaryCodeBlockEmptyLines &&
+            (value.endsWith('\n') || value.startsWith('\n'))
+          ) {
+            value = value.replace(/\n+$/, '').replace(/^\n+/, '')
           }
           if (/mermaid|flowchart|vega-lite|sequence/.test(lang)) {
             block = this.createContainerBlock(lang, value)
@@ -175,24 +174,24 @@ const importRegister = ContentState => {
           } else {
             block = this.createBlock('pre', {
               functionType: codeBlockStyle === 'fenced' ? 'fencecode' : 'indentcode',
-              lang
+              lang,
             })
             const codeBlock = this.createBlock('code', {
-              lang
+              lang,
             })
             const codeContent = this.createBlock('span', {
               text: value,
               lang,
-              functionType: 'codeContent'
+              functionType: 'codeContent',
             })
             const inputBlock = this.createBlock('span', {
               text: lang,
-              functionType: 'languageInput'
+              functionType: 'languageInput',
             })
             if (lang && !languageLoaded.has(lang)) {
               languageLoaded.add(lang)
               loadLanguage(lang)
-                .then(infoList => {
+                .then((infoList) => {
                   if (!Array.isArray(infoList)) return
                   // There are three status `loaded`, `noexist` and `cached`.
                   // if the status is `loaded`, indicated that it's a new loaded language
@@ -201,7 +200,7 @@ const importRegister = ContentState => {
                     this.render()
                   }
                 })
-                .catch(err => {
+                .catch((err) => {
                   // if no parameter provided, will cause error.
                   console.warn(err)
                 })
@@ -221,7 +220,7 @@ const importRegister = ContentState => {
           const thead = this.createBlock('thead')
           const tbody = this.createBlock('tbody')
           const theadRow = this.createBlock('tr')
-          const restoreTableEscapeCharacters = text => {
+          const restoreTableEscapeCharacters = (text) => {
             // NOTE: markedjs replaces all escaped "|" ("\|") characters inside a cell with "|".
             //       We have to re-escape the chraracter to not break the table.
             return text.replace(/\|/g, '\\|')
@@ -233,11 +232,11 @@ const importRegister = ContentState => {
             const headText = header[i]
             const th = this.createBlock('th', {
               align: align[i] || '',
-              column: i
+              column: i,
             })
             const cellContent = this.createBlock('span', {
               text: restoreTableEscapeCharacters(headText),
-              functionType: 'cellContent'
+              functionType: 'cellContent',
             })
             this.appendChild(th, cellContent)
             this.appendChild(theadRow, th)
@@ -251,11 +250,11 @@ const importRegister = ContentState => {
               const cell = rowContents[j]
               const td = this.createBlock('td', {
                 align: align[j] || '',
-                column: j
+                column: j,
               })
               const cellContent = this.createBlock('span', {
                 text: restoreTableEscapeCharacters(cell),
-                functionType: 'cellContent'
+                functionType: 'cellContent',
               })
 
               this.appendChild(td, cellContent)
@@ -284,7 +283,7 @@ const importRegister = ContentState => {
           if (isSingleImage) {
             block = this.createBlock('p')
             const contentBlock = this.createBlock('span', {
-              text
+              text,
             })
             this.appendChild(block, contentBlock)
             this.appendChild(parentList[0], block)
@@ -303,7 +302,7 @@ const importRegister = ContentState => {
           }
           block = this.createBlock('p')
           const contentBlock = this.createBlock('span', {
-            text: value
+            text: value,
           })
           this.appendChild(block, contentBlock)
           this.appendChild(parentList[0], block)
@@ -314,7 +313,7 @@ const importRegister = ContentState => {
           value = token.text
           block = this.createBlock('p')
           const contentBlock = this.createBlock('span', {
-            text: value
+            text: value,
           })
           this.appendChild(block, contentBlock)
           this.appendChild(parentList[0], block)
@@ -340,11 +339,11 @@ const importRegister = ContentState => {
 
         case 'footnote_start': {
           block = this.createBlock('figure', {
-            functionType: 'footnote'
+            functionType: 'footnote',
           })
           const identifierInput = this.createBlock('span', {
             text: token.identifier,
-            functionType: 'footnoteInput'
+            functionType: 'footnoteInput',
           })
           this.appendChild(block, identifierInput)
           this.appendChild(parentList[0], block)
@@ -380,12 +379,12 @@ const importRegister = ContentState => {
           block = this.createBlock('li', {
             listItemType: checked !== undefined ? 'task' : listItemType,
             bulletMarkerOrDelimiter,
-            isLooseListItem: type === 'loose_item_start'
+            isLooseListItem: type === 'loose_item_start',
           })
 
           if (checked !== undefined) {
             const input = this.createBlock('input', {
-              checked
+              checked,
             })
 
             this.appendChild(block, input)
@@ -413,7 +412,7 @@ const importRegister = ContentState => {
     return rootState.children.length ? rootState.children : [this.createBlockP()]
   }
 
-  ContentState.prototype.htmlToMarkdown = function (html, keeps = []) {
+  ContentState.prototype.htmlToMarkdown = function(html, keeps = []) {
     // turn html to markdown
     const { turndownConfig } = this
     const turndownService = new TurndownService(turndownConfig)
@@ -429,12 +428,12 @@ const importRegister = ContentState => {
   }
 
   // turn html to blocks
-  ContentState.prototype.html2State = function (html) {
+  ContentState.prototype.html2State = function(html) {
     const markdown = this.htmlToMarkdown(html, ['ruby', 'rt', 'u', 'br'])
     return this.markdownToState(markdown)
   }
 
-  ContentState.prototype.getCodeMirrorCursor = function () {
+  ContentState.prototype.getCodeMirrorCursor = function() {
     const blocks = this.getBlocks()
     const { anchor, focus } = this.cursor
     const anchorBlock = this.getBlock(anchor.key)
@@ -447,52 +446,60 @@ const importRegister = ContentState => {
       const firstTextPart = anchorText.substring(0, minOffset)
       const secondTextPart = anchorText.substring(minOffset, maxOffset)
       const thirdTextPart = anchorText.substring(maxOffset)
-      anchorBlock.text = firstTextPart +
+      anchorBlock.text =
+        firstTextPart +
         (anchor.offset <= focus.offset ? CURSOR_ANCHOR_DNA : CURSOR_FOCUS_DNA) +
         secondTextPart +
         (anchor.offset <= focus.offset ? CURSOR_FOCUS_DNA : CURSOR_ANCHOR_DNA) +
         thirdTextPart
     } else {
-      anchorBlock.text = anchorText.substring(0, anchor.offset) + CURSOR_ANCHOR_DNA + anchorText.substring(anchor.offset)
-      focusBlock.text = focusText.substring(0, focus.offset) + CURSOR_FOCUS_DNA + focusText.substring(focus.offset)
+      anchorBlock.text =
+        anchorText.substring(0, anchor.offset) +
+        CURSOR_ANCHOR_DNA +
+        anchorText.substring(anchor.offset)
+      focusBlock.text =
+        focusText.substring(0, focus.offset) + CURSOR_FOCUS_DNA + focusText.substring(focus.offset)
     }
 
     const listIndentation = this.listIndentation
     const markdown = new ExportMarkdown(blocks, listIndentation).generate()
-    const cursor = markdown.split('\n').reduce((acc, line, index) => {
-      const ach = line.indexOf(CURSOR_ANCHOR_DNA)
-      const fch = line.indexOf(CURSOR_FOCUS_DNA)
-      if (ach > -1 && fch > -1) {
-        if (ach <= fch) {
+    const cursor = markdown.split('\n').reduce(
+      (acc, line, index) => {
+        const ach = line.indexOf(CURSOR_ANCHOR_DNA)
+        const fch = line.indexOf(CURSOR_FOCUS_DNA)
+        if (ach > -1 && fch > -1) {
+          if (ach <= fch) {
+            Object.assign(acc.anchor, { line: index, ch: ach })
+            Object.assign(acc.focus, { line: index, ch: fch - CURSOR_ANCHOR_DNA.length })
+          } else {
+            Object.assign(acc.focus, { line: index, ch: fch })
+            Object.assign(acc.anchor, { line: index, ch: ach - CURSOR_FOCUS_DNA.length })
+          }
+        } else if (ach > -1) {
           Object.assign(acc.anchor, { line: index, ch: ach })
-          Object.assign(acc.focus, { line: index, ch: fch - CURSOR_ANCHOR_DNA.length })
-        } else {
+        } else if (fch > -1) {
           Object.assign(acc.focus, { line: index, ch: fch })
-          Object.assign(acc.anchor, { line: index, ch: ach - CURSOR_FOCUS_DNA.length })
         }
-      } else if (ach > -1) {
-        Object.assign(acc.anchor, { line: index, ch: ach })
-      } else if (fch > -1) {
-        Object.assign(acc.focus, { line: index, ch: fch })
-      }
-      return acc
-    }, {
-      anchor: {
-        line: 0,
-        ch: 0
+        return acc
       },
-      focus: {
-        line: 0,
-        ch: 0
+      {
+        anchor: {
+          line: 0,
+          ch: 0,
+        },
+        focus: {
+          line: 0,
+          ch: 0,
+        },
       }
-    })
+    )
     // remove CURSOR_FOCUS_DNA and CURSOR_ANCHOR_DNA
     anchorBlock.text = anchorText
     focusBlock.text = focusText
     return cursor
   }
 
-  ContentState.prototype.addCursorToMarkdown = function (markdown, cursor) {
+  ContentState.prototype.addCursorToMarkdown = function(markdown, cursor) {
     const { anchor, focus } = cursor
     if (!anchor || !focus) {
       return
@@ -503,7 +510,7 @@ const importRegister = ContentState => {
     if (!anchorText || !focusText) {
       return {
         markdown: lines.join('\n'),
-        isValid: false
+        isValid: false,
       }
     }
     if (anchor.line === focus.line) {
@@ -512,38 +519,42 @@ const importRegister = ContentState => {
       const firstTextPart = anchorText.substring(0, minOffset)
       const secondTextPart = anchorText.substring(minOffset, maxOffset)
       const thirdTextPart = anchorText.substring(maxOffset)
-      lines[anchor.line] = firstTextPart +
+      lines[anchor.line] =
+        firstTextPart +
         (anchor.ch <= focus.ch ? CURSOR_ANCHOR_DNA : CURSOR_FOCUS_DNA) +
         secondTextPart +
         (anchor.ch <= focus.ch ? CURSOR_FOCUS_DNA : CURSOR_ANCHOR_DNA) +
         thirdTextPart
     } else {
-      lines[anchor.line] = anchorText.substring(0, anchor.ch) + CURSOR_ANCHOR_DNA + anchorText.substring(anchor.ch)
-      lines[focus.line] = focusText.substring(0, focus.ch) + CURSOR_FOCUS_DNA + focusText.substring(focus.ch)
+      lines[anchor.line] =
+        anchorText.substring(0, anchor.ch) + CURSOR_ANCHOR_DNA + anchorText.substring(anchor.ch)
+      lines[focus.line] =
+        focusText.substring(0, focus.ch) + CURSOR_FOCUS_DNA + focusText.substring(focus.ch)
     }
 
     return {
       markdown: lines.join('\n'),
-      isValid: true
+      isValid: true,
     }
   }
 
-  ContentState.prototype.importCursor = function (hasCursor) {
+  ContentState.prototype.importCursor = function(hasCursor) {
     // set cursor
     const cursor = {
       anchor: null,
-      focus: null
+      focus: null,
     }
 
     let count = 0
 
-    const travel = blocks => {
+    const travel = (blocks) => {
       for (const block of blocks) {
         let { key, text, children, editable } = block
         if (text) {
           const offset = text.indexOf(CURSOR_ANCHOR_DNA)
           if (offset > -1) {
-            block.text = text.substring(0, offset) + text.substring(offset + CURSOR_ANCHOR_DNA.length)
+            block.text =
+              text.substring(0, offset) + text.substring(offset + CURSOR_ANCHOR_DNA.length)
             text = block.text
             count++
             if (editable) {
@@ -552,7 +563,8 @@ const importRegister = ContentState => {
           }
           const focusOffset = text.indexOf(CURSOR_FOCUS_DNA)
           if (focusOffset > -1) {
-            block.text = text.substring(0, focusOffset) + text.substring(focusOffset + CURSOR_FOCUS_DNA.length)
+            block.text =
+              text.substring(0, focusOffset) + text.substring(focusOffset + CURSOR_FOCUS_DNA.length)
             count++
             if (editable) {
               cursor.focus = { key, offset: focusOffset }
@@ -580,24 +592,24 @@ const importRegister = ContentState => {
     }
   }
 
-  ContentState.prototype.importMarkdown = function (markdown) {
+  ContentState.prototype.importMarkdown = function(markdown) {
     this.blocks = this.markdownToState(markdown)
   }
 
-  ContentState.prototype.extractImages = function (markdown) {
+  ContentState.prototype.extractImages = function(markdown) {
     const results = new Set()
     const blocks = this.markdownToState(markdown)
     const render = new StateRender(this.muya)
     render.collectLabels(blocks)
 
-    const travelToken = token => {
+    const travelToken = (token) => {
       const { type, attrs, children, tag, label, backlash } = token
-      if (/reference_image|image/.test(type) || type === 'html_tag' && tag === 'img') {
+      if (/reference_image|image/.test(type) || (type === 'html_tag' && tag === 'img')) {
         if ((type === 'image' || type === 'html_tag') && attrs.src) {
           results.add(attrs.src)
         } else {
           const rawSrc = label + backlash.second
-          if (render.labels.has((rawSrc).toLowerCase())) {
+          if (render.labels.has(rawSrc.toLowerCase())) {
             const { href } = render.labels.get(rawSrc.toLowerCase())
             const { src } = getImageInfo(href)
             if (src) {
@@ -612,13 +624,17 @@ const importRegister = ContentState => {
       }
     }
 
-    const travel = block => {
+    const travel = (block) => {
       const { text, children, type, functionType } = block
       if (children.length) {
         for (const b of children) {
           travel(b)
         }
-      } else if (text && type === 'span' && /paragraphContent|atxLine|cellContent/.test(functionType)) {
+      } else if (
+        text &&
+        type === 'span' &&
+        /paragraphContent|atxLine|cellContent/.test(functionType)
+      ) {
         const tokens = tokenizer(text, [], false, render.labels)
         for (const token of tokens) {
           travelToken(token)

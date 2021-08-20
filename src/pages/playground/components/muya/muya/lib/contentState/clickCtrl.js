@@ -4,8 +4,8 @@ import { HAS_TEXT_BLOCK_REG, CLASS_OR_ID } from '../config'
 import { getParentCheckBox } from '../utils/getParentCheckBox'
 import { cumputeCheckboxStatus } from '../utils/cumputeCheckBoxStatus'
 
-const clickCtrl = ContentState => {
-  ContentState.prototype.clickHandler = function (event) {
+const clickCtrl = (ContentState) => {
+  ContentState.prototype.clickHandler = function(event) {
     const { eventCenter } = this.muya
     const { target } = event
     if (isMuyaEditorElement(target)) {
@@ -18,7 +18,10 @@ const clickCtrl = ContentState => {
       if (event.clientY > rect.top + rect.height) {
         let needToInsertNewParagraph = false
         if (lastBlock.type === 'span') {
-          if (/atxLine|paragraphContent/.test(lastBlock.functionType) && /\S/.test(lastBlock.text)) {
+          if (
+            /atxLine|paragraphContent/.test(lastBlock.functionType) &&
+            /\S/.test(lastBlock.text)
+          ) {
             needToInsertNewParagraph = true
           }
           if (!/atxLine|paragraphContent/.test(lastBlock.functionType)) {
@@ -36,7 +39,7 @@ const clickCtrl = ContentState => {
           const offset = 0
           this.cursor = {
             start: { key, offset },
-            end: { key, offset }
+            end: { key, offset },
           }
 
           return this.render()
@@ -65,10 +68,15 @@ const clickCtrl = ContentState => {
           },
           clientWidth: rect.width,
           clientHeight: rect.height,
-          id: currentBlock.key
+          id: currentBlock.key,
         }
         this.selectedBlock = currentBlock
-        eventCenter.dispatch('muya-front-menu', { reference, outmostBlock: currentBlock, startBlock, endBlock })
+        eventCenter.dispatch('muya-front-menu', {
+          reference,
+          outmostBlock: currentBlock,
+          startBlock,
+          endBlock,
+        })
         return this.partialRender()
       }
     }
@@ -88,12 +96,12 @@ const clickCtrl = ContentState => {
         const formatType = 'link' // auto link or []() link
         const data = {
           text: inlineNode.textContent,
-          href: parentNode.getAttribute('href')
+          href: parentNode.getAttribute('href'),
         }
         eventCenter.dispatch('format-click', {
           event,
           formatType,
-          data
+          data,
         })
         break
       } else {
@@ -140,7 +148,7 @@ const clickCtrl = ContentState => {
         eventCenter.dispatch('format-click', {
           event,
           formatType,
-          data
+          data,
         })
       }
     }
@@ -168,14 +176,12 @@ const clickCtrl = ContentState => {
     }
 
     // change active status when paragraph changed
-    if (
-      start.key !== this.cursor.start.key ||
-      end.key !== this.cursor.end.key
-    ) {
+    if (start.key !== this.cursor.start.key || end.key !== this.cursor.end.key) {
       needRender = true
     }
 
-    const needMarkedUpdate = this.checkNeedRender(this.cursor) || this.checkNeedRender({ start, end })
+    const needMarkedUpdate =
+      this.checkNeedRender(this.cursor) || this.checkNeedRender({ start, end })
 
     if (needRender) {
       this.cursor = { start, end }
@@ -196,14 +202,14 @@ const clickCtrl = ContentState => {
     }
   }
 
-  ContentState.prototype.setCheckBoxState = function (checkbox, checked) {
+  ContentState.prototype.setCheckBoxState = function(checkbox, checked) {
     checkbox.checked = checked
     const block = this.getBlock(checkbox.id)
     block.checked = checked
     checkbox.classList.toggle(CLASS_OR_ID.AG_CHECKBOX_CHECKED)
   }
 
-  ContentState.prototype.updateParentsCheckBoxState = function (checkbox) {
+  ContentState.prototype.updateParentsCheckBoxState = function(checkbox) {
     let parent = getParentCheckBox(checkbox)
     while (parent !== null) {
       const checked = cumputeCheckboxStatus(parent)
@@ -216,8 +222,10 @@ const clickCtrl = ContentState => {
     }
   }
 
-  ContentState.prototype.updateChildrenCheckBoxState = function (checkbox, checked) {
-    const checkboxes = checkbox.parentElement.querySelectorAll(`input ~ ul .${CLASS_OR_ID.AG_TASK_LIST_ITEM_CHECKBOX}`)
+  ContentState.prototype.updateChildrenCheckBoxState = function(checkbox, checked) {
+    const checkboxes = checkbox.parentElement.querySelectorAll(
+      `input ~ ul .${CLASS_OR_ID.AG_TASK_LIST_ITEM_CHECKBOX}`
+    )
     const len = checkboxes.length
     for (let i = 0; i < len; i++) {
       const checkbox = checkboxes[i]
@@ -228,7 +236,7 @@ const clickCtrl = ContentState => {
   }
 
   // handle task list item checkbox click
-  ContentState.prototype.listItemCheckBoxClick = function (checkbox) {
+  ContentState.prototype.listItemCheckBoxClick = function(checkbox) {
     const { checked } = checkbox
     this.setCheckBoxState(checkbox, checked)
 

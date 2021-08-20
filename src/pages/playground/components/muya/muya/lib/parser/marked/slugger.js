@@ -2,7 +2,7 @@
  * Slugger generates header id
  */
 
-function Slugger () {
+function Slugger() {
   this.seen = {}
 }
 
@@ -10,7 +10,7 @@ function Slugger () {
  * Convert string to unique id
  */
 
-Slugger.prototype.slug = function (value) {
+Slugger.prototype.slug = function(value) {
   let slug = value
     .toLowerCase()
     .trim()

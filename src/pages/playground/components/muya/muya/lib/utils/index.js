@@ -10,21 +10,22 @@ export const getUniqueId = () => `${ID_PREFIX}${id++}`
 
 export const getLongUniqueId = () => `${getUniqueId()}-${(+new Date()).toString(32)}`
 
-export const isMetaKey = ({ key }) => key === 'Shift' || key === 'Control' || key === 'Alt' || key === 'Meta'
+export const isMetaKey = ({ key }) =>
+  key === 'Shift' || key === 'Control' || key === 'Alt' || key === 'Meta'
 
-export const noop = () => { }
+export const noop = () => {}
 
-export const identity = i => i
+export const identity = (i) => i
 
-export const isOdd = number => Math.abs(number) % 2 === 1
+export const isOdd = (number) => Math.abs(number) % 2 === 1
 
-export const isEven = number => Math.abs(number) % 2 === 0
+export const isEven = (number) => Math.abs(number) % 2 === 0
 
 export const isLengthEven = (str = '') => str.length % 2 === 0
 
-export const snakeToCamel = name => name.replace(/_([a-z])/g, (p0, p1) => p1.toUpperCase())
+export const snakeToCamel = (name) => name.replace(/_([a-z])/g, (p0, p1) => p1.toUpperCase())
 
-export const camelToSnake = name => name.replace(/([A-Z])/g, (_, p) => `-${p.toLowerCase()}`)
+export const camelToSnake = (name) => name.replace(/([A-Z])/g, (_, p) => `-${p.toLowerCase()}`)
 /**
  *  Are two arrays have intersection
  */
@@ -38,13 +39,13 @@ export const union = ({ start: tStart, end: tEnd }, { start: lStart, end: lEnd, 
       return {
         start: tStart,
         end: tEnd < lEnd ? tEnd : lEnd,
-        active
+        active,
       }
     } else {
       return {
         start: lStart,
         end: tEnd < lEnd ? tEnd : lEnd,
-        active
+        active,
       }
     }
   }
@@ -67,7 +68,7 @@ export const throttle = (func, wait = 50) => {
     }
   }
 
-  return function () {
+  return function() {
     const now = Date.now()
     const remaining = wait - (now - previous)
 
@@ -92,7 +93,7 @@ export const throttle = (func, wait = 50) => {
 // simple implementation...
 export const debounce = (func, wait = 50) => {
   let timer = null
-  return function (...args) {
+  return function(...args) {
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => {
       func(...args)
@@ -100,7 +101,7 @@ export const debounce = (func, wait = 50) => {
   }
 }
 
-export const deepCopyArray = array => {
+export const deepCopyArray = (array) => {
   const result = []
   const len = array.length
   let i
@@ -119,9 +120,9 @@ export const deepCopyArray = array => {
 }
 
 // TODO: @jocs rewrite deepCopy
-export const deepCopy = object => {
+export const deepCopy = (object) => {
   const obj = {}
-  Object.keys(object).forEach(key => {
+  Object.keys(object).forEach((key) => {
     if (typeof object[key] === 'object' && object[key] !== null) {
       if (Array.isArray(object[key])) {
         obj[key] = deepCopyArray(object[key])
@@ -147,16 +148,14 @@ export const loadImage = async (url, detectContentType = false) => {
       resolve({
         url,
         width: image.width,
-        height: image.height
+        height: image.height,
       })
     }
-    image.onerror = err => {
+    image.onerror = (err) => {
       reject(err)
     }
 
     image.src = url
-
-
   })
 }
 
@@ -164,7 +163,7 @@ export const isOnline = () => {
   return navigator.onLine === true
 }
 
-export const getPageTitle = url => {
+export const getPageTitle = (url) => {
   // No need to request the title when it's not url.
   if (!url.startsWith('http')) {
     return ''
@@ -215,7 +214,7 @@ export const getPageTitle = url => {
   return Promise.race([promise, timer])
 }
 
-export const checkImageContentType = url => {
+export const checkImageContentType = (url) => {
   const req = new XMLHttpRequest()
   let settle
   const promise = new Promise((resolve, reject) => {
@@ -230,7 +229,8 @@ export const checkImageContentType = url => {
         } else {
           settle(false)
         }
-      } else if (req.status === 405) { // status 405 means method not allowed, and just return true.(Solve issue#1297)
+      } else if (req.status === 405) {
+        // status 405 means method not allowed, and just return true.(Solve issue#1297)
         settle(true)
       } else {
         settle(false)
@@ -268,20 +268,20 @@ export const getImageInfo = (src, baseUrl = window.DIRNAME) => {
 
       return {
         isUnknownType: false,
-        src
+        src,
       }
     } else {
       // Correct relative path on desktop. If we resolve a absolute path "path.resolve" doesn't do anything.
       return {
         isUnknownType: false,
-        src: 'file://' + require('path').resolve(baseUrl, src)
+        src: 'file://' + require('path').resolve(baseUrl, src),
       }
     }
   } else if (isUrl && !imageExtension) {
     // Assume it's a valid image and make a http request later
     return {
       isUnknownType: true,
-      src
+      src,
     }
   }
 
@@ -289,18 +289,18 @@ export const getImageInfo = (src, baseUrl = window.DIRNAME) => {
   if (DATA_URL_REG.test(src)) {
     return {
       isUnknownType: false,
-      src
+      src,
     }
   }
 
   // Url type is unknown
   return {
     isUnknownType: false,
-    src: ''
+    src: '',
   }
 }
 
-export const escapeHtml = html => {
+export const escapeHtml = (html) => {
   return html
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -308,29 +308,28 @@ export const escapeHtml = html => {
     .replace(/'/g, '&#39;')
 }
 
-export const unescapeHtml = text => {
+export const unescapeHtml = (text) => {
   return text
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, '\'')
+    .replace(/&#39;/g, "'")
 }
 
-export const escapeInBlockHtml = html => {
-  return html
-    .replace(/(<(style|script|title)[^<>]*>)([\s\S]*?)(<\/\2>)/g, (m, p1, p2, p3, p4) => {
-      return `${escapeHtml(p1)}${p3}${escapeHtml(p4)}`
-    })
+export const escapeInBlockHtml = (html) => {
+  return html.replace(/(<(style|script|title)[^<>]*>)([\s\S]*?)(<\/\2>)/g, (m, p1, p2, p3, p4) => {
+    return `${escapeHtml(p1)}${p3}${escapeHtml(p4)}`
+  })
 }
 
-export const wordCount = markdown => {
-  const paragraph = markdown.split(/\n{2,}/).filter(line => line).length
+export const wordCount = (markdown) => {
+  const paragraph = markdown.split(/\n{2,}/).filter((line) => line).length
   let word = 0
   let character = 0
   let all = 0
 
   const removedChinese = markdown.replace(/[\u4e00-\u9fa5]/g, '')
-  const tokens = removedChinese.split(/[\s\n]+/).filter(t => t)
+  const tokens = removedChinese.split(/[\s\n]+/).filter((t) => t)
   const chineseWordLength = markdown.length - removedChinese.length
   word += chineseWordLength + tokens.length
   character += tokens.reduce((acc, t) => acc + t.length, 0) + chineseWordLength
@@ -343,7 +342,7 @@ export const wordCount = markdown => {
  * [genUpper2LowerKeyHash generate constants map hash, the value is lowercase of the key,
  * also translate `_` to `-`]
  */
-export const genUpper2LowerKeyHash = keys => {
+export const genUpper2LowerKeyHash = (keys) => {
   return keys.reduce((acc, key) => {
     const value = key.toLowerCase().replace(/_/g, '-')
     return Object.assign(acc, { [key]: value })
@@ -353,7 +352,7 @@ export const genUpper2LowerKeyHash = keys => {
 /**
  * generate constants map, the value is the key.
  */
-export const generateKeyHash = keys => {
+export const generateKeyHash = (keys) => {
   return keys.reduce((acc, key) => {
     return Object.assign(acc, { [key]: key })
   }, {})
@@ -376,14 +375,14 @@ export const getParagraphReference = (ele, id) => {
     },
     clientWidth: 0,
     clientHeight: height,
-    id
+    id,
   }
 }
 
 export const verticalPositionInRect = (event, rect) => {
   const { clientY } = event
   const { top, height } = rect
-  return (clientY - top) > (height / 2) ? 'down' : 'up'
+  return clientY - top > height / 2 ? 'down' : 'up'
 }
 
 export const collectFootnotes = (blocks) => {

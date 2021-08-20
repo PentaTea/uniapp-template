@@ -29,5 +29,5 @@ export default {
   math: true,
   frontMatter: true,
   superSubScript: false,
-  footnote: false
+  footnote: false,
 }

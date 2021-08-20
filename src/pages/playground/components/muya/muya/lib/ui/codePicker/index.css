@@ -3,19 +3,19 @@
   max-height: 156px;
   padding: 8px 0;
   overflow-y: auto;
-  box-sizing: border-box;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .ag-list-picker ul,
 .ag-list-picker li {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 .ag-list-picker .item {
-  height: 28px;
   display: flex;
+  height: 28px;
   list-style: none;
 }
 
@@ -29,18 +29,18 @@
 
 .ag-list-picker .item:hover,
 .ag-list-picker .item.active {
- background-color: var(--floatHoverColor);
+  background-color: var(--floatHoverColor);
 }
 
 .ag-list-picker .item .icon-wrapper {
+  display: flex;
   width: 28px;
   height: 28px;
-  display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.ag-list-picker .item .icon-wrapper span:before {
+.ag-list-picker .item .icon-wrapper span::before {
   font-size: 14px;
 }
 
@@ -56,8 +56,8 @@
 }
 
 .ag-list-picker .item .language {
-  color: var(--editorColor);
+  margin-left: 5px;
   font-size: 14px;
   line-height: 28px;
-  margin-left: 5px;
+  color: var(--editorColor);
 }

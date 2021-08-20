@@ -6,17 +6,17 @@
 }
 
 .ag-quick-insert .title {
-  color: var(--editorColor);
-  line-height: 120%;
-  font-size: 14px;
-  padding: 10px 14px 10px 14px;
-  display: flex;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   position: sticky;
   top: 0;
-  background: var(--floatBgColor);
   z-index: 1001;
+  display: flex;
+  padding: 10px 14px 10px 14px;
+  font-size: 14px;
+  line-height: 120%;
+  letter-spacing: 1px;
+  color: var(--editorColor);
+  text-transform: uppercase;
+  background: var(--floatBgColor);
 }
 
 .ag-quick-insert .item {
@@ -30,48 +30,49 @@
 .ag-quick-insert:hover .active {
   background: transparent;
 }
+
 .ag-quick-insert .active,
 .ag-quick-insert div.item:hover {
- background-color: var(--floatHoverColor);
+  background-color: var(--floatHoverColor);
 }
 
 .ag-quick-insert .no-result {
-  margin-top: 20px;
   padding: 0 20px;
+  margin-top: 20px;
   font-size: 14px;
-  text-align: center;
   color: var(--themeColor);
+  text-align: center;
 }
 
 .ag-quick-insert .icon-container {
+  display: flex;
   width: 40px;
   height: 40px;
+  margin-left: 14px;
   border: 1px solid var(--floatBorderColor);
-  display: flex;
+  border-radius: 6px;
   justify-content: space-around;
   align-items: center;
-  border-radius: 6px;
-  margin-left: 14px;
 }
 
 .ag-quick-insert .icon-container > i.icon {
-  display: inline-block;
   position: relative;
-  height:20px;
+  display: inline-block;
   width: 20px;
+  height: 20px;
   overflow: hidden;
   color: var(--iconColor);
-  opacity: .5;
-  transition: all .25s ease-in-out;
+  opacity: 0.5;
+  transition: all 0.25s ease-in-out;
 }
 
-.ag-quick-insert .icon-container > i.icon > i[class^=icon-] {
+.ag-quick-insert .icon-container > i.icon > i[class^='icon-'] {
+  position: relative;
+  left: -20px;
   display: inline-block;
   width: 100%;
   height: 100%;
   filter: drop-shadow(20px 0 currentColor);
-  position: relative;
-  left: -20px;
 }
 
 .ag-quick-insert .description {
@@ -82,11 +83,11 @@
 .ag-quick-insert .short-cut {
   width: 70px;
   margin-right: 20px;
-  flex-shrink: 1;
-  text-align: right;
-  color: var(--editorColor50);
   font-size: 14px;
   letter-spacing: 1px;
+  color: var(--editorColor50);
+  text-align: right;
+  flex-shrink: 1;
 }
 
 .ag-quick-insert .big-title {

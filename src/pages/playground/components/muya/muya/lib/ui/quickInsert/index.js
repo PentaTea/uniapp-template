@@ -17,7 +17,7 @@ class QuickInsert extends BaseScrollFloat {
     this.renderArray = null
     this.activeItem = null
     this.block = null
-    this.isSearch = "false"
+    this.isSearch = 'false'
     this.renderObj = quickInsertObj
     this.render()
     this.listen()
@@ -26,7 +26,7 @@ class QuickInsert extends BaseScrollFloat {
   set renderObj(obj) {
     this._renderObj = obj
     const renderArray = []
-    Object.keys(obj).forEach(key => {
+    Object.keys(obj).forEach((key) => {
       renderArray.push(...obj[key])
     })
     this.renderArray = renderArray
@@ -39,38 +39,53 @@ class QuickInsert extends BaseScrollFloat {
 
   render() {
     const { scrollElement, activeItem, _renderObj, isSearch } = this
-    let children = Object.keys(_renderObj).filter(key => {
-      return _renderObj[key].length !== 0
-    })
-      .map(key => {
+    let children = Object.keys(_renderObj)
+      .filter((key) => {
+        return _renderObj[key].length !== 0
+      })
+      .map((key) => {
         const titleVnode = h('div.title', key.toUpperCase())
         const items = []
         for (const item of _renderObj[key]) {
           const { title, subTitle, label, icon, shortCut } = item
-          const iconVnode = h('div.icon-container', h('i.icon', h(`i.icon-${label.replace(/\s/g, '-')}`, {
-            style: {
-              background: `url(${icon.replace('/pages/','pages/')}) no-repeat`,
-              'background-size': '100%'
-            }
-          }, '')))
+          const iconVnode = h(
+            'div.icon-container',
+            h(
+              'i.icon',
+              h(
+                `i.icon-${label.replace(/\s/g, '-')}`,
+                {
+                  style: {
+                    background: `url(${icon.replace('/pages/', 'pages/')}) no-repeat`,
+                    'background-size': '100%',
+                  },
+                },
+                ''
+              )
+            )
+          )
 
           // const description = h('div.description', [
           //   h('div.big-title', title),
           //   h('div.sub-title', subTitle)
           // ])
 
-          const shortCutVnode = h('div.short-cut', [
-            h('span', shortCut)
-          ])
+          const shortCutVnode = h('div.short-cut', [h('span', shortCut)])
           const selector = activeItem.label === label ? 'div.item.active' : 'div.item'
-          items.push(h(selector, {
-            dataset: { label },
-            on: {
-              click: () => {
-                this.selectItem(item)
-              }
-            }
-          }, [iconVnode, h('div.big-title', title), h('div.sub-title', subTitle), shortCutVnode]))
+          items.push(
+            h(
+              selector,
+              {
+                dataset: { label },
+                on: {
+                  click: () => {
+                    this.selectItem(item)
+                  },
+                },
+              },
+              [iconVnode, h('div.big-title', title), h('div.sub-title', subTitle), shortCutVnode]
+            )
+          )
         }
 
         return h('section', [titleVnode, ...items])
@@ -113,13 +128,13 @@ class QuickInsert extends BaseScrollFloat {
     let result = obj
     if (text !== '') {
       result = {}
-      Object.keys(obj).forEach(key => {
+      Object.keys(obj).forEach((key) => {
         result[key] = filter(obj[key], text, { key: 'title' })
         result[key] = filter(obj[key], text, { key: 'label' })
-        this.isSearch = "true"
+        this.isSearch = 'true'
       })
     } else {
-      this.isSearch = "false"
+      this.isSearch = 'false'
     }
     this.renderObj = result
     this.render()
@@ -132,7 +147,7 @@ class QuickInsert extends BaseScrollFloat {
     const offset = 0
     contentState.cursor = {
       start: { key, offset },
-      end: { key, offset }
+      end: { key, offset },
     }
     switch (item.label) {
       case 'paragraph':

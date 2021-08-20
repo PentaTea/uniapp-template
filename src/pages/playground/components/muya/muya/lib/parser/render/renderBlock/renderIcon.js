@@ -34,10 +34,10 @@ const FUNCTION_TYPE_HASH = {
   fencecode: codeIcon,
   indentcode: codeIcon,
   frontmatter: frontMatterIcon,
-  footnote: footnoteIcon
+  footnote: footnoteIcon,
 }
 
-export default function renderIcon (block) {
+export default function renderIcon(block) {
   if (block.parent) {
     console.error('Only top most block can render front icon button.')
   }
@@ -108,16 +108,27 @@ export default function renderIcon (block) {
       break
   }
 
-  const iconVnode = h('i.icon', h('i.icon-inner', {
-    style: {
-      background: `url(${icon.replace('/pages/','pages/')}) no-repeat`,
-      'background-size': '100%'
-    }
-  }, ''))
+  const iconVnode = h(
+    'i.icon',
+    h(
+      'i.icon-inner',
+      {
+        style: {
+          background: `url(${icon.replace('/pages/', 'pages/')}) no-repeat`,
+          'background-size': '100%',
+        },
+      },
+      ''
+    )
+  )
 
-  return h(selector, {
-    attrs: {
-      contenteditable: 'false'
-    }
-  }, iconVnode)
+  return h(
+    selector,
+    {
+      attrs: {
+        contenteditable: 'false',
+      },
+    },
+    iconVnode
+  )
 }

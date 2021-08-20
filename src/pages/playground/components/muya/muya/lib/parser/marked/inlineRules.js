@@ -11,7 +11,8 @@ const inline = {
   escape: /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/,
   autolink: /^<(scheme:[^\s\x00-\x1f<>]*|email)>/, // eslint-disable-line no-control-regex
   url: noop,
-  tag: '^comment' +
+  tag:
+    '^comment' +
     '|^</[a-zA-Z][\\w:-]*\\s*>' + // self-closing tag
     '|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>' + // open tag
     '|^<\\?[\\s\\S]*?\\?>' + // processing instruction, e.g. <?php ?>
@@ -42,13 +43,15 @@ const inline = {
   // superscript and subScript
   superscript: /^(\^)((?:[^\^\s]|(?<=\\)\1|(?<=\\) )+?)(?<!\\)\1(?!\1)/,
   subscript: /^(~)((?:[^~\s]|(?<=\\)\1|(?<=\\) )+?)(?<!\\)\1(?!\1)/,
-  footnoteIdentifier: /^\[\^([^\^\[\]\s]+?)(?<!\\)\]/
+  footnoteIdentifier: /^\[\^([^\^\[\]\s]+?)(?<!\\)\]/,
 }
 
 // list of punctuation marks from common mark spec
 // without ` and ] to workaround Rule 17 (inline code blocks/links)
 inline._punctuation = '!"#$%&\'()*+,\\-./:;<=>?@\\[^_{|}~'
-inline.em = edit(inline.em).replace(/punctuation/g, inline._punctuation).getRegex()
+inline.em = edit(inline.em)
+  .replace(/punctuation/g, inline._punctuation)
+  .getRegex()
 
 inline._escapes = /\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/g
 
@@ -98,7 +101,7 @@ export const pedantic = Object.assign({}, normal, {
     .getRegex(),
   reflink: edit(/^!?\[(label)\]\s*\[([^\]]*)\]/)
     .replace('label', inline._label)
-    .getRegex()
+    .getRegex(),
 })
 
 /**
@@ -106,7 +109,9 @@ export const pedantic = Object.assign({}, normal, {
  */
 
 export const gfm = Object.assign({}, normal, {
-  escape: edit(inline.escape).replace('])', '~|])').getRegex(),
+  escape: edit(inline.escape)
+    .replace('])', '~|])')
+    .getRegex(),
   _extended_email: /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/,
   url: /^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/,
   _backpedal: /(?:[^?!.,:;*_~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_~)]+(?!$))+/,
@@ -121,7 +126,7 @@ export const gfm = Object.assign({}, normal, {
   // ------------------------
   // extra
 
-  emoji: /^(:)([a-z_\d+-]+?)\1/ // not real GFM but put it in here
+  emoji: /^(:)([a-z_\d+-]+?)\1/, // not real GFM but put it in here
 })
 
 gfm.url = edit(gfm.url, 'i')
@@ -133,11 +138,13 @@ gfm.url = edit(gfm.url, 'i')
  */
 
 export const breaks = Object.assign({}, gfm, {
-  br: edit(inline.br).replace('{2,}', '*').getRegex(),
+  br: edit(inline.br)
+    .replace('{2,}', '*')
+    .getRegex(),
   text: edit(gfm.text)
     .replace('\\b_', '\\b_| {2,}\\n')
     .replace(/\{2,\}/g, '*')
-    .getRegex()
+    .getRegex(),
 })
 
 /* eslint-ensable no-useless-escape */

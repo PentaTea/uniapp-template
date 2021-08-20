@@ -33,8 +33,8 @@ const matchString = (text, value, options) => {
   }
 }
 
-const searchCtrl = ContentState => {
-  ContentState.prototype.replaceOne = function (match, value) {
+const searchCtrl = (ContentState) => {
+  ContentState.prototype.replaceOne = function(match, value) {
     const { start, end, key } = match
     const block = this.getBlock(key)
     const { text } = block
@@ -42,7 +42,7 @@ const searchCtrl = ContentState => {
     block.text = text.substring(0, start) + value + text.substring(end)
   }
 
-  ContentState.prototype.replace = function (replaceValue, opt = { isSingle: true }) {
+  ContentState.prototype.replace = function(replaceValue, opt = { isSingle: true }) {
     const { isSingle } = opt
     delete opt.isSingle
     const searchOptions = Object.assign({}, defaultSearchOption, opt)
@@ -61,7 +61,7 @@ const searchCtrl = ContentState => {
     }
   }
 
-  ContentState.prototype.setCursorToHighlight = function () {
+  ContentState.prototype.setCursorToHighlight = function() {
     const { matches, index } = this.searchMatches
     const match = matches[index]
 
@@ -72,16 +72,16 @@ const searchCtrl = ContentState => {
       noHistory: true,
       start: {
         key,
-        offset: start
+        offset: start,
       },
       end: {
         key,
-        offset: end
-      }
+        offset: end,
+      },
     }
   }
 
-  ContentState.prototype.find = function (action/* prev next */) {
+  ContentState.prototype.find = function(action /* prev next */) {
     let { matches, index } = this.searchMatches
     const len = matches.length
     if (!len) return
@@ -93,24 +93,26 @@ const searchCtrl = ContentState => {
     this.setCursorToHighlight()
   }
 
-  ContentState.prototype.search = function (value, opt = {}) {
+  ContentState.prototype.search = function(value, opt = {}) {
     const matches = []
     const options = Object.assign({}, defaultSearchOption, opt)
     const { highlightIndex } = options
     const { blocks } = this
-    const travel = blocks => {
+    const travel = (blocks) => {
       for (const block of blocks) {
         let { text, key } = block
 
         if (text && typeof text === 'string') {
           const strMatches = matchString(text, value, options)
-          matches.push(...strMatches.map(m => {
-            return {
-              key,
-              start: m.index,
-              end: m.index + m.match.length
-            }
-          }))
+          matches.push(
+            ...strMatches.map((m) => {
+              return {
+                key,
+                start: m.index,
+                end: m.index + m.match.length,
+              }
+            })
+          )
         }
         if (block.children.length) {
           travel(block.children)

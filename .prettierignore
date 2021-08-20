@@ -4,9 +4,11 @@ unpackage
 components/uni-**
 
 *.min.js
+*-min.js
 test
 dist
 public
+assets
 node_modules
 uni_modules
 manifest.json

@@ -2,7 +2,7 @@ import { CLASS_OR_ID } from '../../../config'
 import { getImageInfo } from '../../../utils'
 
 // reference_image
-export default function referenceImage (h, cursor, block, token, outerClass) {
+export default function referenceImage(h, cursor, block, token, outerClass) {
   const className = this.getClassName(outerClass, block, token, cursor)
   const imageClass = CLASS_OR_ID.AG_IMAGE_MARKED_TEXT
   const { start, end } = token.range
@@ -11,8 +11,8 @@ export default function referenceImage (h, cursor, block, token, outerClass) {
   const rawSrc = label + backlash.second
   let href = ''
   let title = ''
-  if (this.labels.has((rawSrc).toLowerCase())) {
-    ({ href, title } = this.labels.get(rawSrc.toLowerCase()))
+  if (this.labels.has(rawSrc.toLowerCase())) {
+    ;({ href, title } = this.labels.get(rawSrc.toLowerCase()))
   }
   const imageInfo = getImageInfo(href)
   const { src } = imageInfo
@@ -20,7 +20,12 @@ export default function referenceImage (h, cursor, block, token, outerClass) {
   let isSuccess
   let selector
   if (src) {
-    ({ id, isSuccess } = this.loadImageAsync(imageInfo, { alt }, className, CLASS_OR_ID.AG_COPY_REMOVE))
+    ;({ id, isSuccess } = this.loadImageAsync(
+      imageInfo,
+      { alt },
+      className,
+      CLASS_OR_ID.AG_COPY_REMOVE
+    ))
   }
   selector = id ? `span#${id}.${imageClass}` : `span.${imageClass}`
   selector += `.${CLASS_OR_ID.AG_OUTPUT_REMOVE}`
@@ -31,9 +36,6 @@ export default function referenceImage (h, cursor, block, token, outerClass) {
   }
 
   return isSuccess
-    ? [
-      h(selector, tag),
-      h(`img.${CLASS_OR_ID.AG_COPY_REMOVE}`, { props: { alt, src, title } })
-    ]
+    ? [h(selector, tag), h(`img.${CLASS_OR_ID.AG_COPY_REMOVE}`, { props: { alt, src, title } })]
     : [h(selector, tag)]
 }

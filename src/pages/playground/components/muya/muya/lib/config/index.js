@@ -10,36 +10,129 @@ export const HAS_TEXT_BLOCK_REG = /^span$/i
 export const VOID_HTML_TAGS = voidHtmlTags
 export const HTML_TAGS = htmlTags
 // TYPE1 ~ TYPE7 according to https://github.github.com/gfm/#html-blocks
-export const BLOCK_TYPE1 = [
-  'script', 'pre', 'style'
-]
+export const BLOCK_TYPE1 = ['script', 'pre', 'style']
 
 export const BLOCK_TYPE2_REG = /^<!--(?=\s).*\s+-->$/
 
 export const BLOCK_TYPE6 = [
-  'address', 'article', 'aside', 'base', 'basefont', 'blockquote', 'body', 'caption', 'center', 'col', 'colgroup', 'dd',
-  'details', 'dialog', 'dir', 'div', 'dl', 'dt', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'frame', 'frameset',
-  'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hr', 'html', 'iframe', 'legend', 'li', 'link', 'main', 'menu',
-  'menuitem', 'meta', 'nav', 'noframes', 'ol', 'optgroup', 'option', 'p', 'param', 'section', 'source', 'summary', 'table',
-  'tbody', 'td', 'tfoot', 'th', 'thead', 'title', 'tr', 'track', 'ul'
+  'address',
+  'article',
+  'aside',
+  'base',
+  'basefont',
+  'blockquote',
+  'body',
+  'caption',
+  'center',
+  'col',
+  'colgroup',
+  'dd',
+  'details',
+  'dialog',
+  'dir',
+  'div',
+  'dl',
+  'dt',
+  'fieldset',
+  'figcaption',
+  'figure',
+  'footer',
+  'form',
+  'frame',
+  'frameset',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'head',
+  'header',
+  'hr',
+  'html',
+  'iframe',
+  'legend',
+  'li',
+  'link',
+  'main',
+  'menu',
+  'menuitem',
+  'meta',
+  'nav',
+  'noframes',
+  'ol',
+  'optgroup',
+  'option',
+  'p',
+  'param',
+  'section',
+  'source',
+  'summary',
+  'table',
+  'tbody',
+  'td',
+  'tfoot',
+  'th',
+  'thead',
+  'title',
+  'tr',
+  'track',
+  'ul',
 ]
 
-export const BLOCK_TYPE7 = htmlTags.filter(tag => {
-  return !BLOCK_TYPE1.find(t => t === tag) && !BLOCK_TYPE6.find(t => t === tag)
+export const BLOCK_TYPE7 = htmlTags.filter((tag) => {
+  return !BLOCK_TYPE1.find((t) => t === tag) && !BLOCK_TYPE6.find((t) => t === tag)
 })
 
 export const IMAGE_EXT_REG = /\.(?:jpeg|jpg|png|gif|svg|webp)(?=\?|$)/i
 
-export const PARAGRAPH_TYPES = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre', 'ul', 'ol', 'li', 'figure']
+export const PARAGRAPH_TYPES = [
+  'p',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'blockquote',
+  'pre',
+  'ul',
+  'ol',
+  'li',
+  'figure',
+]
 
 export const blockContainerElementNames = [
   // elements our editor generates
   ...PARAGRAPH_TYPES,
   // all other known block elements
-  'address', 'article', 'aside', 'audio', 'canvas', 'dd', 'dl', 'dt', 'fieldset',
-  'figcaption', 'footer', 'form', 'header', 'hgroup', 'main', 'nav',
-  'noscript', 'output', 'section', 'video',
-  'table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td'
+  'address',
+  'article',
+  'aside',
+  'audio',
+  'canvas',
+  'dd',
+  'dl',
+  'dt',
+  'fieldset',
+  'figcaption',
+  'footer',
+  'form',
+  'header',
+  'hgroup',
+  'main',
+  'nav',
+  'noscript',
+  'output',
+  'section',
+  'video',
+  'table',
+  'thead',
+  'tbody',
+  'tfoot',
+  'tr',
+  'th',
+  'td',
 ]
 
 export const emptyElementNames = ['br', 'col', 'colgroup', 'hr', 'img', 'input', 'source', 'wbr']
@@ -54,11 +147,13 @@ export const EVENT_KEYS = generateKeyHash([
   'ArrowLeft',
   'ArrowRight',
   'Tab',
-  'Escape'
+  'Escape',
 ])
 
 export const LOWERCASE_TAGS = generateKeyHash([
-  ...blockContainerElementNames, ...emptyElementNames, 'div'
+  ...blockContainerElementNames,
+  ...emptyElementNames,
+  'div',
 ])
 
 export const CLASS_OR_ID = genUpper2LowerKeyHash([
@@ -153,7 +248,7 @@ export const CLASS_OR_ID = genUpper2LowerKeyHash([
   'AG_TIGHT_LIST_ITEM',
   'AG_TOOL_BAR',
   'AG_VEGA_LITE',
-  'AG_WARN'
+  'AG_WARN',
 ])
 
 export const DAED_REMOVE_SELECTOR = new Set([
@@ -161,7 +256,7 @@ export const DAED_REMOVE_SELECTOR = new Set([
   '.ag-image-marked-text.ag-image-fail::before',
   '.ag-hide',
   '.ag-gray',
-  '.ag-warn'
+  '.ag-warn',
 ])
 
 export const CURSOR_ANCHOR_DNA = getLongUniqueId()
@@ -187,7 +282,7 @@ export const DEFAULT_TURNDOWN_CONFIG = {
     } else {
       return node.isBlock ? '\n\n' : ''
     }
-  }
+  },
 }
 
 export const FORMAT_MARKER_MAP = {
@@ -198,20 +293,20 @@ export const FORMAT_MARKER_MAP = {
   inline_math: '$',
   u: {
     open: '<u>',
-    close: '</u>'
+    close: '</u>',
   },
   sub: {
     open: '<sub>',
-    close: '</sub>'
+    close: '</sub>',
   },
   sup: {
     open: '<sup>',
-    close: '</sup>'
+    close: '</sup>',
   },
   mark: {
     open: '<mark>',
-    close: '</mark>'
-  }
+    close: '</mark>',
+  },
 }
 
 export const FORMAT_TYPES = ['strong', 'em', 'del', 'inline_code', 'link', 'image', 'inline_math']
@@ -226,8 +321,8 @@ export const PREVIEW_DOMPURIFY_CONFIG = {
     html: true,
     svg: true,
     svgFilters: true,
-    mathMl: true
-  }
+    mathMl: true,
+  },
 }
 
 export const EXPORT_DOMPURIFY_CONFIG = {
@@ -238,8 +333,8 @@ export const EXPORT_DOMPURIFY_CONFIG = {
     html: true,
     svg: true,
     svgFilters: true,
-    mathMl: true
-  }
+    mathMl: true,
+  },
 }
 
 export const MUYA_DEFAULT_OPTION = {
@@ -274,13 +369,13 @@ export const MUYA_DEFAULT_OPTION = {
   imageAction: null,
   // Call Electron open dialog or input element type is file.
   imagePathPicker: null,
-  clipboardFilePath: () => { },
+  clipboardFilePath: () => {},
   // image path auto completed when you input in image selector.
   imagePathAutoComplete: () => [],
 
   // Markdown extensions
   superSubScript: false,
-  footnote: false
+  footnote: false,
 }
 
 // export const DIAGRAM_TEMPLATE = {
@@ -288,7 +383,10 @@ export const MUYA_DEFAULT_OPTION = {
 // }
 
 export const isOsx = window && window.navigator && /Mac/.test(window.navigator.platform)
-export const isWin = window && window.navigator.userAgent && /win32|wow32|win64|wow64/i.test(window.navigator.userAgent)
+export const isWin =
+  window &&
+  window.navigator.userAgent &&
+  /win32|wow32|win64|wow64/i.test(window.navigator.userAgent)
 // http[s] (domain or IPv4 or localhost or IPv6) [port] /not-white-space
 export const URL_REG = /^(blob:)?http(s)?:\/\/([a-z0-9\-._~]+\.[a-z]{2,}|[0-9.]+|localhost|\[[a-f0-9.:]+\])(:[0-9]{1,5})?\/[\S]+/i
 // data:[<MIME-type>][;charset=<encoding>][;base64],<data>
@@ -301,5 +399,5 @@ export const defaultSearchOption = {
   isWholeWord: false,
   isRegexp: false,
   selectHighlight: false,
-  highlightIndex: -1
+  highlightIndex: -1,
 }

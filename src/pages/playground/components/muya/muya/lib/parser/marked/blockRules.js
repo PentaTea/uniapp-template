@@ -14,7 +14,8 @@ export const block = {
   heading: /^ {0,3}(#{1,6}) +([^\n]*?)(?: +#+)? *(?:\n+|$)/,
   blockquote: /^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/,
   list: /^( {0,3})(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
-  html: '^ {0,3}(?:' + // optional indentation
+  html:
+    '^ {0,3}(?:' + // optional indentation
     '<(script|pre|style)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)' + // (1)
     '|comment[^\\n]*(\\n+|$)' + // (2)
     '|<\\?[\\s\\S]*?\\?>\\n*' + // (3)
@@ -36,7 +37,7 @@ export const block = {
   // extra
   frontmatter: /^(?:(?:---\n([\s\S]+?)---)|(?:\+\+\+\n([\s\S]+?)\+\+\+)|(?:;;;\n([\s\S]+?);;;)|(?:\{\n([\s\S]+?)\}))(?:\n{2,}|\n{1,2}$)/,
   multiplemath: /^\$\$\n([\s\S]+?)\n\$\$(?:\n+|$)/,
-  footnote: /^\[\^([^\^\[\]\s]+?)\]:[\s\S]+?(?=\n *\n {0,3}[^ ]+|$)/
+  footnote: /^\[\^([^\^\[\]\s]+?)\]:[\s\S]+?(?=\n *\n {0,3}[^ ]+|$)/,
 }
 
 block._label = /(?!\s*\])(?:\\[\[\]]|[^\[\]])+/
@@ -61,7 +62,8 @@ block.list = edit(block.list)
   .replace('def', '\\n+(?=' + block.def.source + ')')
   .getRegex()
 
-block._tag = 'address|article|aside|base|basefont|blockquote|body|caption' +
+block._tag =
+  'address|article|aside|base|basefont|blockquote|body|caption' +
   '|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption' +
   '|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe' +
   '|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option' +
@@ -101,7 +103,7 @@ export const normal = Object.assign({}, block)
 
 export const gfm = Object.assign({}, normal, {
   nptable: /^ *([^|\n ].*\|.*)\n *([-:]+ *\|[-| :]*)(?:\n((?:.*[^>\n ].*(?:\n|$))*)\n*|$)/,
-  table: /^ *\|(.+)\n *\|?( *[-:]+[-| :]*)(?:\n((?: *[^>\n ].*(?:\n|$))*)\n*|$)/
+  table: /^ *\|(.+)\n *\|?( *[-:]+[-| :]*)(?:\n((?: *[^>\n ].*(?:\n|$))*)\n*|$)/,
 })
 
 /**
@@ -112,12 +114,16 @@ export const pedantic = Object.assign({}, normal, {
   html: edit(
     '^ *(?:comment *(?:\\n|\\s*$)' +
     '|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)' + // closed tag
-    '|<tag(?:"[^"]*"|\'[^\']*\'|\\s[^\'"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))')
+      '|<tag(?:"[^"]*"|\'[^\']*\'|\\s[^\'"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))'
+  )
     .replace('comment', block._comment)
-    .replace(/tag/g, '(?!(?:' +
-      'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub' +
-      '|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)' +
-      '\\b)\\w+(?!:|[^\\w\\s@]*@)\\b')
+    .replace(
+      /tag/g,
+      '(?!(?:' +
+        'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub' +
+        '|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)' +
+        '\\b)\\w+(?!:|[^\\w\\s@]*@)\\b'
+    )
     .getRegex(),
   def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +(["(][^\n]+[")]))? *(?:\n+|$)/,
   heading: /^ *(#{1,6}) *([^\n]+?) *(?:#+ *)?(?:\n+|$)/,
@@ -130,7 +136,7 @@ export const pedantic = Object.assign({}, normal, {
     .replace('|fences', '')
     .replace('|list', '')
     .replace('|html', '')
-    .getRegex()
+    .getRegex(),
 })
 
 /* eslint-ensable no-useless-escape */

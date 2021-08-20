@@ -17,10 +17,10 @@ class ImageSelector extends BaseFloat {
       placement: 'bottom-center',
       modifiers: {
         offset: {
-          offset: '0, 0'
-        }
+          offset: '0, 0',
+        },
       },
-      showArrow: false
+      showArrow: false,
     })
     super(muya, name, options)
     this.renderArray = []
@@ -30,7 +30,7 @@ class ImageSelector extends BaseFloat {
       this.unsplash = null
     } else {
       this.unsplash = new Unsplash({
-        accessKey: unsplashAccessKey
+        accessKey: unsplashAccessKey,
       })
     }
     this.photoList = []
@@ -40,9 +40,9 @@ class ImageSelector extends BaseFloat {
     this.state = {
       alt: '',
       src: '',
-      title: ''
+      title: '',
     }
-    const imageSelectorContainer = this.imageSelectorContainer = document.createElement('div')
+    const imageSelectorContainer = (this.imageSelectorContainer = document.createElement('div'))
     this.container.appendChild(imageSelectorContainer)
     this.floatBox.classList.add('ag-image-selector-wrapper')
     this.listen()
@@ -64,9 +64,10 @@ class ImageSelector extends BaseFloat {
         if (this.unsplash) {
           // Load latest unsplash photos.
           this.loading = true
-          this.unsplash.photos.listPhotos(1, 40, 'latest')
+          this.unsplash.photos
+            .listPhotos(1, 40, 'latest')
             .then(toJson)
-            .then(json => {
+            .then((json) => {
               this.loading = false
               if (Array.isArray(json)) {
                 this.photoList = json
@@ -100,9 +101,10 @@ class ImageSelector extends BaseFloat {
 
     this.loading = true
     this.photoList = []
-    this.unsplash.search.photos(keyword, 1, 40)
+    this.unsplash.search
+      .photos(keyword, 1, 40)
       .then(toJson)
-      .then(json => {
+      .then((json) => {
         this.loading = false
         if (Array.isArray(json.results)) {
           this.photoList = json.results
@@ -179,19 +181,17 @@ class ImageSelector extends BaseFloat {
     const value = event.target.value
     const { eventCenter } = this.muya
     const reference = this.imageSelectorContainer.querySelector('input.src')
-    const cb = item => {
+    const cb = (item) => {
       const { text } = item
-      const newValue = value.replace(/(\/)([^/]+)$/, (m, p1, p2) => {
-        return p1
-      }) + text
+      const newValue =
+        value.replace(/(\/)([^/]+)$/, (m, p1, p2) => {
+          return p1
+        }) + text
       const len = newValue.length
       reference.value = newValue
       this.state.src = newValue
       reference.focus()
-      reference.setSelectionRange(
-        len,
-        len
-      )
+      reference.setSelectionRange(len, len)
     }
 
     let list
@@ -220,7 +220,7 @@ class ImageSelector extends BaseFloat {
         this.muya.contentState.replaceImage(this.imageInfo, {
           alt: id,
           src,
-          title
+          title,
         })
         this.hide()
         const nSrc = await this.muya.options.imageAction(src, id, alt)
@@ -235,7 +235,7 @@ class ImageSelector extends BaseFloat {
           this.muya.contentState.replaceImage(imageInfo, {
             alt,
             src: nSrc,
-            title
+            title,
           })
         }
       } else {
@@ -255,35 +255,45 @@ class ImageSelector extends BaseFloat {
     return this.replaceImageAsync({
       alt,
       title,
-      src: path
+      src: path,
     })
   }
 
   renderHeader() {
-    const tabs = [{
-      label: 'Select',
-      value: 'select'
-    }, {
-      label: 'Embed link',
-      value: 'link'
-    }]
+    const tabs = [
+      {
+        label: 'Select',
+        value: 'select',
+      },
+      {
+        label: 'Embed link',
+        value: 'link',
+      },
+    ]
 
     if (this.unsplash) {
       tabs.push({
         label: 'Unsplash',
-        value: 'unsplash'
+        value: 'unsplash',
       })
     }
 
-    const children = tabs.map(tab => {
+    const children = tabs.map((tab) => {
       const itemSelector = this.tab === tab.value ? 'li.active' : 'li'
-      return h(itemSelector, h('span', {
-        on: {
-          click: event => {
-            this.tabClick(event, tab)
-          }
-        }
-      }, tab.label))
+      return h(
+        itemSelector,
+        h(
+          'span',
+          {
+            on: {
+              click: (event) => {
+                this.tabClick(event, tab)
+              },
+            },
+          },
+          tab.label
+        )
+      )
     })
 
     return h('ul.header', children)
@@ -295,69 +305,73 @@ class ImageSelector extends BaseFloat {
     let bodyContent = null
     if (tab === 'select') {
       bodyContent = [
-        h('button.muya-button.role-button.select', {
-          on: {
-            click: event => {
-              this.handleSelectButtonClick()
-            }
-          }
-        }, 'Choose an Image'),
-        h('span.description', 'Choose image from your computer.')
+        h(
+          'button.muya-button.role-button.select',
+          {
+            on: {
+              click: (event) => {
+                this.handleSelectButtonClick()
+              },
+            },
+          },
+          'Choose an Image'
+        ),
+        h('span.description', 'Choose image from your computer.'),
       ]
     } else if (tab === 'link') {
       const altInput = h('input.alt', {
         props: {
           placeholder: 'Alt text',
-          value: alt
+          value: alt,
         },
         on: {
-          input: event => {
+          input: (event) => {
             this.inputHandler(event, 'alt')
           },
-          paste: event => {
+          paste: (event) => {
             this.inputHandler(event, 'alt')
           },
-          keydown: event => {
+          keydown: (event) => {
             this.handleKeyDown(event)
-          }
-        }
+          },
+        },
       })
       const srcInput = h('input.src', {
         props: {
           placeholder: 'http://...',
-          value: src
+          value: src,
         },
         on: {
-          input: event => {
+          input: (event) => {
             this.inputHandler(event, 'src')
           },
-          paste: event => {
+          paste: (event) => {
             this.inputHandler(event, 'src')
           },
-          keydown: event => {
+          keydown: (event) => {
             this.srcInputKeyDown(event)
           },
-          keyup: event => {
+          keyup: (event) => {
             this.handleKeyUp(event)
-          }
-        }
+          },
+        },
       })
       const titleInput = h('input.title', {
         props: {
           placeholder: 'Image title',
-          value: title
+          value: title,
         },
         on: {
-          input: event => {
+          input: (event) => {
             this.inputHandler(event, 'title')
           },
-          paste: event => {
+          paste: (event) => {
             this.inputHandler(event, 'title')
           },
-          keydown: event => {
+          keydown: (event) => {
             this.handleKeyDown(event)
-          }
-        }
+          },
+        },
       })
 
       const inputWrapper = isFullMode
@@ -366,29 +380,37 @@ class ImageSelector extends BaseFloat {
 
       const embedButton = h('div.enter-container', [
         h('div.uni-upload', [h('i.ri-gallery-fill'), '上传...']),
-        h('div.enter', {
-          on: {
-            click: event => {
-              this.handleLinkButtonClick()
-            }
-          }
-        }, [h('i.ri-arrow-right-line'), '完成'])
+        h(
+          'div.enter',
+          {
+            on: {
+              click: (event) => {
+                this.handleLinkButtonClick()
+              },
+            },
+          },
+          [h('i.ri-arrow-right-line'), '完成']
+        ),
       ])
       const bottomDes = h('span.description', [
         h('span', 'Paste web image or local image path. Use '),
-        h('a', {
-          on: {
-            click: event => {
-              this.toggleMode()
-            }
-          }
-        }, `${isFullMode ? 'simple mode' : 'full mode'}.`)
+        h(
+          'a',
+          {
+            on: {
+              click: (event) => {
+                this.toggleMode()
+              },
+            },
+          },
+          `${isFullMode ? 'simple mode' : 'full mode'}.`
+        ),
       ])
       bodyContent = [inputWrapper, embedButton, bottomDes]
     } else {
       const searchInput = h('input.search', {
         props: {
-          placeholder: 'Search photos on Unsplash'
+          placeholder: 'Search photos on Unsplash',
         },
         on: {
           keydown: (event) => {
@@ -398,8 +420,8 @@ class ImageSelector extends BaseFloat {
               event.stopPropagation()
               this.searchPhotos(value)
             }
-          }
-        }
+          },
+        },
       })
       bodyContent = [searchInput]
       if (this.loading) {
@@ -409,43 +431,55 @@ class ImageSelector extends BaseFloat {
         const noDataCom = h('div.no-data', 'No result...')
         bodyContent.push(noDataCom)
       } else {
-        const photos = this.photoList.map(photo => {
-          const imageWrapper = h('div.image-wrapper', {
-            props: {
-              style: `background: ${photo.color};`
+        const photos = this.photoList.map((photo) => {
+          const imageWrapper = h(
+            'div.image-wrapper',
+            {
+              props: {
+                style: `background: ${photo.color};`,
+              },
+              on: {
+                click: () => {
+                  const title = photo.user.name
+                  const alt = photo.alt_description
+                  const src = photo.urls.regular
+                  const { id } = photo
+                  this.unsplash.photos
+                    .getPhoto(id)
+                    .then(toJson)
+                    .then((json) => {
+                      this.unsplash.photos.downloadPhoto(json)
+                    })
+                  return this.replaceImageAsync({ alt, title, src })
+                },
+              },
             },
-            on: {
-              click: () => {
-                const title = photo.user.name
-                const alt = photo.alt_description
-                const src = photo.urls.regular
-                const { id } = photo
-                this.unsplash.photos.getPhoto(id)
-                  .then(toJson)
-                  .then(json => {
-                    this.unsplash.photos.downloadPhoto(json)
-                  })
-                return this.replaceImageAsync({ alt, title, src })
-              }
-            }
-          }, h('img', {
-            props: {
-              src: photo.urls.thumb
-            }
-          }))
+            h('img', {
+              props: {
+                src: photo.urls.thumb,
+              },
+            })
+          )
 
-          const desCom = h('div.des', ['By ', h('a', {
-            props: {
-              href: photo.links.html
-            },
-            on: {
-              click: () => {
-                if (this.options.photoCreatorClick) {
-                  this.options.photoCreatorClick(photo.user.links.html)
-                }
-              }
-            }
-          }, photo.user.name)])
+          const desCom = h('div.des', [
+            'By ',
+            h(
+              'a',
+              {
+                props: {
+                  href: photo.links.html,
+                },
+                on: {
+                  click: () => {
+                    if (this.options.photoCreatorClick) {
+                      this.options.photoCreatorClick(photo.user.links.html)
+                    }
+                  },
+                },
+              },
+              photo.user.name
+            ),
+          ])
           return h('div.photo', [imageWrapper, desCom])
         })
         const photoWrapper = h('div.photos-wrapper', photos)
@@ -468,7 +502,7 @@ class ImageSelector extends BaseFloat {
     }
     this.oldVnode = vnode
     hashBus.trigger('imgServiceInit')
-    hashBus.use('uploadImgData', context => {
+    hashBus.use('uploadImgData', (context) => {
       this.replaceImageAsync({ src: context.data.content.tempFilePaths[0] })
     })
   }

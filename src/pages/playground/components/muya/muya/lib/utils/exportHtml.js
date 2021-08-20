@@ -16,22 +16,17 @@ export const getSanitizeHtml = (markdown, options) => {
   return sanitize(html, EXPORT_DOMPURIFY_CONFIG)
 }
 
-const DIAGRAM_TYPE = [
-  'mermaid',
-  'flowchart',
-  'sequence',
-  'vega-lite'
-]
+const DIAGRAM_TYPE = ['mermaid', 'flowchart', 'sequence', 'vega-lite']
 
 class ExportHtml {
-  constructor (markdown, muya) {
+  constructor(markdown, muya) {
     this.markdown = markdown
     this.muya = muya
     this.exportContainer = null
     this.mathRendererCalled = false
   }
 
-  async renderMermaid () {
+  async renderMermaid() {
     const codes = this.exportContainer.querySelectorAll('code.language-mermaid')
     for (const code of codes) {
       const preEle = code.parentNode
@@ -43,27 +38,31 @@ class ExportHtml {
     const mermaid = await loadRenderer('mermaid')
     // We only export light theme, so set mermaid theme to `default`, in the future, we can choose whick theme to export.
     mermaid.initialize({
-      theme: 'default'
+      theme: 'default',
     })
     mermaid.init(undefined, this.exportContainer.querySelectorAll('div.mermaid'))
     if (this.muya) {
       mermaid.initialize({
-        theme: this.muya.options.mermaidTheme
+        theme: this.muya.options.mermaidTheme,
       })
     }
   }
 
-  async renderDiagram () {
+  async renderDiagram() {
     const selector = 'code.language-vega-lite, code.language-flowchart, code.language-sequence'
     const RENDER_MAP = {
       flowchart: await loadRenderer('flowchart'),
       sequence: await loadRenderer('sequence'),
-      'vega-lite': await loadRenderer('vega-lite')
+      'vega-lite': await loadRenderer('vega-lite'),
     }
     const codes = this.exportContainer.querySelectorAll(selector)
     for (const code of codes) {
       const rawCode = unescapeHtml(code.innerHTML)
-      const functionType = /sequence/.test(code.className) ? 'sequence' : (/flowchart/.test(code.className) ? 'flowchart' : 'vega-lite')
+      const functionType = /sequence/.test(code.className)
+        ? 'sequence'
+        : /flowchart/.test(code.className)
+        ? 'flowchart'
+        : 'vega-lite'
       const render = RENDER_MAP[functionType]
       const preParent = code.parentNode
       const diagramContainer = document.createElement('div')
@@ -77,7 +76,7 @@ class ExportHtml {
           actions: false,
           tooltip: false,
           renderer: 'svg',
-          theme: 'latimes' // only render light theme
+          theme: 'latimes', // only render light theme
         })
       }
       try {
@@ -85,7 +84,8 @@ class ExportHtml {
           const diagram = render.parse(rawCode)
           diagramContainer.innerHTML = ''
           diagram.drawSVG(diagramContainer, options)
-        } if (functionType === 'vega-lite') {
+        }
+        if (functionType === 'vega-lite') {
           await render(diagramContainer, JSON.parse(rawCode), options)
         }
       } catch (err) {
@@ -99,7 +99,7 @@ class ExportHtml {
 
     try {
       return katex.renderToString(math, {
-        displayMode
+        displayMode,
       })
     } catch (err) {
       return displayMode
@@ -109,12 +109,12 @@ class ExportHtml {
   }
 
   // render pure html by marked
-  async renderHtml () {
+  async renderHtml() {
     this.mathRendererCalled = false
     let html = marked(this.markdown, {
       superSubScript: this.muya ? this.muya.options.superSubScript : false,
       footnote: this.muya ? this.muya.options.footnote : false,
-      highlight (code, lang) {
+      highlight(code, lang) {
         // Language may be undefined (GH#591)
         if (!lang) {
           return code
@@ -131,7 +131,7 @@ class ExportHtml {
         }
         return Prism.highlight(code, grammar, lang)
       },
-      emojiRenderer (emoji) {
+      emojiRenderer(emoji) {
         const validate = validEmoji(emoji)
         if (validate) {
           return validate.emoji
@@ -139,12 +139,12 @@ class ExportHtml {
           return `:${emoji}:`
         }
       },
-      mathRenderer: this.mathRenderer
+      mathRenderer: this.mathRenderer,
     })
 
     html = sanitize(html, EXPORT_DOMPURIFY_CONFIG)
 
-    const exportContainer = this.exportContainer = document.createElement('div')
+    const exportContainer = (this.exportContainer = document.createElement('div'))
     exportContainer.classList.add('ag-render-container')
     exportContainer.innerHTML = html
     document.body.appendChild(exportContainer)
@@ -175,7 +175,7 @@ class ExportHtml {
    *
    * @param {*} options Document options
    */
-  async generate (options) {
+  async generate(options) {
     const { printOptimization } = options
 
     // WORKAROUND: Hide Prism.js style when exporting or printing. Otherwise the background color is white in the dark theme.
@@ -278,7 +278,7 @@ class ExportHtml {
    * @param {string} html The converted HTML text.
    * @param {*} options The export options.
    */
-  _prepareHtml (html, options) {
+  _prepareHtml(html, options) {
     const { header, footer } = options
     const appendHeaderFooter = !!header || !!footer
     if (!appendHeaderFooter) {
@@ -308,7 +308,7 @@ class ExportHtml {
 
 // Variables and function to generate the header and footer.
 const HF_TABLE_START = '<table class="page-container">'
-const createTableBody = html => {
+const createTableBody = (html) => {
   return `<tbody><tr><td>
   <div class="main-container">
     ${createMarkdownArticle(html)}
@@ -318,7 +318,7 @@ const createTableBody = html => {
 const HF_TABLE_END = '</table>'
 
 /// The header at is shown at the top.
-const createTableHeader = options => {
+const createTableHeader = (options) => {
   const { header, headerFooterStyled } = options
   const { type, left, center, right } = header
   let headerClass = type === 1 ? 'single' : ''
@@ -340,7 +340,7 @@ const HF_TABLE_FOOTER = `<tfoot class="page-footer-fake"><tr><td>
 </td></tr></tfoot>`
 
 /// The real footer at is shown at the bottom.
-const createRealFooter = options => {
+const createRealFooter = (options) => {
   const { footer, headerFooterStyled } = options
   const { type, left, center, right } = footer
   let footerClass = type === 1 ? 'single' : ''
@@ -355,12 +355,12 @@ const createRealFooter = options => {
 }
 
 /// Generate the mardown article HTML.
-const createMarkdownArticle = html => {
+const createMarkdownArticle = (html) => {
   return `<article class="markdown-body">${html}</article>`
 }
 
 /// Return the class whether a header/footer should be styled.
-const getHeaderFooterStyledClass = value => {
+const getHeaderFooterStyledClass = (value) => {
   if (value === undefined) {
     // Prefer theme settings.
     return ''

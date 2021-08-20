@@ -8,7 +8,7 @@ export const beginRules = {
   reference_definition: /^( {0,3}\[)([^\]]+?)(\\*)(\]: *)(<?)([^\s>]+)(>?)(?:( +)(["'(]?)([^\n"'\(\)]+)\9)?( *)$/,
 
   // extra syntax (not belogs to GFM)
-  multiple_math: /^(\$\$)$/
+  multiple_math: /^(\$\$)$/,
 }
 
 export const inlineRules = {
@@ -34,7 +34,7 @@ export const inlineRules = {
   backlash: /^(\\)([\\`*{}\[\]()#+\-.!_>~:\|\<\>$]{1})/,
 
   // Markdown extensions (not belongs to GFM and Commonmark)
-  inline_math: /^(\$)([^\$]*?[^\$\\])(\\*)\1(?!\1)/
+  inline_math: /^(\$)([^\$]*?[^\$\\])(\\*)\1(?!\1)/,
 }
 
 // Markdown extensions (not belongs to GFM and Commonmark)
@@ -42,6 +42,6 @@ export const inlineExtensionRules = {
   // This is not the best regexp, because it not support `2^2\\^`.
   superscript: /^(\^)((?:[^\^\s]|(?<=\\)\1|(?<=\\) )+?)(?<!\\)\1(?!\1)/,
   subscript: /^(~)((?:[^~\s]|(?<=\\)\1|(?<=\\) )+?)(?<!\\)\1(?!\1)/,
-  footnote_identifier: /^(\[\^)([^\^\[\]\s]+?)(?<!\\)\]/
+  footnote_identifier: /^(\[\^)([^\^\[\]\s]+?)(?<!\\)\]/,
 }
 /* eslint-enable no-useless-escape */

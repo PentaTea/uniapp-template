@@ -10,7 +10,7 @@ export default function loadImageAsync(imageInfo, attrs, className, imageClass) 
   let h
 
   if (!this.loadImageMap.has(src)) {
-    console.log(src);
+    console.log(src)
     id = getUniqueId()
     loadImage(src, isUnknownType)
       .then(({ url, width, height }) => {
@@ -51,11 +51,11 @@ export default function loadImageAsync(imageInfo, attrs, className, imageClass) 
           id,
           isSuccess: true,
           width,
-          height
+          height,
         })
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e)
         const imageText = document.querySelector(`#${id}`)
         if (imageText) {
           operateClassName(imageText, 'remove', CLASS_OR_ID.AG_IMAGE_LOADING)
@@ -70,7 +70,7 @@ export default function loadImageAsync(imageInfo, attrs, className, imageClass) 
         }
         this.loadImageMap.set(src, {
           id,
-          isSuccess: false
+          isSuccess: false,
         })
       })
   } else {

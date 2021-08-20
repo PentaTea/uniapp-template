@@ -1,8 +1,8 @@
-const linkCtrl = ContentState => {
+const linkCtrl = (ContentState) => {
   /**
    * Change a link into text.
    */
-  ContentState.prototype.unlink = function (linkInfo) {
+  ContentState.prototype.unlink = function(linkInfo) {
     const { key, token } = linkInfo
     const block = this.getBlock(key)
     const { text } = block
@@ -30,12 +30,12 @@ const linkCtrl = ContentState => {
     this.cursor = {
       start: {
         key,
-        offset: token.range.start
+        offset: token.range.start,
       },
       end: {
         key,
-        offset: +token.range.start + anchor.length
-      }
+        offset: +token.range.start + anchor.length,
+      },
     }
 
     this.singleRender(block)

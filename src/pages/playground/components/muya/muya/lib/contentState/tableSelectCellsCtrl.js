@@ -1,7 +1,7 @@
 import { getAllTableCells, getIndex } from './tableDragBarCtrl'
 
-const tableSelectCellsCtrl = ContentState => {
-  ContentState.prototype.handleCellMouseDown = function (event) {
+const tableSelectCellsCtrl = (ContentState) => {
+  ContentState.prototype.handleCellMouseDown = function(event) {
     if (event.buttons === 2) {
       // the contextmenu is emit.
       return
@@ -17,20 +17,28 @@ const tableSelectCellsCtrl = ContentState => {
       anchor: {
         key: cell.id,
         row,
-        column
+        column,
       },
       focus: null,
       isStartSelect: false,
       cells: getAllTableCells(tableId),
-      selectedCells: []
+      selectedCells: [],
     }
 
-    const mouseMoveId = eventCenter.attachDOMEvent(document.body, 'mousemove', this.handleCellMouseMove.bind(this))
-    const mouseUpId = eventCenter.attachDOMEvent(document.body, 'mouseup', this.handleCellMouseUp.bind(this))
+    const mouseMoveId = eventCenter.attachDOMEvent(
+      document.body,
+      'mousemove',
+      this.handleCellMouseMove.bind(this)
+    )
+    const mouseUpId = eventCenter.attachDOMEvent(
+      document.body,
+      'mouseup',
+      this.handleCellMouseUp.bind(this)
+    )
     this.cellSelectEventIds.push(mouseMoveId, mouseUpId)
   }
 
-  ContentState.prototype.handleCellMouseMove = function (event) {
+  ContentState.prototype.handleCellMouseMove = function(event) {
     const { target } = event
     const cell = target.closest('th') || target.closest('td')
     const table = target.closest('table')
@@ -45,7 +53,7 @@ const tableSelectCellsCtrl = ContentState => {
       this.cellSelectInfo.focus = {
         key: cell.key,
         row,
-        column
+        column,
       }
     } else {
       this.cellSelectInfo.focus = null
@@ -55,7 +63,7 @@ const tableSelectCellsCtrl = ContentState => {
     this.setSelectedCellsStyle()
   }
 
-  ContentState.prototype.handleCellMouseUp = function (event) {
+  ContentState.prototype.handleCellMouseUp = function(event) {
     const { eventCenter } = this.muya
     for (const id of this.cellSelectEventIds) {
       eventCenter.detachDOMEvent(id)
@@ -75,10 +83,10 @@ const tableSelectCellsCtrl = ContentState => {
           tableId,
           row: Math.abs(anchor.row - focus.row) + 1, // 1 base
           column: Math.abs(anchor.column - focus.column) + 1, // 1 base
-          cells: selectedCells.map(c => {
+          cells: selectedCells.map((c) => {
             delete c.ele
             return c
-          })
+          }),
         }
         this.cellSelectInfo = null
         const table = this.getBlock(tableId)
@@ -87,7 +95,7 @@ const tableSelectCellsCtrl = ContentState => {
     }
   }
 
-  ContentState.prototype.calculateSelectedCells = function () {
+  ContentState.prototype.calculateSelectedCells = function() {
     const { anchor, focus, cells } = this.cellSelectInfo
     this.cellSelectInfo.selectedCells = []
     if (focus) {
@@ -110,14 +118,14 @@ const tableSelectCellsCtrl = ContentState => {
             top: i === startRowIndex,
             right: j === endColIndex,
             bottom: i === endRowIndex,
-            left: j === startColIndex
+            left: j === startColIndex,
           })
         }
       }
     }
   }
 
-  ContentState.prototype.setSelectedCellsStyle = function () {
+  ContentState.prototype.setSelectedCellsStyle = function() {
     const { selectedCells, cells } = this.cellSelectInfo
     for (const row of cells) {
       for (const cell of row) {
@@ -149,7 +157,7 @@ const tableSelectCellsCtrl = ContentState => {
 
   // Remove the content of selected table cell, delete the row/column if selected one row/column without content.
   // Delete the table if the selected whole table is empty.
-  ContentState.prototype.deleteSelectedTableCells = function (isCut = false) {
+  ContentState.prototype.deleteSelectedTableCells = function(isCut = false) {
     const { tableId, cells } = this.selectedTableCells
     const tableBlock = this.getBlock(tableId)
     const { row, column } = tableBlock
@@ -175,7 +183,8 @@ const tableSelectCellsCtrl = ContentState => {
 
     const isOneColumnSelected = rows.size === +row + 1 && isSameColumn
     const isOneRowSelected = cells.length === +column + 1 && rows.size === 1
-    const isWholeTableSelected = rows.size === +row + 1 && cells.length === (+row + 1) * (+column + 1)
+    const isWholeTableSelected =
+      rows.size === +row + 1 && cells.length === (+row + 1) * (+column + 1)
 
     if (isCut && isWholeTableSelected) {
       this.selectedTableCells = null
@@ -193,18 +202,24 @@ const tableSelectCellsCtrl = ContentState => {
       this.selectedTableCells = null
       if (isOneColumnSelected) {
         // Remove one empty column
-        return this.editTable({
-          location: 'current',
-          action: 'remove',
-          target: 'column'
-        }, cellContentKey)
+        return this.editTable(
+          {
+            location: 'current',
+            action: 'remove',
+            target: 'column',
+          },
+          cellContentKey
+        )
       } else if (isOneRowSelected) {
         // Remove one empty row
-        return this.editTable({
-          location: 'current',
-          action: 'remove',
-          target: 'row'
-        }, cellContentKey)
+        return this.editTable(
+          {
+            location: 'current',
+            action: 'remove',
+            target: 'row',
+          },
+          cellContentKey
+        )
       } else if (isWholeTableSelected) {
         // Select whole empty table
         return this.deleteParagraph(tableId)
@@ -212,28 +227,28 @@ const tableSelectCellsCtrl = ContentState => {
     }
   }
 
-  ContentState.prototype.selectTable = function (table) {
+  ContentState.prototype.selectTable = function(table) {
     // For calculateSelectedCells
     this.cellSelectInfo = {
       anchor: {
         row: 0,
-        column: 0
+        column: 0,
       },
       focus: {
         row: table.row,
-        column: table.column
+        column: table.column,
       },
-      cells: getAllTableCells(table.key)
+      cells: getAllTableCells(table.key),
     }
     this.calculateSelectedCells()
     this.selectedTableCells = {
       tableId: table.key,
       row: table.row + 1,
       column: table.column + 1,
-      cells: this.cellSelectInfo.selectedCells.map(c => {
+      cells: this.cellSelectInfo.selectedCells.map((c) => {
         delete c.ele
         return c
-      })
+      }),
     }
     // reset cellSelectInfo
     this.cellSelectInfo = null
@@ -242,7 +257,7 @@ const tableSelectCellsCtrl = ContentState => {
   }
 
   // Return the cell block if yes, else return null.
-  ContentState.prototype.isSingleCellSelected = function () {
+  ContentState.prototype.isSingleCellSelected = function() {
     const { selectedTableCells } = this
     if (selectedTableCells && selectedTableCells.cells.length === 1) {
       const key = selectedTableCells.cells[0].key
@@ -253,11 +268,15 @@ const tableSelectCellsCtrl = ContentState => {
   }
 
   // Return the cell block if yes, else return null.
-  ContentState.prototype.isWholeTableSelected = function () {
+  ContentState.prototype.isWholeTableSelected = function() {
     const { selectedTableCells } = this
     const table = selectedTableCells ? this.getBlock(selectedTableCells.tableId) : {}
     const { row, column } = table
-    if (selectedTableCells && table && selectedTableCells.cells.length === (+row + 1) * (+column + 1)) {
+    if (
+      selectedTableCells &&
+      table &&
+      selectedTableCells.cells.length === (+row + 1) * (+column + 1)
+    ) {
       return table
     }
 

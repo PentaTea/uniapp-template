@@ -11,12 +11,12 @@ class TablePicker extends BaseFloat {
     super(muya, name)
     this.checkerCount = {
       row: 6,
-      column: 8
+      column: 8,
     }
     this.oldVnode = null
     this.current = null
     this.select = null
-    const tableContainer = this.tableContainer = document.createElement('div')
+    const tableContainer = (this.tableContainer = document.createElement('div'))
     this.container.appendChild(tableContainer)
     this.listen()
   }
@@ -56,25 +56,27 @@ class TablePicker extends BaseFloat {
         if (i <= sRow && j <= sColumn) {
           cellSelector += '.selected'
         }
-        cells.push(h(cellSelector, {
-          key: j.toString(),
-          dataset: {
-            row: i.toString(),
-            column: j.toString()
-          },
-          on: {
-            mouseenter: event => {
-              const { target } = event
-              const r = target.getAttribute('data-row')
-              const c = target.getAttribute('data-column')
-              this.select = { row: r, column: c }
-              this.render()
+        cells.push(
+          h(cellSelector, {
+            key: j.toString(),
+            dataset: {
+              row: i.toString(),
+              column: j.toString(),
             },
-            click: _ => {
-              this.selectItem()
-            }
-          }
-        }))
+            on: {
+              mouseenter: (event) => {
+                const { target } = event
+                const r = target.getAttribute('data-row')
+                const c = target.getAttribute('data-column')
+                this.select = { row: r, column: c }
+                this.render()
+              },
+              click: (_) => {
+                this.selectItem()
+              },
+            },
+          })
+        )
       }
 
       tableRows.push(h(rowSelector, cells))
@@ -84,39 +86,43 @@ class TablePicker extends BaseFloat {
       h('input.row-input', {
         props: {
           type: 'text',
-          value: +this.select.row + 1
+          value: +this.select.row + 1,
         },
         on: {
-          keyup: event => {
+          keyup: (event) => {
             this.keyupHandler(event, 'row')
           },
-          focus: event => {
+          focus: (event) => {
             event.target.select()
-          }
-        }
+          },
+        },
       }),
       'x',
       h('input.column-input', {
         props: {
           type: 'text',
-          value: +this.select.column + 1
+          value: +this.select.column + 1,
         },
         on: {
-          keyup: event => {
+          keyup: (event) => {
             this.keyupHandler(event, 'column')
           },
-          focus: event => {
+          focus: (event) => {
             event.target.select()
-          }
-        }
+          },
+        },
       }),
-      h('button', {
-        on: {
-          click: _ => {
-            this.selectItem()
-          }
-        }
-      }, 'OK')
+      h(
+        'button',
+        {
+          on: {
+            click: (_) => {
+              this.selectItem()
+            },
+          },
+        },
+        'OK'
+      ),
     ])
 
     const vnode = h('div', [h('div.checker', tableRows), tableFooter])
@@ -147,7 +153,8 @@ class TablePicker extends BaseFloat {
     }
   }
 
-  show(current, reference, cb) { // current { row, column } zero base
+  show(current, reference, cb) {
+    // current { row, column } zero base
     this.current = this.select = current
     super.show(reference, cb)
   }

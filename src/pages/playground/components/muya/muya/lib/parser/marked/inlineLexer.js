@@ -8,7 +8,7 @@ import { validateEmphasize, lowerPriority } from '../utils'
  * Inline Lexer & Compiler
  */
 
-function InlineLexer (links, footnotes, options) {
+function InlineLexer(links, footnotes, options) {
   this.options = options || defaultOptions
   this.links = links
   this.footnotes = footnotes
@@ -47,7 +47,7 @@ function InlineLexer (links, footnotes, options) {
  * Lexing/Compiling
  */
 
-InlineLexer.prototype.output = function (src) {
+InlineLexer.prototype.output = function(src) {
   // src = src
   // .replace(/\u00a0/g, ' ')
   const { disableInline, emoji, math, superSubScript, footnote } = this.options
@@ -141,7 +141,7 @@ InlineLexer.prototype.output = function (src) {
       href = href.trim().replace(/^<([\s\S]*)>$/, '$1')
       out += this.outputLink(cap, {
         href: this.escapes(href),
-        title: this.escapes(title)
+        title: this.escapes(title),
       })
       this.inLink = false
       continue
@@ -203,7 +203,13 @@ InlineLexer.prototype.output = function (src) {
     cap = this.rules.strong.exec(src)
     if (cap) {
       const marker = cap[0].match(/^(?:_{1,2}|\*{1,2})/)[0]
-      const isValid = validateEmphasize(src, cap[0].length, marker, lastChar, this.highPriorityEmpRules)
+      const isValid = validateEmphasize(
+        src,
+        cap[0].length,
+        marker,
+        lastChar,
+        this.highPriorityEmpRules
+      )
       if (isValid) {
         src = src.substring(cap[0].length)
         lastChar = cap[0].charAt(cap[0].length - 1)
@@ -216,11 +222,19 @@ InlineLexer.prototype.output = function (src) {
     cap = this.rules.em.exec(src)
     if (cap) {
       const marker = cap[0].match(/^(?:_{1,2}|\*{1,2})/)[0]
-      const isValid = validateEmphasize(src, cap[0].length, marker, lastChar, this.highPriorityEmpRules)
+      const isValid = validateEmphasize(
+        src,
+        cap[0].length,
+        marker,
+        lastChar,
+        this.highPriorityEmpRules
+      )
       if (isValid) {
         src = src.substring(cap[0].length)
         lastChar = cap[0].charAt(cap[0].length - 1)
-        out += this.renderer.em(this.output(cap[6] || cap[5] || cap[4] || cap[3] || cap[2] || cap[1]))
+        out += this.renderer.em(
+          this.output(cap[6] || cap[5] || cap[4] || cap[3] || cap[2] || cap[1])
+        )
         continue
       }
     }
@@ -299,7 +313,13 @@ InlineLexer.prototype.output = function (src) {
       src = src.substring(cap[0].length)
       lastChar = cap[0].charAt(cap[0].length - 1)
       if (this.inRawBlock) {
-        out += this.renderer.text(this.options.sanitize ? (this.options.sanitizer ? this.options.sanitizer(cap[0]) : escape(cap[0])) : cap[0])
+        out += this.renderer.text(
+          this.options.sanitize
+            ? this.options.sanitizer
+              ? this.options.sanitizer(cap[0])
+              : escape(cap[0])
+            : cap[0]
+        )
       } else {
         out += this.renderer.text(escape(this.smartypants(cap[0])))
       }
@@ -314,7 +334,7 @@ InlineLexer.prototype.output = function (src) {
   return out
 }
 
-InlineLexer.prototype.escapes = function (text) {
+InlineLexer.prototype.escapes = function(text) {
   return text ? text.replace(this.rules._escapes, '$1') : text
 }
 
@@ -322,7 +342,7 @@ InlineLexer.prototype.escapes = function (text) {
  * Compile Link
  */
 
-InlineLexer.prototype.outputLink = function (cap, link) {
+InlineLexer.prototype.outputLink = function(cap, link) {
   const href = link.href
   const title = link.title ? escape(link.title) : null
 
@@ -335,24 +355,26 @@ InlineLexer.prototype.outputLink = function (cap, link) {
  * Smartypants Transformations
  */
 
-InlineLexer.prototype.smartypants = function (text) {
+InlineLexer.prototype.smartypants = function(text) {
   /* eslint-disable no-useless-escape */
   if (!this.options.smartypants) return text
-  return text
-    // em-dashes
-    .replace(/---/g, '\u2014')
-    // en-dashes
-    .replace(/--/g, '\u2013')
-    // opening singles
-    .replace(/(^|[-\u2014/(\[{"\s])'/g, '$1\u2018')
-    // closing singles & apostrophes
-    .replace(/'/g, '\u2019')
-    // opening doubles
-    .replace(/(^|[-\u2014/(\[{\u2018\s])"/g, '$1\u201c')
-    // closing doubles
-    .replace(/"/g, '\u201d')
-    // ellipses
-    .replace(/\.{3}/g, '\u2026')
+  return (
+    text
+      // em-dashes
+      .replace(/---/g, '\u2014')
+      // en-dashes
+      .replace(/--/g, '\u2013')
+      // opening singles
+      .replace(/(^|[-\u2014/(\[{"\s])'/g, '$1\u2018')
+      // closing singles & apostrophes
+      .replace(/'/g, '\u2019')
+      // opening doubles
+      .replace(/(^|[-\u2014/(\[{\u2018\s])"/g, '$1\u201c')
+      // closing doubles
+      .replace(/"/g, '\u201d')
+      // ellipses
+      .replace(/\.{3}/g, '\u2026')
+  )
   /* eslint-ensable no-useless-escape */
 }
 
@@ -360,7 +382,7 @@ InlineLexer.prototype.smartypants = function (text) {
  * Mangle Links
  */
 
-InlineLexer.prototype.mangle = function (text) {
+InlineLexer.prototype.mangle = function(text) {
   if (!this.options.mangle) return text
   const l = text.length
   let out = ''

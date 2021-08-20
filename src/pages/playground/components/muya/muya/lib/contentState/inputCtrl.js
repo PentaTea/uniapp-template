@@ -11,9 +11,9 @@ const BRACKET_HASH = {
   '*': '*',
   _: '_',
   '"': '"',
-  '\'': '\'',
+  "'": "'",
   $: '$',
-  '~': '~'
+  '~': '~',
 }
 
 const BACK_HASH = {
@@ -23,44 +23,46 @@ const BACK_HASH = {
   '*': '*',
   _: '_',
   '"': '"',
-  '\'': '\'',
+  "'": "'",
   $: '$',
-  '~': '~'
+  '~': '~',
 }
 
 // TODO: refactor later.
 let renderCodeBlockTimer = null
 
-const inputCtrl = ContentState => {
+const inputCtrl = (ContentState) => {
   // Input @ to quick insert paragraph
-  ContentState.prototype.checkQuickInsert = function (block) {
+  ContentState.prototype.checkQuickInsert = function(block) {
     const { type, text, functionType } = block
     if (type !== 'span' || functionType !== 'paragraphContent') return false
     return /^@\S*$/.test(text)
   }
 
-  ContentState.prototype.checkCursorInTokenType = function (functionType, text, offset, type) {
+  ContentState.prototype.checkCursorInTokenType = function(functionType, text, offset, type) {
     if (!/atxLine|paragraphContent|cellContent/.test(functionType)) {
       return false
     }
 
     const tokens = tokenizer(text, {
       hasBeginRules: false,
-      options: this.muya.options
+      options: this.muya.options,
     })
-    return tokens.filter(t => t.type === type).some(t => offset >= t.range.start && offset <= t.range.end)
+    return tokens
+      .filter((t) => t.type === type)
+      .some((t) => offset >= t.range.start && offset <= t.range.end)
   }
 
-  ContentState.prototype.checkNotSameToken = function (functionType, oldText, text) {
+  ContentState.prototype.checkNotSameToken = function(functionType, oldText, text) {
     if (!/atxLine|paragraphContent|cellContent/.test(functionType)) {
       return false
     }
 
     const oldTokens = tokenizer(oldText, {
-      options: this.muya.options
+      options: this.muya.options,
     })
     const tokens = tokenizer(text, {
-      options: this.muya.options
+      options: this.muya.options,
     })
 
     const oldCache = {}
@@ -95,7 +97,7 @@ const inputCtrl = ContentState => {
     return false
   }
 
-  ContentState.prototype.inputHandler = function (event, notEqual = false) {
+  ContentState.prototype.inputHandler = function(event, notEqual = false) {
     const { start, end } = selection.getCursorRange()
     if (!start || !end) {
       return
@@ -119,7 +121,7 @@ const inputCtrl = ContentState => {
       const offset = block.text.length
       this.cursor = {
         start: { key, offset },
-        end: { key, offset }
+        end: { key, offset },
       }
       this.singleRender(block)
       return this.inputHandler(event, true)
@@ -163,11 +165,7 @@ const inputCtrl = ContentState => {
 
     // auto pair (not need to auto pair in math block)
     if (block && (block.text !== text || notEqual)) {
-      if (
-        start.key === end.key &&
-        start.offset === end.offset &&
-        event.type === 'input'
-      ) {
+      if (start.key === end.key && start.offset === end.offset && event.type === 'input') {
         const { offset } = start
         const { autoPairBracket, autoPairMarkdownSyntax, autoPairQuote } = this.muya.options
         const inputChar = text.charAt(+offset - 1)
@@ -178,7 +176,10 @@ const inputCtrl = ContentState => {
         if (/^delete/.test(event.inputType)) {
           // handle `deleteContentBackward` or `deleteContentForward`
           const deletedChar = block.text[offset]
-          if (event.inputType === 'deleteContentBackward' && postInputChar === BRACKET_HASH[deletedChar]) {
+          if (
+            event.inputType === 'deleteContentBackward' &&
+            postInputChar === BRACKET_HASH[deletedChar]
+          ) {
             needRender = true
             text = text.substring(0, offset) + text.substring(offset + 1)
           }
@@ -190,29 +191,43 @@ const inputCtrl = ContentState => {
           }
           /* eslint-disable no-useless-escape */
         } else if (
-          (event.inputType.indexOf('delete') === -1) &&
-          (inputChar === postInputChar) &&
-          (
-            (autoPairQuote && /[']{1}/.test(inputChar)) ||
+          event.inputType.indexOf('delete') === -1 &&
+          inputChar === postInputChar &&
+          ((autoPairQuote && /[']{1}/.test(inputChar)) ||
             (autoPairQuote && /["]{1}/.test(inputChar)) ||
             (autoPairBracket && /[\}\]\)]{1}/.test(inputChar)) ||
             (autoPairMarkdownSyntax && /[$]{1}/.test(inputChar)) ||
-            (autoPairMarkdownSyntax && /[*$`~_]{1}/.test(inputChar)) && /[_*~]{1}/.test(prePreInputChar)
-          )
+            (autoPairMarkdownSyntax &&
+              /[*$`~_]{1}/.test(inputChar) &&
+              /[_*~]{1}/.test(prePreInputChar)))
         ) {
           needRender = true
           text = text.substring(0, offset) + text.substring(offset + 1)
         } else {
           /* eslint-disable no-useless-escape */
           // Not Unicode aware, since things like \p{Alphabetic} or \p{L} are not supported yet
-          const isInInlineMath = this.checkCursorInTokenType(block.functionType, text, offset, 'inline_math')
-          const isInInlineCode = this.checkCursorInTokenType(block.functionType, text, offset, 'inline_code')
+          const isInInlineMath = this.checkCursorInTokenType(
+            block.functionType,
+            text,
+            offset,
+            'inline_math'
+          )
+          const isInInlineCode = this.checkCursorInTokenType(
+            block.functionType,
+            text,
+            offset,
+            'inline_code'
+          )
           if (
             !/\\/.test(preInputChar) &&
-            ((autoPairQuote && /[']{1}/.test(inputChar) && !(/[a-zA-Z\d]{1}/.test(preInputChar))) ||
-            (autoPairQuote && /["]{1}/.test(inputChar)) ||
-            (autoPairBracket && /[\{\[\(]{1}/.test(inputChar)) ||
-            (block.functionType !== 'codeContent' && !isInInlineMath && !isInInlineCode && autoPairMarkdownSyntax && /[*$`~_]{1}/.test(inputChar)))
+            ((autoPairQuote && /[']{1}/.test(inputChar) && !/[a-zA-Z\d]{1}/.test(preInputChar)) ||
+              (autoPairQuote && /["]{1}/.test(inputChar)) ||
+              (autoPairBracket && /[\{\[\(]{1}/.test(inputChar)) ||
+              (block.functionType !== 'codeContent' &&
+                !isInInlineMath &&
+                !isInInlineCode &&
+                autoPairMarkdownSyntax &&
+                /[*$`~_]{1}/.test(inputChar)))
           ) {
             needRender = true
             text = BRACKET_HASH[event.data]
@@ -272,19 +287,22 @@ const inputCtrl = ContentState => {
     const rect = paragraph.getBoundingClientRect()
     const checkQuickInsert = this.checkQuickInsert(block)
     const reference = this.getPositionReference()
-    reference.getBoundingClientRect = function () {
+    reference.getBoundingClientRect = function() {
       const { x, y, left, top, height, bottom } = rect
 
-      return Object.assign({}, {
-        left,
-        x,
-        top,
-        y,
-        bottom,
-        height,
-        width: 0,
-        right: left
-      })
+      return Object.assign(
+        {},
+        {
+          left,
+          x,
+          top,
+          y,
+          bottom,
+          height,
+          width: 0,
+          right: left,
+        }
+      )
     }
 
     this.muya.eventCenter.dispatch('muya-quick-insert', reference, block, !!checkQuickInsert)
@@ -306,7 +324,9 @@ const inputCtrl = ContentState => {
       return
     }
 
-    const checkMarkedUpdate = /atxLine|paragraphContent|cellContent/.test(block.functionType) ? this.checkNeedRender() : false
+    const checkMarkedUpdate = /atxLine|paragraphContent|cellContent/.test(block.functionType)
+      ? this.checkNeedRender()
+      : false
     let inlineUpdatedBlock = null
     if (/atxLine|paragraphContent|cellContent|thematicBreakLine/.test(block.functionType)) {
       inlineUpdatedBlock = this.isCollapse() && this.checkInlineUpdate(block)

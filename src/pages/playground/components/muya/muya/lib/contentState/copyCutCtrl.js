@@ -5,8 +5,8 @@ import { getSanitizeHtml } from '../utils/exportHtml'
 import ExportMarkdown from '../utils/exportMarkdown'
 import marked from '../parser/marked'
 
-const copyCutCtrl = ContentState => {
-  ContentState.prototype.docCutHandler = function (event) {
+const copyCutCtrl = (ContentState) => {
+  ContentState.prototype.docCutHandler = function(event) {
     const { selectedTableCells } = this
     if (selectedTableCells) {
       event.preventDefault()
@@ -14,7 +14,7 @@ const copyCutCtrl = ContentState => {
     }
   }
 
-  ContentState.prototype.cutHandler = function () {
+  ContentState.prototype.cutHandler = function() {
     if (this.selectedTableCells) {
       return
     }
@@ -23,7 +23,7 @@ const copyCutCtrl = ContentState => {
       const { key, token } = selectedImage
       this.deleteImage({
         key,
-        token
+        token,
       })
       return
     }
@@ -33,19 +33,20 @@ const copyCutCtrl = ContentState => {
     }
     const startBlock = this.getBlock(start.key)
     const endBlock = this.getBlock(end.key)
-    startBlock.text = startBlock.text.substring(0, start.offset) + endBlock.text.substring(end.offset)
+    startBlock.text =
+      startBlock.text.substring(0, start.offset) + endBlock.text.substring(end.offset)
     if (start.key !== end.key) {
       this.removeBlocks(startBlock, endBlock)
     }
     this.cursor = {
       start,
-      end: start
+      end: start,
     }
     this.checkInlineUpdate(startBlock)
     this.partialRender()
   }
 
-  ContentState.prototype.getClipBoradData = function () {
+  ContentState.prototype.getClipBoradData = function() {
     const { start, end } = selection.getCursorRange()
     if (!start || !end) {
       return { html: '', text: '' }
@@ -58,7 +59,7 @@ const copyCutCtrl = ContentState => {
         const selectedText = escapeHtml(text.substring(start.offset, end.offset))
         return {
           html: marked(selectedText, this.muya.options),
-          text: selectedText
+          text: selectedText,
         }
       }
     }
@@ -88,7 +89,11 @@ const copyCutCtrl = ContentState => {
       if (firstChild && firstChild.nodeName !== 'INPUT') {
         const originItem = document.querySelector(`#${item.id}`)
         let checked = false
-        if (originItem && originItem.firstElementChild && originItem.firstElementChild.nodeName === 'INPUT') {
+        if (
+          originItem &&
+          originItem.firstElementChild &&
+          originItem.firstElementChild.nodeName === 'INPUT'
+        ) {
           checked = originItem.firstElementChild.checked
         }
 
@@ -153,7 +158,7 @@ const copyCutCtrl = ContentState => {
       l.replaceWith(span)
     }
 
-    const codefense = wrapper.querySelectorAll('pre[data-role$=\'code\']')
+    const codefense = wrapper.querySelectorAll("pre[data-role$='code']")
     for (const cf of codefense) {
       const id = cf.id
       const block = this.getBlock(id)
@@ -166,13 +171,17 @@ const copyCutCtrl = ContentState => {
     const tightListItem = wrapper.querySelectorAll('.ag-tight-list-item')
     for (const li of tightListItem) {
       for (const item of li.childNodes) {
-        if (item.tagName === 'P' && item.childElementCount === 1 && item.classList.contains('ag-paragraph')) {
+        if (
+          item.tagName === 'P' &&
+          item.childElementCount === 1 &&
+          item.classList.contains('ag-paragraph')
+        ) {
           li.replaceChild(item.firstElementChild, item)
         }
       }
     }
 
-    const htmlBlock = wrapper.querySelectorAll('figure[data-role=\'HTML\']')
+    const htmlBlock = wrapper.querySelectorAll("figure[data-role='HTML']")
     for (const hb of htmlBlock) {
       const codeContent = hb.querySelector('.ag-code-content')
       const pre = document.createElement('pre')
@@ -218,13 +227,13 @@ const copyCutCtrl = ContentState => {
     return { html: htmlData, text: textData }
   }
 
-  ContentState.prototype.docCopyHandler = function (event) {
+  ContentState.prototype.docCopyHandler = function(event) {
     const { selectedTableCells } = this
     if (selectedTableCells) {
       event.preventDefault()
       const { row, column, cells } = selectedTableCells
       const figureBlock = this.createBlock('figure', {
-        functionType: 'table'
+        functionType: 'table',
       })
       const tableContents = []
       let i
@@ -236,7 +245,7 @@ const copyCutCtrl = ContentState => {
 
           rowWrapper.push({
             text: cell.text,
-            align: cell.align
+            align: cell.align,
           })
         }
         tableContents.push(rowWrapper)
@@ -252,7 +261,7 @@ const copyCutCtrl = ContentState => {
     }
   }
 
-  ContentState.prototype.copyHandler = function (event, type, copyInfo = null) {
+  ContentState.prototype.copyHandler = function(event, type, copyInfo = null) {
     if (this.selectedTableCells) {
       // Hand over to docCopyHandler
       return
@@ -280,9 +289,12 @@ const copyCutCtrl = ContentState => {
       }
       case 'copyAsHtml': {
         event.clipboardData.setData('text/html', '')
-        event.clipboardData.setData('text/plain', getSanitizeHtml(text, {
-          superSubScript: this.muya.options.superSubScript
-        }))
+        event.clipboardData.setData(
+          'text/plain',
+          getSanitizeHtml(text, {
+            superSubScript: this.muya.options.superSubScript,
+          })
+        )
         break
       }
 

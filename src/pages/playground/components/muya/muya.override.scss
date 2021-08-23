@@ -46,6 +46,8 @@
   }
 
   .ag-quick-insert {
+    max-height: 500px;
+
     .no-result {
       position: relative;
       visibility: hidden;
@@ -85,9 +87,12 @@
 
     div[data-search='false'] {
       section:not(:last-child) {
-        display: grid;
         padding-bottom: 5px;
         border-bottom: 1px solid #dfe2e5;
+      }
+
+      section {
+        display: grid;
         grid-template-columns: repeat(3, 33%);
 
         .title {
@@ -275,5 +280,9 @@
 
   .ag-code-copy {
     display: none;
+  }
+
+  .ag-paragraph[data-role='HTML']:not(.ag-active) {
+    background: rgba(0, 0, 0, 0.03) !important;
   }
 }

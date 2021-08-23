@@ -365,7 +365,7 @@ export default async function() {
         },
       })
     })
-  }, 100)
+  }, 500)
   // #ifdef APP-PLUS
   // 监听并提示设备网络状态变化
   uni.onNetworkStatusChange((res) => {

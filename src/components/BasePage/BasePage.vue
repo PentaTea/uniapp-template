@@ -109,10 +109,10 @@ export default class extends Mixins(Vue, MescrollMixin) {
     console.log(e)
     uni.switchTab({ url: '/' + e.pagePath })
   }
-  screenHeight = uni.getSystemInfoSync().screenHeight
+  windowHeight = uni.getSystemInfoSync().windowHeight
   get scrollHeight() {
     return (
-      this.screenHeight -
+      this.windowHeight -
       (!this.noPlaceholder ? app.Global.navData.height : 0) -
       this.exHeight -
       (this.tabBar ? uni.upx2px(100) : 0) +

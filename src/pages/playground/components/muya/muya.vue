@@ -98,7 +98,7 @@ export default {
   computed: {},
   mounted() {
     const muya = new Muya(document.querySelector('#editor'), {
-      markdown: 'Welcome to use muya.....',
+      markdown: '',
       // ...options
     })
     muya.on('change', (change) => {
@@ -148,7 +148,7 @@ export default {
 }
 
 .status-bar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 9999;
@@ -158,7 +158,7 @@ export default {
   backdrop-filter: blur(4px);
 
   .status {
-    position: absolute !important;
+    position: fixed !important;
     top: var(--statusBarHeight) !important;
     display: flex;
     width: 100%;

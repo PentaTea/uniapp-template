@@ -160,30 +160,30 @@ export const quickInsertObj = {
       icon: htmlIcon,
     },
   ],
-  图表: [
-    // {
-    //   title: 'Vega Chart',
-    //   subTitle: 'Render flow chart by vega-lite.js.',
-    //   label: 'vega-lite',
-    //   icon: vegaIcon,
-    // },
-    {
-      title: 'Flow Chart',
-      subTitle: 'Render flow chart by flowchart.js.',
-      label: 'flowchart',
-      icon: flowchartIcon,
-    },
-    {
-      title: 'Sequence Diagram',
-      subTitle: 'Render sequence diagram by js-sequence.',
-      label: 'sequence',
-      icon: sequenceIcon,
-    },
-    {
-      title: 'Mermaid',
-      subTitle: 'Render Diagram by mermaid.',
-      label: 'mermaid',
-      icon: mermaidIcon,
-    },
-  ],
+  // 图表: [
+  //   {
+  //     title: 'Vega Chart',
+  //     subTitle: 'Render flow chart by vega-lite.js.',
+  //     label: 'vega-lite',
+  //     icon: vegaIcon,
+  //   },
+  //   {
+  //     title: 'Flow Chart',
+  //     subTitle: 'Render flow chart by flowchart.js.',
+  //     label: 'flowchart',
+  //     icon: flowchartIcon,
+  //   },
+  //   {
+  //     title: 'Sequence Diagram',
+  //     subTitle: 'Render sequence diagram by js-sequence.',
+  //     label: 'sequence',
+  //     icon: sequenceIcon,
+  //   },
+  //   {
+  //     title: 'Mermaid',
+  //     subTitle: 'Render Diagram by mermaid.',
+  //     label: 'mermaid',
+  //     icon: mermaidIcon,
+  //   },
+  // ],
 }

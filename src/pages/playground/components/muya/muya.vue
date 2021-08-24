@@ -3,7 +3,9 @@
     class="container"
     :class="{ loading: muya.loading }"
     :style="cssStr"
-    :markdown="log(muya.markdown)"
+    :markdown="muya.markdown"
+    :busData="busData"
+    :change:busData="handler.editorReceive(busData)"
   >
     <div class="loading-mask"></div>
     <div class="status-bar">
@@ -27,21 +29,32 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from '@app/mixins'
+import { Vue, Component, Prop, Provide } from '@app/mixins'
 import { initData, stateDocText } from './init'
+import { createBus } from '@app/utils/HashBus'
 
 @Component({
   components: {},
 })
 export default class extends Vue {
   muya = initData()
+  @Provide() hashBus = createBus()
+  busData = {}
   get stateDoc() {
     return stateDocText[this.muya.stateDoc]
   }
   update(data) {
     this.$set(this.muya, data.property, data.value)
   }
-  mounted() {}
+  receive(data) {
+    this.hashBus.receive(data)
+  }
+  mounted() {
+    this.hashBus.set({
+      name: 'App',
+      postHandler: (massage) => (this.busData = massage),
+    })
+  }
   get cssStr() {
     let str = ''
     const css = {
@@ -53,7 +66,7 @@ export default class extends Vue {
 }
 </script>
 
-<script module="editor" lang="renderjs">
+<script module="handler" lang="renderjs">
 import Muya from './muya/lib'
 import './muya/themes/default.css'
 import './muya/index.css'
@@ -77,7 +90,7 @@ Muya.use(FormatPicker)
 Muya.use(FrontMenu)
 
 import {createBus} from '@app/utils/HashBus'
-console.log(createBus());
+window.hashBus = createBus()
 
 export default {
   data() {
@@ -97,6 +110,11 @@ export default {
   },
   computed: {},
   mounted() {
+    hashBus.set({
+      name: 'Editor',
+      postHandler: massage => this.$ownerInstance.callMethod('receive', massage)
+    })
+    setTimeout(() => hashBus.postMessage('echo','检测链接'),10)
     const muya = new Muya(document.querySelector('#editor'), {
       markdown: '',
       // ...options
@@ -118,7 +136,9 @@ export default {
     this.instance = muya
   },
   methods: {
-
+    editorReceive(data){
+      hashBus.receive(data)
+    }
   },
 }
 </script>

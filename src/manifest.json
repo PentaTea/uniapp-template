@@ -41,7 +41,16 @@
                 "targetSdkVersion" : 28,
                 "minSdkVersion" : 22
             },
-            "ios" : {}
+            "ios" : {},
+            "splashscreen" : {
+                "androidStyle" : "common",
+                "android" : {
+                    "hdpi" : "/Users/zhangjiaping/Downloads/res/drawable-hdpi/2281ff0d86f1bd6ff6cc7b9a19792ee2.9.png",
+                    "xhdpi" : "/Users/zhangjiaping/Downloads/res/drawable-xhdpi/2281ff0d86f1bd6ff6cc7b9a19792ee2.9.png",
+                    "xxhdpi" : "/Users/zhangjiaping/Downloads/res/drawable-xxhdpi/2281ff0d86f1bd6ff6cc7b9a19792ee2.9.png"
+                },
+                "iosStyle" : "common"
+            }
         },
         /* ios打包配置 */
         "optimization" : {

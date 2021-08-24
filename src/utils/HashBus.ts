@@ -3,6 +3,7 @@ interface Pkg {
   handle?: number
   content?: any
   from?: string
+  timestamp?: number
 }
 
 interface Options {
@@ -26,6 +27,7 @@ export class HashBus {
   private index: number
   private quere: Array<Pkg>
   private command: { [key: string]: Command }
+  lastMessage: Pkg
   postHandler?(massage: Pkg): void
   constructor(options?: Options) {
     if (options) this.set(options)
@@ -52,6 +54,8 @@ export class HashBus {
     delete this.command[name]
   }
   receive(msg: Pkg) {
+    if (this.lastMessage && this.lastMessage.timestamp == msg.timestamp) return
+    this.lastMessage = msg
     this.quere.push(msg)
     this.next()
   }
@@ -104,8 +108,9 @@ export class HashBus {
   postMessage<T>(name: string, content: T): void
   postMessage<T>(name: string, content: T, handle: number): void
   postMessage<T>(massage: Pkg | string, content?: T, handle?: number) {
-    if (!this.postHandler) throw new Error('请先注入postHandler')
+    if (!this.postHandler) throw new Error(this.name + ': 请先注入postHandler')
     this.postHandler({
+      timestamp: +new Date(),
       ...this.pack(massage, content, handle),
       from: this.name,
     })
@@ -126,6 +131,7 @@ export function createBus() {
   const hashBus = new HashBus()
   hashBus
     .use('echo', (context) => {
+      console.log(`[hashBus] 接收到echo请求,开始反向传输数据:`, context.data.content)
       context.send({ ...context.data, name: 'log' })
     })
     .use('log', (context) => {

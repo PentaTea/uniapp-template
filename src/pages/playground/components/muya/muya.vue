@@ -50,9 +50,50 @@ export default class extends Vue {
     this.hashBus.receive(data)
   }
   mounted() {
+    //状态栏颜色
+    uni.setNavigationBarColor({ frontColor: '#000000', backgroundColor: '#ffffff' })
+    //初始化消息总线
     this.hashBus.set({
       name: 'App',
       postHandler: (massage) => (this.busData = massage),
+    })
+
+    this.hashBus.use('uploadImg', (context) => {
+      const id = context.data.content
+      uni.chooseImage({
+        count: 1,
+        success: (res) => {
+          // #ifdef H5
+          this.hashBus.postMessage('uploadImgData' + id, res.tempFilePaths[0])
+          //转二进制
+          uni.request({
+            url: res.tempFilePaths[0],
+            method: 'GET',
+            responseType: 'arraybuffer',
+            success: (ress) => {
+              console.log(ress)
+            },
+            fail: (ress) => {
+              console.log(ress)
+            },
+          })
+          // #endif
+          // #ifdef APP-PLUS
+          plus.io.resolveLocalFileSystemURL(res.tempFilePaths[0], (entry) => {
+            this.hashBus.postMessage('uploadImgData' + id, entry.fullPath)
+            // 转二进制
+            entry.file(function(file) {
+              var fileReader = new plus.io.FileReader()
+              fileReader.readAsDataURL(file)
+              fileReader.onloadend = function(evt) {
+                var buffer = uni.base64ToArrayBuffer(evt.target.result)
+                console.log(buffer)
+              }
+            })
+          })
+          // #endif
+        },
+      })
     })
   }
   get cssStr() {
@@ -92,6 +133,8 @@ Muya.use(FrontMenu)
 import {createBus} from '@app/utils/HashBus'
 window.hashBus = createBus()
 
+import { nanoid } from 'nanoid'
+
 export default {
   data() {
     return {
@@ -117,6 +160,17 @@ export default {
     setTimeout(() => hashBus.postMessage('echo','检测链接'),10)
     const muya = new Muya(document.querySelector('#editor'), {
       markdown: '',
+      imagePathPicker:()=>{
+        const id = nanoid()
+        return new Promise((resolve, reject)=>{
+          hashBus.use('uploadImgData'+id, context => {
+            console.log(context.data.content);
+      if(context.data.content) resolve(context.data.content)
+      context.delete()
+    })
+    hashBus.postMessage('uploadImg',id)
+        })
+      }
       // ...options
     })
     muya.on('change', (change) => {

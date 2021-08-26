@@ -85,7 +85,7 @@ class ImageSelector extends BaseFloat {
         // Auto focus and select all content of the `src.input` element.
         const input = this.imageSelectorContainer.querySelector('input.src')
         if (input) {
-          input.focus()
+          // input.focus()
           input.select()
         }
       } else {
@@ -379,7 +379,15 @@ class ImageSelector extends BaseFloat {
         : h('div.input-container', [srcInput])
 
       const embedButton = h('div.enter-container', [
-        h('div.uni-upload', [h('i.ri-gallery-fill'), '上传...']),
+        h(
+          'div.uni-upload',
+          {
+            on: {
+              click: () => this.handleSelectButtonClick(),
+            },
+          },
+          [h('i.ri-gallery-fill'), '上传...']
+        ),
         h(
           'div.enter',
           {
@@ -501,10 +509,6 @@ class ImageSelector extends BaseFloat {
       patch(imageSelectorContainer, vnode)
     }
     this.oldVnode = vnode
-    hashBus.trigger('imgServiceInit')
-    hashBus.use('uploadImgData', (context) => {
-      this.replaceImageAsync({ src: context.data.content.tempFilePaths[0] })
-    })
   }
 }
 

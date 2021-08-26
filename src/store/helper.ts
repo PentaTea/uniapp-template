@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 import { createProxy, extractVuexModule, VuexModule } from 'vuex-class-component'
+import createPersistedState from 'vuex-persistedstate'
 import vuexProxy from './proxy'
 import { Module } from './index'
 
@@ -20,6 +21,15 @@ export function generator(Module) {
   }
   const store = new Vuex.Store({
     modules: ModuleTree,
+    plugins: [
+      createPersistedState({
+        storage: {
+          getItem: (key) => uni.getStorageSync(key),
+          setItem: (key, data) => uni.setStorage({ key, data }),
+          removeItem: (key) => uni.removeStorage({ key }),
+        },
+      }),
+    ],
   })
 
   for (const key in Module) {

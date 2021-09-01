@@ -103,6 +103,7 @@ export class HashBus {
     else if (typeof massage !== 'string') p = { ...massage }
     return p
   }
+  emit: HashBus['postMessage'] = (...args) => (this.postMessage as any)(...args)
   postMessage(massage: Pkg): void
   postMessage(name: string): void
   postMessage<T>(name: string, content: T): void

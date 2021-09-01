@@ -1,15 +1,15 @@
 <template>
   <BasePage customNav>
-    <Muya></Muya>
+    <Editor></Editor>
   </BasePage>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from '@app/mixins'
-import Muya from './components/muya/muya.vue'
+import Editor from './components/muya/index.vue'
 
 @Component({
-  components: { Muya },
+  components: { Editor },
 })
 export default class extends Vue {}
 </script>

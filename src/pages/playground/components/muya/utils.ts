@@ -1,3 +1,4 @@
+import { Selection } from './types'
 export enum stateDocText {
   '草稿保存失败' = -1,
   '自动保存已开启',
@@ -14,5 +15,6 @@ export function initData() {
     wordCount: 0,
     stateDoc: 0,
     markdown: '',
+    selection: {} as Selection,
   }
 }

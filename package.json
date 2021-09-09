@@ -95,6 +95,7 @@
   },
   "devDependencies": {
     "@babel/plugin-syntax-typescript": "^7.10.4",
+    "@babel/preset-env": "^7.15.4",
     "@dcloudio/types": "^2.4.5",
     "@dcloudio/uni-cli-shared": "^2.0.0-31920210709003",
     "@dcloudio/uni-template-compiler": "^2.0.0-31920210709003",

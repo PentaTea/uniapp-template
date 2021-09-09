@@ -11,7 +11,7 @@ interface Options {
   postHandler?(massage: any): void
   origin?(receive: HashBus['receive']): void
 }
-interface Context {
+export interface Context {
   data: Pkg
   send: HashBus['postMessage']
   instance: InstanceType<typeof HashBus>
@@ -95,13 +95,17 @@ export class HashBus {
     if (this.quere.length) this.next()
   }
   pack<T>(massage: Pkg | string, content?: T, handle?: number) {
-    var p = {} as Pkg
+    let p: Pkg
     if (typeof massage === 'string' && !content && !handle) p = { name: massage }
     else if (typeof massage === 'string' && content && !handle) p = { name: massage, content }
     else if (typeof massage === 'string' && content && handle)
       p = { name: massage, content, handle }
     else if (typeof massage !== 'string') p = { ...massage }
-    return p
+    return {
+      timestamp: +new Date(),
+      ...p,
+      from: this.name,
+    }
   }
   emit: HashBus['postMessage'] = (...args) => (this.postMessage as any)(...args)
   postMessage(massage: Pkg): void
@@ -111,9 +115,7 @@ export class HashBus {
   postMessage<T>(massage: Pkg | string, content?: T, handle?: number) {
     if (!this.postHandler) throw new Error(this.name + ': 请先注入postHandler')
     this.postHandler({
-      timestamp: +new Date(),
       ...this.pack(massage, content, handle),
-      from: this.name,
     })
   }
   trigger(massage: Pkg): void
@@ -123,7 +125,6 @@ export class HashBus {
   trigger<T>(massage: Pkg | string, content?: T, handle?: number) {
     this.receive({
       ...this.pack(massage, content, handle),
-      from: this.name,
     })
   }
 }

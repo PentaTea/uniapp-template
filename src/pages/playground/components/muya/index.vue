@@ -4,6 +4,7 @@
     <StatusBar />
     <MuyaRender />
     <Fab />
+    <Submit />
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import { initData, stateDocText } from './utils'
 import MuyaRender from './MuyaRender.vue'
 import StatusBar from './StatusBar.vue'
 import Fab from './Fab.vue'
+import Submit from './Submit.vue'
 import { createBus } from '@app/utils/HashBus'
 
 @Component({
@@ -20,6 +22,7 @@ import { createBus } from '@app/utils/HashBus'
     MuyaRender,
     StatusBar,
     Fab,
+    Submit,
   },
 })
 export default class extends Vue {

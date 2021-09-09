@@ -55,6 +55,7 @@ module.exports = {
         useBuiltIns: process.env.UNI_PLATFORM === 'h5' ? 'usage' : 'entry',
       },
     ],
+    '@babel/preset-env',
   ],
   plugins,
 }

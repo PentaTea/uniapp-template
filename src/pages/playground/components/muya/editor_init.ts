@@ -64,6 +64,9 @@ export default function(this: {
   muya.on('change', (change) => {
     this.muya.wordCount = change.wordCount.character
     this.muya.markdown = change.markdown
+    const char = change.toc[0]?.content
+    this.muya.fileInfo.name = char && /[\u4e00-\u9fa5(^\\\w)*]/.test(char) ? char : '未命名'
+    console.log(change)
   })
   muya.on('selectionChange', (e) => {
     //焦点跟随滚动

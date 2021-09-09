@@ -10,7 +10,7 @@ export function initData() {
   return {
     loading: true,
     fileInfo: {
-      name: '新文件',
+      name: '',
     },
     wordCount: 0,
     stateDoc: 0,

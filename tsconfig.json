@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2015",
     "module": "esnext",
-    "strict": true,
+    "strict": false,
     "jsx": "preserve",
     "importHelpers": true,
     "emitDecoratorMetadata": true,
@@ -16,13 +16,21 @@
     "strictBindCallApply": true,
     "preserveConstEnums": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
+    "noUnusedLocals": false,
     "allowJs": true,
     "noImplicitAny": false,
     "sourceMap": true,
     "pretty": false,
     "baseUrl": ".",
-    "types": ["node", "webpack-env", "vue/types", "@dcloudio/types", "./src/types"],
+    "types": [
+      "node",
+      "webpack-env",
+      "vue/types",
+      "@dcloudio/types",
+      "./src/types",
+      "unplugin-vue2-script-setup/types"
+    ],
     "paths": {
       "@app": ["./src"],
       "@app/*": ["./src/*"],
@@ -32,6 +40,9 @@
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "outDir": "./"
   },
-  "exclude": ["node_modules", "muya", "unpackage", "src/**/*.nvue", "dist", "./**/*.js"]
+  "exclude": ["node_modules", "muya", "unpackage", "src/**/*.nvue", "dist", "./**/*.js"],
   //"include": ["src/**/*"]
+  "vueCompilerOptions": {
+    "experimentalCompatMode": 2
+  }
 }

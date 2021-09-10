@@ -143,7 +143,6 @@ module.exports = {
     'no-this-before-super': 2,
     'no-throw-literal': 2,
     'no-trailing-spaces': 0,
-    'no-undef': 2,
     'no-undef-init': 2,
     'no-unexpected-multiline': 'off',
     'no-unmodified-loop-condition': 2,
@@ -228,6 +227,8 @@ module.exports = {
     'space-before-function-paren': 0,
     'arrow-spacing': 0,
     'object-curly-spacing': 0,
+    '@typescript-eslint/no-unused-vars': 0,
+    'no-undef': 0,
   },
   overrides: [
     {

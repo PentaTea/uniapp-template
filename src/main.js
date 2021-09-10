@@ -4,15 +4,15 @@ import Vue from 'vue'
 import App from './App'
 
 //#ifdef MP-WEIXIN
-// import '@app/common/patchVueCompositionApi'
+import '@app/common/patchVueCompositionApi'
 //#endif
 import '@app/utils'
 import '@app/common/vueFilter'
 import '@app/api'
 Vue.config.productionTip = false
 
-// import VueCompositionApi from '@vue/composition-api'
-// Vue.use(VueCompositionApi)
+import VueCompositionApi from '@vue/composition-api'
+Vue.use(VueCompositionApi)
 
 import VueDataObjectPath from 'vue-data-object-path'
 Vue.use(VueDataObjectPath)

@@ -27,6 +27,10 @@
         <i class="ri-markdown-fill"></i>
         <text>Muya编辑器</text>
       </div>
+      <div class="cu-item" @click="app.to('setup')">
+        <i class="ri-braces-fill"></i>
+        <text>setup script</text>
+      </div>
     </div>
     <div class="cu-bar bg-white solid-bottom margin-top">
       <div class="action">

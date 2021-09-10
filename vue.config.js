@@ -20,6 +20,30 @@ module.exports = {
       new webpack.ProvidePlugin({
         app: resolve('src/utils/__provider'),
       }),
+      require('unplugin-vue2-script-setup/webpack')({}),
+      // require('unplugin-auto-import/webpack')({
+      //   include: [
+      //     /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+      //     /\.vue\??/, // .vue
+      //   ],
+      //   imports: [
+      //     '@vue/composition-api',
+      //     // 'vue-router',
+      //     // custom
+      //     // {
+      //     //   '@vueuse/core': ['useMouse'],
+      //     //   '[package-name]': [
+      //     //     '[import-names]',
+      //     //     // alias
+      //     //     ['[from]', '[alias]'],
+      //     //   ],
+      //     // },
+      //   ],
+
+      //   // custom resolvers
+      //   // see https://github.com/antfu/unplugin-auto-import/pull/23/
+      //   resolvers: [],
+      // }),
     ],
   },
 }

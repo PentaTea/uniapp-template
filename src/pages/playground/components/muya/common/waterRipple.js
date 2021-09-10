@@ -73,7 +73,7 @@ WaterWave.prototype.init = function(opt) {
   head.appendChild(style)
 
   for (var i = 0; i < this.settins.el.length; i++) {
-    this.settins.el[i].onmousedown = function(event) {
+    document.querySelector(this.settins.el[i]).onmousedown = function(event) {
       event.preventDefault()
       This.found(this, event)
       This.settins.fn()

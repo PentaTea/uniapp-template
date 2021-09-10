@@ -13,7 +13,7 @@ export default function(this: {
     波纹: (context) => {
       const wave = new WaterWave()
       wave.init({
-        el: [document.querySelector(context.data.content)],
+        el: context.data.content,
         backColor: '#e0e4f2',
       })
     },
@@ -29,6 +29,8 @@ export default function(this: {
         muya.contentState.indentListItem()
       }
     },
+    撤销: () => muya.undo(),
+    重做: () => muya.redo(),
   }
   for (const key in events) hashBus.use(key, events[key])
 }

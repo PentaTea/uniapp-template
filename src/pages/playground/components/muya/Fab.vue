@@ -5,7 +5,7 @@
         <i :class="i"></i>
       </div>
     </div>
-    <div class="fab right" id="muya-fab-left">
+    <div class="fab right" id="muya-fab-right">
       <div v-for="(e, type) in otherItems" :key="type">
         <div
           v-for="(name, icon) in e"
@@ -70,8 +70,7 @@ export default class extends Vue {
     return new RegExp(str).test(this.type)
   }
   mounted() {
-    setTimeout(() => this.hashBus.postMessage('波纹', '#muya-fab-left'), 1000)
-    setTimeout(() => this.hashBus.postMessage('波纹', '#muya-fab-right'), 1000)
+    setTimeout(() => this.hashBus.postMessage('波纹', ['#muya-fab-left', '#muya-fab-right']), 1000)
   }
 
   run(e) {

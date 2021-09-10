@@ -3,14 +3,7 @@
     <div class="status">
       <i class="ri-close-line" @click.stop="() => app.back()"></i>
       <ul>
-        <!-- <li>{{
-          log([
-            muya.fileInfo.name,
-            /[\p{Unified_Ideograph}(^\\\w)*]/u.test(muya.fileInfo.name),
-            /[\p{Unified_Ideograph}(^\\\w)*]/u,
-          ])
-        }}</li> -->
-        <li>{{ muya.fileInfo.name }}</li>
+        <li>{{ muya.fileName }}</li>
         <li>{{ muya.wordCount }} 字</li>
         <li style="width: 9em;text-align: center;">
           {{ stateDoc }}

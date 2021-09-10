@@ -9,9 +9,7 @@ export enum stateDocText {
 export function initData() {
   return {
     loading: true,
-    fileInfo: {
-      name: '',
-    },
+    fileName: '',
     wordCount: 0,
     stateDoc: 0,
     markdown: '',

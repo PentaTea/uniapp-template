@@ -4,6 +4,7 @@ import * as chroma from 'chroma.ts'
 import page from './page'
 import modal from './modal'
 import randomcolor from 'randomcolor'
+import md2html from './md2html'
 import './__helper'
 
 export const utils = {
@@ -13,6 +14,7 @@ export const utils = {
   color: ((chroma.color['__proto__'] = chroma) && chroma.color) as typeof chroma &
     typeof chroma.color,
   randomcolor,
+  md2html,
   ...page,
   ...modal,
 }

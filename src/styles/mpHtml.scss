@@ -1,0 +1,159 @@
+@import 'styles/wxParse.scss';
+
+#_root {
+  font-size: 1rem;
+  color: #2c3e50;
+  user-select: text;
+
+  //单行代码块
+  .p code {
+    display: inline;
+    padding: 0.25rem 0.5rem;
+    margin: 0 0.3em;
+    font-size: 0.75em;
+    color: #476582;
+    background-color: rgba(27, 31, 35, 0.05);
+    border-radius: 0.2em;
+  }
+
+  //多行代码块
+  .pre {
+    padding: 1em;
+    border-radius: 0.8em;
+
+    .code {
+      // white-space: pre-wrap;
+      padding: 0;
+    }
+  }
+
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    font-weight: normal;
+  }
+
+  .h2 {
+    border-bottom: 1px solid #eaecef;
+  }
+
+  .img {
+    margin: 15rpx 0;
+    border-radius: 10rpx;
+  }
+
+  //引用
+  .blockquote {
+    padding: 1em;
+    font-size: 1rem;
+    color: #777;
+    background: #fafafa;
+    border-left: 0.2rem solid var(--themeColor70);
+  }
+
+  .hr {
+    height: 1rpx;
+    background: #eaecef;
+  }
+
+  .p {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  .ol,
+  .ul {
+    margin: 0.1em 0;
+
+    .li {
+      line-height: 1.7;
+      color: #41505f;
+    }
+  }
+
+  .a {
+    color: var(--themeColorDark);
+    border-bottom: 0 !important;
+
+    &::after {
+      margin-left: 0.1rem;
+      font-family: 'remixicon' !important;
+      font-size: 0.6rem;
+      content: '\ECAF';
+    }
+  }
+
+  .table {
+    max-width: 100%;
+    padding: 0 !important;
+    background: rgb(255, 255, 255);
+    table-layout: fixed;
+
+    .thead {
+      .tr {
+        border-top: 1px solid #dfe2e5;
+
+        .th {
+          padding: 0.6em 1em;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #2c3e50;
+          background: rgb(255, 255, 255);
+          border: 1px solid #dfe2e5;
+        }
+      }
+    }
+
+    .tbody {
+      .tr {
+        .td {
+          padding: 0.6em 1em;
+          font-size: 0.7rem;
+          word-break: break-all;
+          white-space: normal;
+          border: 1px solid #dfe2e5;
+        }
+      }
+
+      .tr:nth-child(even) {
+        background: rgb(246, 248, 250);
+      }
+    }
+  }
+
+  //复选框
+  .checkbox {
+    display: flex;
+    align-items: center;
+
+    > span {
+      line-height: 1;
+    }
+
+    &::before {
+      margin-right: 0.2em;
+      font-family: 'remixicon' !important;
+      font-size: 1.5rem;
+      line-height: 1.2;
+      color: rgba(43, 61, 79, 0.7);
+      vertical-align: middle;
+    }
+  }
+
+  .checkbox:not(.checked)::before {
+    content: '\EB82';
+  }
+
+  .checkbox.checked::before {
+    content: '\EB7F';
+  }
+}
+
+.toCanvas #_root {
+  text-shadow: 0 0.5px, 0.5px 0, -0.5px 0, 0 -0.5px, 0 1px, 1px 0, -1px 0, 0 -1px;
+}

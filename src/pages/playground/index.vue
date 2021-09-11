@@ -27,6 +27,10 @@
         <i class="ri-markdown-fill"></i>
         <text>Muya编辑器</text>
       </div>
+      <div class="cu-item" @click="app.to('md2html')">
+        <i class="ri-h-1"></i>
+        <text>md渲染</text>
+      </div>
       <div class="cu-item" @click="app.to('setup')">
         <i class="ri-braces-fill"></i>
         <text>setup script</text>

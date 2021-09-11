@@ -42,6 +42,9 @@ export default Vue.extend({
 // 自定义主题
 @import 'styles/themes/index.scss';
 
+//富文本
+@import 'styles/mpHtml.scss';
+
 // #endif
 
 // #ifdef H5

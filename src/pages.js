@@ -15,7 +15,7 @@ module.exports = hot((pagesJson) => {
     findPage(path.resolve('src', root)).forEach((e) => {
       const pagePath = path
         .relative(path.resolve('src', root), e)
-        .replace('.vue', '')
+        .replace(/\.n?vue$/, '')
         .split('/')
       Route[pagePath[0]] = Route[pagePath[0]] || {}
       Route[pagePath[0]][pagePath[1]] = {}
@@ -81,7 +81,7 @@ function findPage(filePath = 'src/pages', list = [], deep = 1) {
   fs.readdirSync(filePath).forEach((filename) => {
     const filedir = path.join(filePath, filename)
     const stats = fs.statSync(filedir)
-    if (stats.isFile() && /\.vue$/.test(filename)) list.push(filedir)
+    if (stats.isFile() && /\.n?vue$/.test(filename)) list.push(filedir)
     if (stats.isDirectory()) findPage(filedir, list, deep + 1)
   })
   return list

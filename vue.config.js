@@ -14,6 +14,11 @@ module.exports = {
       .test(/\.vue$/)
       .use('addMeta')
       .loader(resolve('loader/addMeta.loader.js')).end
+    config.module
+      .rule('md')
+      .test(/\.md$/)
+      .use('text-loader')
+      .loader('text-loader').end
   },
   configureWebpack: {
     plugins: [

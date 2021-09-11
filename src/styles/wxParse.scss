@@ -1,0 +1,308 @@
+/**
+ * author: Di (微信小程序开发工程师)
+ * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
+ *         垂直微信小程序开发交流社区
+ *
+ * github地址: https://github.com/icindy/wxParse
+ *
+ * for: 微信小程序富文本解析
+ * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
+ *
+ * 2021-02-24 修改主类名为 _root, author: PentaTea
+ */
+
+#_root {
+  width: 100%;
+  font-family: Helvetica, 'PingFangSC', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-size: 1em;
+  line-height: 1.5;
+  color: #333;
+  text-align: justify;
+  user-select: none;
+
+  /* //左右两端对齐 */
+}
+
+#_root view,
+#_root uni-view {
+  word-break: break-word;
+}
+
+#_root .p {
+  padding-bottom: 0.5em;
+  clear: both;
+
+  /* letter-spacing: 0;//字间距 */
+}
+
+#_root .inline {
+  display: inline;
+  padding: 0;
+  margin: 0;
+}
+
+#_root .div {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+#_root .h1 {
+  margin: 0.67em 0;
+  font-size: 2em;
+  line-height: 1.2em;
+}
+
+#_root .h2 {
+  margin: 0.83em 0;
+  font-size: 1.5em;
+}
+
+#_root .h3 {
+  margin: 1em 0;
+  font-size: 1.17em;
+}
+
+#_root .h4 {
+  margin: 1.33em 0;
+}
+
+#_root .h5 {
+  margin: 1.67em 0;
+  font-size: 0.83em;
+}
+
+#_root .h6 {
+  margin: 1.67em 0;
+  font-size: 0.83em;
+}
+
+// #_root .h1,
+// #_root .h2,
+// #_root .h3,
+// #_root .h4,
+// #_root .h5,
+// #_root .h6,
+// #_root .b,
+// #_root .strong {
+//   font-weight: bolder;
+// }
+
+#_root .i,
+#_root .cite,
+#_root .em,
+#_root .var,
+#_root .address {
+  font-style: italic;
+}
+
+#_root .spaceshow {
+  white-space: pre;
+}
+
+#_root .pre,
+#_root .tt,
+#_root .code,
+#_root .kbd,
+#_root .samp {
+  font-family: monospace;
+}
+
+#_root .pre {
+  padding: 16upx;
+  margin: 1em 0upx;
+  overflow: auto;
+  font-size: 24upx;
+  white-space: pre;
+  background: #f5f5f5;
+}
+
+#_root .code {
+  padding: 16upx;
+  margin: 1em 0upx;
+  overflow: auto;
+  font-size: 24upx;
+  white-space: pre;
+  background: #f5f5f5;
+}
+
+#_root .big {
+  font-size: 1.17em;
+}
+
+#_root .small,
+#_root .sub,
+#_root .sup {
+  font-size: 0.83em;
+}
+
+#_root .sub {
+  vertical-align: sub;
+}
+
+#_root .sup {
+  vertical-align: super;
+}
+
+#_root .s,
+#_root .strike,
+#_root .del {
+  text-decoration: line-through;
+}
+
+#_root .strong,
+#_root .text,
+#_root .span,
+#_root .s {
+  display: inline;
+}
+
+#_root .a {
+  color: deepskyblue;
+}
+
+#_root .video {
+  margin: 22upx 0;
+  text-align: center;
+}
+
+#_root .video-video {
+  width: 100%;
+}
+
+#_root .uni-image {
+  max-width: 100%;
+}
+
+#_root .img {
+  display: block;
+  max-width: 100%;
+  margin-bottom: 0;
+
+  /* //与p标签底部padding同时修改 */
+  overflow: hidden;
+}
+
+#_root .blockquote {
+  padding: 22upx 0 22upx 22upx;
+  margin: 10upx 0;
+  font-family: Courier, Calibri, '宋体';
+  background: #f5f5f5;
+  border-left: 6upx solid #dbdbdb;
+}
+
+#_root .blockquote .p {
+  margin: 0;
+}
+
+#_root .ul,
+#_root .ol {
+  display: block;
+  padding-left: 2em;
+  margin: 1em 0;
+}
+
+#_root .ol {
+  list-style-type: disc;
+}
+
+#_root .ol {
+  list-style-type: decimal;
+}
+
+#_root .ol > weixin-parse-template,
+#_root .ul > weixin-parse-template {
+  display: list-item;
+  align-items: baseline;
+  text-align: match-parent;
+}
+
+#_root .ol > .li,
+#_root .ul > .li {
+  display: list-item;
+  align-items: baseline;
+  text-align: match-parent;
+}
+
+#_root .ul .ul,
+#_root .ol .ul {
+  list-style-type: circle;
+}
+
+#_root .ol .ol .ul,
+#_root .ol .ul .ul,
+#_root .ul .ol .ul,
+#_root .ul .ul .ul {
+  list-style-type: square;
+}
+
+#_root .u {
+  text-decoration: underline;
+}
+
+#_root .hide {
+  display: none;
+}
+
+#_root .del {
+  display: inline;
+}
+
+#_root .figure {
+  overflow: hidden;
+}
+
+#_root .tablebox {
+  padding: 8px;
+  overflow: auto;
+  font-size: 13px;
+  background: #f5f5f5;
+  background-color: #f5f5f5;
+}
+
+#_root .table .table,
+#_root .table {
+  /* 内边框 */
+
+  /* width: 100%; */
+  overflow: auto;
+  white-space: pre;
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+
+#_root .tbody {
+  /* 内边框 */
+  border: 1px solid #dadada;
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+
+#_root .table .thead,
+#_root .table .tfoot,
+#_root .table .th {
+  font-weight: 40;
+  background: #ececec;
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+
+#_root .table .tr {
+  /* border: 2px solid #F0AD4E; */
+  overflow: auto;
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+
+#_root .table .th,
+#_root .table .td {
+  overflow: auto;
+  border: 2upx solid #dadada;
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+
+#_root .audio,
+#_root .uni-audio-default {
+  display: block;
+}

@@ -4,7 +4,7 @@
   </BasePage>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from '@vue/composition-api'
 const b = ref(5)
 </script>

@@ -38,7 +38,7 @@ module.exports = {
     'unit-no-unknown': [
       true,
       {
-        ignoreUnits: ['rpx'],
+        ignoreUnits: ['rpx', 'upx'],
       },
     ],
     'selector-pseudo-element-no-unknown': [

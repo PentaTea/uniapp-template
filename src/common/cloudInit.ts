@@ -247,7 +247,6 @@ export default async function() {
       })
     },
     success: (e) => {
-      console.log(e)
       const { token, tokenExpired } = e.result
       if (token && tokenExpired) {
         store.User.token = token
@@ -274,9 +273,9 @@ export default async function() {
           })
           break
         default:
-          console.log('code的值是：' + e.result.code, '可以在这里插入，自动处理响应体')
           break
       }
+      console.log(e.result)
     },
   })
 

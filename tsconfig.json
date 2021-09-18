@@ -40,8 +40,15 @@
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "outDir": "./"
   },
-  "exclude": ["node_modules", "muya", "unpackage", "src/**/*.nvue", "dist", "./**/*.js"],
-  //"include": ["src/**/*"]
+  "exclude": [
+    "node_modules",
+    "muya",
+    "unpackage",
+    "src/**/*.nvue",
+    "dist",
+    "uniCloud-aliyun",
+    "./**/*.js"
+  ],
   "vueCompilerOptions": {
     "experimentalCompatMode": 2
   }

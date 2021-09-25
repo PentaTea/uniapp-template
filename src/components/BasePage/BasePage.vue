@@ -74,17 +74,17 @@ import MescrollUni from '@app/components/mescroll/mescroll-uni/mescroll-uni.vue'
   },
 })
 export default class extends Mixins(Vue, MescrollMixin) {
-  @Prop({ default: '' }) title: string
-  @Prop({ default: false }) customNav: boolean
+  @Prop({ default: '' }) title: string //页面标题
+  @Prop({ default: false }) customNav: boolean //为真不显示navbar
   @Prop({ default: false }) splitLine: boolean
   @Prop({ default: false }) noPlaceholder: boolean
-  @Prop({ default: '' }) background: string
-  @Prop({ default: '#fff' }) navBackgroundColor: string
+  @Prop({ default: '' }) background: string //页面背景色
+  @Prop({ default: '#fff' }) navBackgroundColor: string //navbar背景色
   @Prop({ default: 0 }) exHeight: number
   @Prop({ default: 0 }) tabBar: number
   @Prop({ default: true }) capsule: boolean
-  @Prop({ default: false }) down: boolean
-  @Prop({ default: false }) up: boolean
+  @Prop({ default: false }) down: boolean //开启下拉刷新
+  @Prop({ default: false }) up: boolean //开启上拉加载
   @Prop({
     default: () => ({
       background: '#fff',

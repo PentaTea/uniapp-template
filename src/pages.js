@@ -40,7 +40,7 @@ module.exports = hot((pagesJson) => {
       const subPackagesPages = []
       for (const key in pages[PackagesName]) {
         pages[PackagesName][key] &&
-          subPackagesPages.push(PackPage(key, pages[PackagesName][key], config))
+          subPackagesPages.push(PackPage(key, pages[PackagesName][key], config, PackagesName))
       }
       config.subPackages.push({
         root: [root, PackagesName].join('/'),
@@ -53,24 +53,16 @@ module.exports = hot((pagesJson) => {
   return config
 })
 
-function PackPage(path, config, target) {
+function PackPage(path, config, target, PackagesName) {
   if (is.object(config)) {
-    let style = {}
-    if (config.tabBar) {
-      target.tabBar = target.tabBar || {}
-      target.tabBar.list = target.tabBar.list || []
-      target.tabBar.list.push({
-        pagePath: path,
-        ...config.tabBar,
-      })
+    const noAdminWindow = {
+      topWindow: false,
+      leftWindow: false,
+      rightWindow: false,
     }
-    if (config.style) {
-      style = config.style
-    }
-
     return {
       path,
-      ...style,
+      style: { ...(PackagesName != 'admin' ? noAdminWindow : {}), ...config },
     }
   } else return { path }
 }

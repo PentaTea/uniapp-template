@@ -9,7 +9,9 @@ import '@app/common/patchVueCompositionApi'
 import '@app/utils'
 import '@app/common/vueFilter'
 import '@app/api'
+import '@app/common/errorHandler'
 Vue.config.productionTip = false
+// Vue.config.performance = true
 
 import VueCompositionApi from '@vue/composition-api'
 Vue.use(VueCompositionApi)

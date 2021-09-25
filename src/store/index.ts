@@ -1,9 +1,10 @@
-import { Global, User } from '@app/store/module'
+import { Global, User, log } from '@app/store/module'
 import { generator } from '@app/store/helper'
 
 export const Module = {
   Global,
   User,
+  log,
 }
 
 const { ModuleList, store } = generator(Module)

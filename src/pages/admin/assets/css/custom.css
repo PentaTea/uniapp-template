@@ -1,0 +1,38 @@
+.router-link-active {
+    background-color: #f8fafb !important;
+    color: #42b833 !important;
+}
+
+.loader {
+    border: 10px solid #ddd;
+    border-radius: 50%;
+    border-top: 10px solid #42b833;
+    width: 90px;
+    height: 90px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+    margin-right: 15%;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#toast-container > .toast:before {
+    font-family: "Font Awesome 5 Free";
+    display: none;
+}

@@ -2180,9 +2180,9 @@
   // and alphanumeric chars is percent-encoded.
 
   function getEncodeCache(exclude) {
-    var i,
-      ch,
-      cache = encodeCache[exclude]
+    var i
+    var ch
+    var cache = encodeCache[exclude]
     if (cache) {
       return cache
     }
@@ -2209,12 +2209,12 @@
   //  - keepEscaped  - don't encode '%' in a correct escape sequence (default: true)
 
   function encode(string, exclude, keepEscaped) {
-    var i,
-      l,
-      code,
-      nextCode,
-      cache,
-      result = ''
+    var i
+    var l
+    var code
+    var nextCode
+    var cache
+    var result = ''
     if (typeof exclude !== 'string') {
       // encode(string, keepEscaped)
       keepEscaped = exclude
@@ -2258,9 +2258,9 @@
   var encode_1 = encode
   /* eslint-disable no-bitwise */ var decodeCache = {}
   function getDecodeCache(exclude) {
-    var i,
-      ch,
-      cache = decodeCache[exclude]
+    var i
+    var ch
+    var cache = decodeCache[exclude]
     if (cache) {
       return cache
     }
@@ -2284,14 +2284,14 @@
     }
     cache = getDecodeCache(exclude)
     return string.replace(/(%[a-f0-9]{2})+/gi, function(seq) {
-      var i,
-        l,
-        b1,
-        b2,
-        b3,
-        b4,
-        chr,
-        result = ''
+      var i
+      var l
+      var b1
+      var b2
+      var b3
+      var b4
+      var chr
+      var result = ''
       for (i = 0, l = seq.length; i < l; i += 3) {
         b1 = parseInt(seq.slice(i + 1, i + 3), 16)
         if (b1 < 128) {
@@ -2403,46 +2403,46 @@
   // Reference: RFC 3986, RFC 1808, RFC 2396
   // define these here so at least they only have to be
   // compiled once on the first module load.
-  var protocolPattern = /^([a-z0-9.+-]+:)/i,
-    portPattern = /:[0-9]*$/,
-    // Special case for a simple path URL
-    simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/,
-    // RFC 2396: characters reserved for delimiting URLs.
-    // We actually just auto-escape these.
-    delims = ['<', '>', '"', '`', ' ', '\r', '\n', '\t'],
-    // RFC 2396: characters not allowed for various reasons.
-    unwise = ['{', '}', '|', '\\', '^', '`'].concat(delims),
-    // Allowed by RFCs, but cause of XSS attacks.  Always escape these.
-    autoEscape = ["'"].concat(unwise),
-    // Characters that are never ever allowed in a hostname.
-    // Note that any invalid chars are also handled, but these
-    // are the ones that are *expected* to be seen, so we fast-path
-    // them.
-    nonHostChars = ['%', '/', '?', ';', '#'].concat(autoEscape),
-    hostEndingChars = ['/', '?', '#'],
-    hostnameMaxLen = 255,
-    hostnamePartPattern = /^[+a-z0-9A-Z_-]{0,63}$/,
-    hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/,
-    // protocols that can allow "unsafe" and "unwise" chars.
-    /* eslint-disable no-script-url */
-    // protocols that never have a hostname.
-    hostlessProtocol = {
-      javascript: true,
-      'javascript:': true,
-    },
-    // protocols that always contain a // bit.
-    slashedProtocol = {
-      http: true,
-      https: true,
-      ftp: true,
-      gopher: true,
-      file: true,
-      'http:': true,
-      'https:': true,
-      'ftp:': true,
-      'gopher:': true,
-      'file:': true,
-    }
+  var protocolPattern = /^([a-z0-9.+-]+:)/i
+  var portPattern = /:[0-9]*$/
+  // Special case for a simple path URL
+  var simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/
+  // RFC 2396: characters reserved for delimiting URLs.
+  // We actually just auto-escape these.
+  var delims = ['<', '>', '"', '`', ' ', '\r', '\n', '\t']
+  // RFC 2396: characters not allowed for various reasons.
+  var unwise = ['{', '}', '|', '\\', '^', '`'].concat(delims)
+  // Allowed by RFCs, but cause of XSS attacks.  Always escape these.
+  var autoEscape = ["'"].concat(unwise)
+  // Characters that are never ever allowed in a hostname.
+  // Note that any invalid chars are also handled, but these
+  // are the ones that are *expected* to be seen, so we fast-path
+  // them.
+  var nonHostChars = ['%', '/', '?', ';', '#'].concat(autoEscape)
+  var hostEndingChars = ['/', '?', '#']
+  var hostnameMaxLen = 255
+  var hostnamePartPattern = /^[+a-z0-9A-Z_-]{0,63}$/
+  var hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/
+  // protocols that can allow "unsafe" and "unwise" chars.
+  /* eslint-disable no-script-url */
+  // protocols that never have a hostname.
+  var hostlessProtocol = {
+    javascript: true,
+    'javascript:': true,
+  }
+  // protocols that always contain a // bit.
+  var slashedProtocol = {
+    http: true,
+    https: true,
+    ftp: true,
+    gopher: true,
+    file: true,
+    'http:': true,
+    'https:': true,
+    'ftp:': true,
+    'gopher:': true,
+    'file:': true,
+  }
   /* eslint-enable no-script-url */ function urlParse(url, slashesDenoteHost) {
     if (url && url instanceof Url) {
       return url
@@ -2452,12 +2452,12 @@
     return u
   }
   Url.prototype.parse = function(url, slashesDenoteHost) {
-    var i,
-      l,
-      lowerProto,
-      hec,
-      slashes,
-      rest = url
+    var i
+    var l
+    var lowerProto
+    var hec
+    var slashes
+    var rest = url
     // trim before proceeding.
     // This is to support parse stuff like "  http://foo.com  \n"
     rest = rest.trim()
@@ -2730,8 +2730,8 @@
       /*eslint no-bitwise:0*/
       if (c > 65535) {
         c -= 65536
-        var surrogate1 = 55296 + (c >> 10),
-          surrogate2 = 56320 + (c & 1023)
+        var surrogate1 = 55296 + (c >> 10)
+        var surrogate2 = 56320 + (c & 1023)
         return String.fromCharCode(surrogate1, surrogate2)
       }
       return String.fromCharCode(c)
@@ -2963,13 +2963,13 @@
   })
   // Parse link label
   var parse_link_label = function parseLinkLabel(state, start, disableNested) {
-    var level,
-      found,
-      marker,
-      prevPos,
-      labelEnd = -1,
-      max = state.posMax,
-      oldPos = state.pos
+    var level
+    var found
+    var marker
+    var prevPos
+    var labelEnd = -1
+    var max = state.posMax
+    var oldPos = state.pos
     state.pos = start + 1
     level = 1
     while (state.pos < max) {
@@ -3002,16 +3002,16 @@
   }
   var unescapeAll = utils.unescapeAll
   var parse_link_destination = function parseLinkDestination(str, pos, max) {
-    var code,
-      level,
-      lines = 0,
-      start = pos,
-      result = {
-        ok: false,
-        pos: 0,
-        lines: 0,
-        str: '',
-      }
+    var code
+    var level
+    var lines = 0
+    var start = pos
+    var result = {
+      ok: false,
+      pos: 0,
+      lines: 0,
+      str: '',
+    }
     if (str.charCodeAt(pos) === 60 /* < */) {
       pos++
       while (pos < max) {
@@ -3083,16 +3083,16 @@
   }
   var unescapeAll$1 = utils.unescapeAll
   var parse_link_title = function parseLinkTitle(str, pos, max) {
-    var code,
-      marker,
-      lines = 0,
-      start = pos,
-      result = {
-        ok: false,
-        pos: 0,
-        lines: 0,
-        str: '',
-      }
+    var code
+    var marker
+    var lines = 0
+    var start = pos
+    var result = {
+      ok: false,
+      pos: 0,
+      lines: 0,
+      str: '',
+    }
     if (pos >= max) {
       return result
     }
@@ -3155,15 +3155,15 @@
     )
   }
   default_rules.fence = function(tokens, idx, options, env, slf) {
-    var token = tokens[idx],
-      info = token.info ? unescapeAll$2(token.info).trim() : '',
-      langName = '',
-      langAttrs = '',
-      highlighted,
-      i,
-      arr,
-      tmpAttrs,
-      tmpToken
+    var token = tokens[idx]
+    var info = token.info ? unescapeAll$2(token.info).trim() : ''
+    var langName = ''
+    var langAttrs = ''
+    var highlighted
+    var i
+    var arr
+    var tmpAttrs
+    var tmpToken
     if (info) {
       arr = info.split(/(\s+)/g)
       langName = arr[0]
@@ -3281,10 +3281,10 @@
    * Default token renderer. Can be overriden by custom function
    * in [[Renderer#rules]].
    **/ Renderer.prototype.renderToken = function renderToken(tokens, idx, options) {
-    var nextToken,
-      result = '',
-      needLf = false,
-      token = tokens[idx]
+    var nextToken
+    var result = ''
+    var needLf = false
+    var token = tokens[idx]
     // Tight list paragraphs
     if (token.hidden) {
       return ''
@@ -3334,9 +3334,9 @@
    *
    * The same as [[Renderer.render]], but for single token of `inline` type.
    **/ Renderer.prototype.renderInline = function(tokens, options, env) {
-    var type,
-      result = '',
-      rules = this.rules
+    var type
+    var result = ''
+    var rules = this.rules
     for (var i = 0, len = tokens.length; i < len; i++) {
       type = tokens[i].type
       if (typeof rules[type] !== 'undefined') {
@@ -3376,11 +3376,11 @@
    * Takes token stream and generates HTML. Probably, you will never need to call
    * this method directly.
    **/ Renderer.prototype.render = function(tokens, options, env) {
-    var i,
-      len,
-      type,
-      result = '',
-      rules = this.rules
+    var i
+    var len
+    var type
+    var result = ''
+    var rules = this.rules
     for (i = 0, len = tokens.length; i < len; i++) {
       type = tokens[i].type
       if (type === 'inline') {
@@ -3732,10 +3732,10 @@
     }
   }
   var inline = function inline(state) {
-    var tokens = state.tokens,
-      tok,
-      i,
-      l
+    var tokens = state.tokens
+    var tok
+    var i
+    var l
     // Parse inlines
     for (i = 0, l = tokens.length; i < l; i++) {
       tok = tokens[i]
@@ -3752,24 +3752,24 @@
     return /^<\/a\s*>/i.test(str)
   }
   var linkify = function linkify(state) {
-    var i,
-      j,
-      l,
-      tokens,
-      token,
-      currentToken,
-      nodes,
-      ln,
-      text,
-      pos,
-      lastPos,
-      level,
-      htmlLinkLevel,
-      url,
-      fullUrl,
-      urlText,
-      blockTokens = state.tokens,
-      links
+    var i
+    var j
+    var l
+    var tokens
+    var token
+    var currentToken
+    var nodes
+    var ln
+    var text
+    var pos
+    var lastPos
+    var level
+    var htmlLinkLevel
+    var url
+    var fullUrl
+    var urlText
+    var blockTokens = state.tokens
+    var links
     if (!state.md.options.linkify) {
       return
     }
@@ -3883,9 +3883,9 @@
     return SCOPED_ABBR[name.toLowerCase()]
   }
   function replace_scoped(inlineTokens) {
-    var i,
-      token,
-      inside_autolink = 0
+    var i
+    var token
+    var inside_autolink = 0
     for (i = inlineTokens.length - 1; i >= 0; i--) {
       token = inlineTokens[i]
       if (token.type === 'text' && !inside_autolink) {
@@ -3900,9 +3900,9 @@
     }
   }
   function replace_rare(inlineTokens) {
-    var i,
-      token,
-      inside_autolink = 0
+    var i
+    var token
+    var inside_autolink = 0
     for (i = inlineTokens.length - 1; i >= 0; i--) {
       token = inlineTokens[i]
       if (token.type === 'text' && !inside_autolink) {
@@ -4252,8 +4252,8 @@
    *
    * Set `name` attribute to `value`. Override old value if exists.
    **/ Token.prototype.attrSet = function attrSet(name, value) {
-    var idx = this.attrIndex(name),
-      attrData = [name, value]
+    var idx = this.attrIndex(name)
+    var attrData = [name, value]
     if (idx < 0) {
       this.attrPush(attrData)
     } else {
@@ -4265,8 +4265,8 @@
    *
    * Get the value of attribute `name`, or null if it does not exist.
    **/ Token.prototype.attrGet = function attrGet(name) {
-    var idx = this.attrIndex(name),
-      value = null
+    var idx = this.attrIndex(name)
+    var value = null
     if (idx >= 0) {
       value = this.attrs[idx][1]
     }
@@ -4333,18 +4333,18 @@
   var parser_core = Core
   var isSpace = utils.isSpace
   function getLine(state, line) {
-    var pos = state.bMarks[line] + state.tShift[line],
-      max = state.eMarks[line]
+    var pos = state.bMarks[line] + state.tShift[line]
+    var max = state.eMarks[line]
     return state.src.substr(pos, max - pos)
   }
   function escapedSplit(str) {
-    var result = [],
-      pos = 0,
-      max = str.length,
-      ch,
-      isEscaped = false,
-      lastPos = 0,
-      current = ''
+    var result = []
+    var pos = 0
+    var max = str.length
+    var ch
+    var isEscaped = false
+    var lastPos = 0
+    var current = ''
     ch = str.charCodeAt(pos)
     while (pos < max) {
       if (ch === 124 /* | */) {
@@ -4559,16 +4559,16 @@
   }
   // fences (``` lang, ~~~ lang)
   var fence = function fence(state, startLine, endLine, silent) {
-    var marker,
-      len,
-      params,
-      nextLine,
-      mem,
-      token,
-      markup,
-      haveEndMarker = false,
-      pos = state.bMarks[startLine] + state.tShift[startLine],
-      max = state.eMarks[startLine]
+    var marker
+    var len
+    var params
+    var nextLine
+    var mem
+    var token
+    var markup
+    var haveEndMarker = false
+    var pos = state.bMarks[startLine] + state.tShift[startLine]
+    var max = state.eMarks[startLine]
     // if it's indented more than 3 spaces, it should be a code block
     if (state.sCount[startLine] - state.blkIndent >= 4) {
       return false
@@ -4648,29 +4648,29 @@
   }
   var isSpace$1 = utils.isSpace
   var blockquote = function blockquote(state, startLine, endLine, silent) {
-    var adjustTab,
-      ch,
-      i,
-      initial,
-      l,
-      lastLineEmpty,
-      lines,
-      nextLine,
-      offset,
-      oldBMarks,
-      oldBSCount,
-      oldIndent,
-      oldParentType,
-      oldSCount,
-      oldTShift,
-      spaceAfterMarker,
-      terminate,
-      terminatorRules,
-      token,
-      isOutdented,
-      oldLineMax = state.lineMax,
-      pos = state.bMarks[startLine] + state.tShift[startLine],
-      max = state.eMarks[startLine]
+    var adjustTab
+    var ch
+    var i
+    var initial
+    var l
+    var lastLineEmpty
+    var lines
+    var nextLine
+    var offset
+    var oldBMarks
+    var oldBSCount
+    var oldIndent
+    var oldParentType
+    var oldSCount
+    var oldTShift
+    var spaceAfterMarker
+    var terminate
+    var terminatorRules
+    var token
+    var isOutdented
+    var oldLineMax = state.lineMax
+    var pos = state.bMarks[startLine] + state.tShift[startLine]
+    var max = state.eMarks[startLine]
     // if it's indented more than 3 spaces, it should be a code block
     if (state.sCount[startLine] - state.blkIndent >= 4) {
       return false
@@ -4888,12 +4888,12 @@
   }
   var isSpace$2 = utils.isSpace
   var hr = function hr(state, startLine, endLine, silent) {
-    var marker,
-      cnt,
-      ch,
-      token,
-      pos = state.bMarks[startLine] + state.tShift[startLine],
-      max = state.eMarks[startLine]
+    var marker
+    var cnt
+    var ch
+    var token
+    var pos = state.bMarks[startLine] + state.tShift[startLine]
+    var max = state.eMarks[startLine]
     // if it's indented more than 3 spaces, it should be a code block
     if (state.sCount[startLine] - state.blkIndent >= 4) {
       return false
@@ -4950,10 +4950,10 @@
   // Search `\d+[.)][\n ]`, returns next pos after marker on success
   // or -1 on fail.
   function skipOrderedListMarker(state, startLine) {
-    var ch,
-      start = state.bMarks[startLine] + state.tShift[startLine],
-      pos = start,
-      max = state.eMarks[startLine]
+    var ch
+    var start = state.bMarks[startLine] + state.tShift[startLine]
+    var pos = start
+    var max = state.eMarks[startLine]
     // List marker should have at least 2 chars (digit + dot)
     if (pos + 1 >= max) {
       return -1
@@ -4992,9 +4992,9 @@
     return pos
   }
   function markTightParagraphs(state, idx) {
-    var i,
-      l,
-      level = state.level + 2
+    var i
+    var l
+    var level = state.level + 2
     for (i = idx + 2, l = state.tokens.length - 2; i < l; i++) {
       if (state.tokens[i].level === level && state.tokens[i].type === 'paragraph_open') {
         state.tokens[i + 2].hidden = true
@@ -5004,36 +5004,36 @@
     }
   }
   var list = function list(state, startLine, endLine, silent) {
-    var ch,
-      contentStart,
-      i,
-      indent,
-      indentAfterMarker,
-      initial,
-      isOrdered,
-      itemLines,
-      l,
-      listLines,
-      listTokIdx,
-      markerCharCode,
-      markerValue,
-      max,
-      nextLine,
-      offset,
-      oldListIndent,
-      oldParentType,
-      oldSCount,
-      oldTShift,
-      oldTight,
-      pos,
-      posAfterMarker,
-      prevEmptyEnd,
-      start,
-      terminate,
-      terminatorRules,
-      token,
-      isTerminatingParagraph = false,
-      tight = true
+    var ch
+    var contentStart
+    var i
+    var indent
+    var indentAfterMarker
+    var initial
+    var isOrdered
+    var itemLines
+    var l
+    var listLines
+    var listTokIdx
+    var markerCharCode
+    var markerValue
+    var max
+    var nextLine
+    var offset
+    var oldListIndent
+    var oldParentType
+    var oldSCount
+    var oldTShift
+    var oldTight
+    var pos
+    var posAfterMarker
+    var prevEmptyEnd
+    var start
+    var terminate
+    var terminatorRules
+    var token
+    var isTerminatingParagraph = false
+    var tight = true
     // if it's indented more than 3 spaces, it should be a code block
     if (state.sCount[startLine] - state.blkIndent >= 4) {
       return false
@@ -5243,26 +5243,26 @@
   var normalizeReference = utils.normalizeReference
   var isSpace$4 = utils.isSpace
   var reference = function reference(state, startLine, _endLine, silent) {
-    var ch,
-      destEndPos,
-      destEndLineNo,
-      endLine,
-      href,
-      i,
-      l,
-      label,
-      labelEnd,
-      oldParentType,
-      res,
-      start,
-      str,
-      terminate,
-      terminatorRules,
-      title,
-      lines = 0,
-      pos = state.bMarks[startLine] + state.tShift[startLine],
-      max = state.eMarks[startLine],
-      nextLine = startLine + 1
+    var ch
+    var destEndPos
+    var destEndLineNo
+    var endLine
+    var href
+    var i
+    var l
+    var label
+    var labelEnd
+    var oldParentType
+    var res
+    var start
+    var str
+    var terminate
+    var terminatorRules
+    var title
+    var lines = 0
+    var pos = state.bMarks[startLine] + state.tShift[startLine]
+    var max = state.eMarks[startLine]
+    var nextLine = startLine + 1
     // if it's indented more than 3 spaces, it should be a code block
     if (state.sCount[startLine] - state.blkIndent >= 4) {
       return false
@@ -5436,12 +5436,12 @@
   }
   var isSpace$5 = utils.isSpace
   var heading = function heading(state, startLine, endLine, silent) {
-    var ch,
-      level,
-      tmp,
-      token,
-      pos = state.bMarks[startLine] + state.tShift[startLine],
-      max = state.eMarks[startLine]
+    var ch
+    var level
+    var tmp
+    var token
+    var pos = state.bMarks[startLine] + state.tShift[startLine]
+    var max = state.eMarks[startLine]
     // if it's indented more than 3 spaces, it should be a code block
     if (state.sCount[startLine] - state.blkIndent >= 4) {
       return false
@@ -5484,18 +5484,18 @@
   }
   // lheading (---, ===)
   var lheading = function lheading(state, startLine, endLine /*, silent*/) {
-    var content,
-      terminate,
-      i,
-      l,
-      token,
-      pos,
-      max,
-      level,
-      marker,
-      nextLine = startLine + 1,
-      oldParentType,
-      terminatorRules = state.md.block.ruler.getRules('paragraph')
+    var content
+    var terminate
+    var i
+    var l
+    var token
+    var pos
+    var max
+    var level
+    var marker
+    var nextLine = startLine + 1
+    var oldParentType
+    var terminatorRules = state.md.block.ruler.getRules('paragraph')
     // if it's indented more than 3 spaces, it should be a code block
     if (state.sCount[startLine] - state.blkIndent >= 4) {
       return false
@@ -5676,12 +5676,12 @@
     [new RegExp(HTML_OPEN_CLOSE_TAG_RE$1.source + '\\s*$'), /^$/, false],
   ]
   var html_block = function html_block(state, startLine, endLine, silent) {
-    var i,
-      nextLine,
-      token,
-      lineText,
-      pos = state.bMarks[startLine] + state.tShift[startLine],
-      max = state.eMarks[startLine]
+    var i
+    var nextLine
+    var token
+    var lineText
+    var pos = state.bMarks[startLine] + state.tShift[startLine]
+    var max = state.eMarks[startLine]
     // if it's indented more than 3 spaces, it should be a code block
     if (state.sCount[startLine] - state.blkIndent >= 4) {
       return false
@@ -5732,15 +5732,15 @@
   }
   // Paragraph
   var paragraph = function paragraph(state, startLine /*, endLine*/) {
-    var content,
-      terminate,
-      i,
-      l,
-      token,
-      oldParentType,
-      nextLine = startLine + 1,
-      terminatorRules = state.md.block.ruler.getRules('paragraph'),
-      endLine = state.lineMax
+    var content
+    var terminate
+    var i
+    var l
+    var token
+    var oldParentType
+    var nextLine = startLine + 1
+    var terminatorRules = state.md.block.ruler.getRules('paragraph')
+    var endLine = state.lineMax
     oldParentType = state.parentType
     state.parentType = 'paragraph'
     // jump line-by-line until empty one or EOF
@@ -5941,14 +5941,14 @@
   }
   // cut lines range from source.
   StateBlock.prototype.getLines = function getLines(begin, end, indent, keepLastLF) {
-    var i,
-      lineIndent,
-      ch,
-      first,
-      last,
-      queue,
-      lineStart,
-      line = begin
+    var i
+    var lineIndent
+    var ch
+    var first
+    var last
+    var queue
+    var lineStart
+    var line = begin
     if (begin >= end) {
       return ''
     }
@@ -6024,13 +6024,13 @@
   // Generate tokens for input range
 
   ParserBlock.prototype.tokenize = function(state, startLine, endLine) {
-    var ok,
-      i,
-      rules = this.ruler.getRules(''),
-      len = rules.length,
-      line = startLine,
-      hasEmptyLines = false,
-      maxNesting = state.md.options.maxNesting
+    var ok
+    var i
+    var rules = this.ruler.getRules('')
+    var len = rules.length
+    var line = startLine
+    var hasEmptyLines = false
+    var maxNesting = state.md.options.maxNesting
     while (line < endLine) {
       state.line = line = state.skipEmptyLines(line)
       if (line >= endLine) {
@@ -6141,9 +6141,9 @@
   }
   var isSpace$7 = utils.isSpace
   var newline = function newline(state, silent) {
-    var pmax,
-      max,
-      pos = state.pos
+    var pmax
+    var max
+    var pos = state.pos
     if (state.src.charCodeAt(pos) !== 10 /* \n */) {
       return false
     }
@@ -6183,9 +6183,9 @@
     ESCAPED[ch.charCodeAt(0)] = 1
   })
   var _escape = function escape(state, silent) {
-    var ch,
-      pos = state.pos,
-      max = state.posMax
+    var ch
+    var pos = state.pos
+    var max = state.posMax
     if (state.src.charCodeAt(pos) !== 92 /* \ */) {
       return false
     }
@@ -6224,16 +6224,16 @@
   }
   // Parse backticks
   var backticks = function backtick(state, silent) {
-    var start,
-      max,
-      marker,
-      token,
-      matchStart,
-      matchEnd,
-      openerLength,
-      closerLength,
-      pos = state.pos,
-      ch = state.src.charCodeAt(pos)
+    var start
+    var max
+    var marker
+    var token
+    var matchStart
+    var matchEnd
+    var openerLength
+    var closerLength
+    var pos = state.pos
+    var ch = state.src.charCodeAt(pos)
     if (ch !== 96 /* ` */) {
       return false
     }
@@ -6286,13 +6286,13 @@
   // Insert each marker as a separate text token, and add it to delimiter list
 
   var tokenize = function strikethrough(state, silent) {
-    var i,
-      scanned,
-      token,
-      len,
-      ch,
-      start = state.pos,
-      marker = state.src.charCodeAt(start)
+    var i
+    var scanned
+    var token
+    var len
+    var ch
+    var start = state.pos
+    var marker = state.src.charCodeAt(start)
     if (silent) {
       return false
     }
@@ -6329,13 +6329,13 @@
     return true
   }
   function postProcess(state, delimiters) {
-    var i,
-      j,
-      startDelim,
-      endDelim,
-      token,
-      loneMarkers = [],
-      max = delimiters.length
+    var i
+    var j
+    var startDelim
+    var endDelim
+    var token
+    var loneMarkers = []
+    var max = delimiters.length
     for (i = 0; i < max; i++) {
       startDelim = delimiters[i]
       if (startDelim.marker !== 126 /* ~ */) {
@@ -6387,9 +6387,9 @@
   // Walk through delimiter list and replace text tokens with tags
 
   var postProcess_1 = function strikethrough(state) {
-    var curr,
-      tokens_meta = state.tokens_meta,
-      max = state.tokens_meta.length
+    var curr
+    var tokens_meta = state.tokens_meta
+    var max = state.tokens_meta.length
     postProcess(state, state.delimiters)
     for (curr = 0; curr < max; curr++) {
       if (tokens_meta[curr] && tokens_meta[curr].delimiters) {
@@ -6405,11 +6405,11 @@
   // Insert each marker as a separate text token, and add it to delimiter list
 
   var tokenize$1 = function emphasis(state, silent) {
-    var i,
-      scanned,
-      token,
-      start = state.pos,
-      marker = state.src.charCodeAt(start)
+    var i
+    var scanned
+    var token
+    var start = state.pos
+    var marker = state.src.charCodeAt(start)
     if (silent) {
       return false
     }
@@ -6446,13 +6446,13 @@
     return true
   }
   function postProcess$1(state, delimiters) {
-    var i,
-      startDelim,
-      endDelim,
-      token,
-      ch,
-      isStrong,
-      max = delimiters.length
+    var i
+    var startDelim
+    var endDelim
+    var token
+    var ch
+    var isStrong
+    var max = delimiters.length
     for (i = max - 1; i >= 0; i--) {
       startDelim = delimiters[i]
       if (startDelim.marker !== 95 /* _ */ && startDelim.marker !== 42 /* * */) {
@@ -6497,9 +6497,9 @@
   // Walk through delimiter list and replace text tokens with tags
 
   var postProcess_1$1 = function emphasis(state) {
-    var curr,
-      tokens_meta = state.tokens_meta,
-      max = state.tokens_meta.length
+    var curr
+    var tokens_meta = state.tokens_meta
+    var max = state.tokens_meta.length
     postProcess$1(state, state.delimiters)
     for (curr = 0; curr < max; curr++) {
       if (tokens_meta[curr] && tokens_meta[curr].delimiters) {
@@ -6514,21 +6514,21 @@
   var normalizeReference$1 = utils.normalizeReference
   var isSpace$9 = utils.isSpace
   var link = function link(state, silent) {
-    var attrs,
-      code,
-      label,
-      labelEnd,
-      labelStart,
-      pos,
-      res,
-      ref,
-      token,
-      href = '',
-      title = '',
-      oldPos = state.pos,
-      max = state.posMax,
-      start = state.pos,
-      parseReference = true
+    var attrs
+    var code
+    var label
+    var labelEnd
+    var labelStart
+    var pos
+    var res
+    var ref
+    var token
+    var href = ''
+    var title = ''
+    var oldPos = state.pos
+    var max = state.posMax
+    var start = state.pos
+    var parseReference = true
     if (state.src.charCodeAt(state.pos) !== 91 /* [ */) {
       return false
     }
@@ -6648,22 +6648,22 @@
   var normalizeReference$2 = utils.normalizeReference
   var isSpace$a = utils.isSpace
   var image = function image(state, silent) {
-    var attrs,
-      code,
-      content,
-      label,
-      labelEnd,
-      labelStart,
-      pos,
-      ref,
-      res,
-      title,
-      token,
-      tokens,
-      start,
-      href = '',
-      oldPos = state.pos,
-      max = state.posMax
+    var attrs
+    var code
+    var content
+    var label
+    var labelEnd
+    var labelStart
+    var pos
+    var ref
+    var res
+    var title
+    var token
+    var tokens
+    var start
+    var href = ''
+    var oldPos = state.pos
+    var max = state.posMax
     if (state.src.charCodeAt(state.pos) !== 33 /* ! */) {
       return false
     }
@@ -6789,13 +6789,13 @@
   /*eslint max-len:0*/ var EMAIL_RE = /^([a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)$/
   var AUTOLINK_RE = /^([a-zA-Z][a-zA-Z0-9+.\-]{1,31}):([^<>\x00-\x20]*)$/
   var autolink = function autolink(state, silent) {
-    var url,
-      fullUrl,
-      token,
-      ch,
-      start,
-      max,
-      pos = state.pos
+    var url
+    var fullUrl
+    var token
+    var ch
+    var start
+    var max
+    var pos = state.pos
     if (state.src.charCodeAt(pos) !== 60 /* < */) {
       return false
     }
@@ -6856,11 +6856,11 @@
     return lc >= 97 /* a */ && lc <= 122 /* z */
   }
   var html_inline = function html_inline(state, silent) {
-    var ch,
-      match,
-      max,
-      token,
-      pos = state.pos
+    var ch
+    var match
+    var max
+    var token
+    var pos = state.pos
     if (!state.md.options.html) {
       return false
     }
@@ -6891,11 +6891,11 @@
   var DIGITAL_RE = /^&#((?:x[a-f0-9]{1,6}|[0-9]{1,7}));/i
   var NAMED_RE = /^&([a-z][a-z0-9]{1,31});/i
   var entity = function entity(state, silent) {
-    var ch,
-      code,
-      match,
-      pos = state.pos,
-      max = state.posMax
+    var ch
+    var code
+    var match
+    var pos = state.pos
+    var max = state.posMax
     if (state.src.charCodeAt(pos) !== 38 /* & */) {
       return false
     }
@@ -6935,16 +6935,16 @@
   }
   // For each opening emphasis-like marker find a matching closing one
   function processDelimiters(state, delimiters) {
-    var closerIdx,
-      openerIdx,
-      closer,
-      opener,
-      minOpenerIdx,
-      newMinOpenerIdx,
-      isOddMatch,
-      lastJump,
-      openersBottom = {},
-      max = delimiters.length
+    var closerIdx
+    var openerIdx
+    var closer
+    var opener
+    var minOpenerIdx
+    var newMinOpenerIdx
+    var isOddMatch
+    var lastJump
+    var openersBottom = {}
+    var max = delimiters.length
     for (closerIdx = 0; closerIdx < max; closerIdx++) {
       closer = delimiters[closerIdx]
       // Length is only used for emphasis-specific "rule of 3",
@@ -7011,9 +7011,9 @@
     }
   }
   var balance_pairs = function link_pairs(state) {
-    var curr,
-      tokens_meta = state.tokens_meta,
-      max = state.tokens_meta.length
+    var curr
+    var tokens_meta = state.tokens_meta
+    var max = state.tokens_meta.length
     processDelimiters(state, state.delimiters)
     for (curr = 0; curr < max; curr++) {
       if (tokens_meta[curr] && tokens_meta[curr].delimiters) {
@@ -7023,11 +7023,11 @@
   }
   // Clean up tokens after emphasis and strikethrough postprocessing:
   var text_collapse = function text_collapse(state) {
-    var curr,
-      last,
-      level = 0,
-      tokens = state.tokens,
-      max = state.tokens.length
+    var curr
+    var last
+    var level = 0
+    var tokens = state.tokens
+    var max = state.tokens.length
     for (curr = last = 0; curr < max; curr++) {
       // re-calculate levels after emphasis/strikethrough turns some text nodes
       // into opening/closing tags
@@ -7121,20 +7121,20 @@
   //  - canSplitWord - determine if these markers can be found inside a word
 
   StateInline.prototype.scanDelims = function(start, canSplitWord) {
-    var pos = start,
-      lastChar,
-      nextChar,
-      count,
-      can_open,
-      can_close,
-      isLastWhiteSpace,
-      isLastPunctChar,
-      isNextWhiteSpace,
-      isNextPunctChar,
-      left_flanking = true,
-      right_flanking = true,
-      max = this.posMax,
-      marker = this.src.charCodeAt(start)
+    var pos = start
+    var lastChar
+    var nextChar
+    var count
+    var can_open
+    var can_close
+    var isLastWhiteSpace
+    var isLastPunctChar
+    var isNextWhiteSpace
+    var isNextPunctChar
+    var left_flanking = true
+    var right_flanking = true
+    var max = this.posMax
+    var marker = this.src.charCodeAt(start)
     // treat beginning of the line as a whitespace
     lastChar = start > 0 ? this.src.charCodeAt(start - 1) : 32
     while (pos < max && this.src.charCodeAt(pos) === marker) {
@@ -7224,13 +7224,13 @@
   // returns `true` if any rule reported success
 
   ParserInline.prototype.skipToken = function(state) {
-    var ok,
-      i,
-      pos = state.pos,
-      rules = this.ruler.getRules(''),
-      len = rules.length,
-      maxNesting = state.md.options.maxNesting,
-      cache = state.cache
+    var ok
+    var i
+    var pos = state.pos
+    var rules = this.ruler.getRules('')
+    var len = rules.length
+    var maxNesting = state.md.options.maxNesting
+    var cache = state.cache
     if (typeof cache[pos] !== 'undefined') {
       state.pos = cache[pos]
       return
@@ -7265,12 +7265,12 @@
   // Generate tokens for input range
 
   ParserInline.prototype.tokenize = function(state) {
-    var ok,
-      i,
-      rules = this.ruler.getRules(''),
-      len = rules.length,
-      end = state.posMax,
-      maxNesting = state.md.options.maxNesting
+    var ok
+    var i
+    var rules = this.ruler.getRules('')
+    var len = rules.length
+    var end = state.posMax
+    var maxNesting = state.md.options.maxNesting
     while (state.pos < end) {
       // Try all possible rules.
       // On success, rule should:
@@ -7738,9 +7738,9 @@
    *
    * Match result. Single element of array, returned by [[LinkifyIt#match]]
    **/ function Match(self, shift) {
-    var start = self.__index__,
-      end = self.__last_index__,
-      text = self.__text_cache__.slice(start, end)
+    var start = self.__index__
+    var end = self.__last_index__
+    var text = self.__text_cache__.slice(start, end)
     /**
      * Match#schema -> String
      *
@@ -7967,8 +7967,8 @@
    * - __text__ - normalized text
    * - __url__ - link, generated from matched text
    **/ LinkifyIt.prototype.match = function match(text) {
-    var shift = 0,
-      result = []
+    var shift = 0
+    var result = []
     // Try to take previous element from cache, if .test() called before
     if (this.__index__ >= 0 && this.__text_cache__ === text) {
       result.push(createMatch(this, shift))
@@ -8126,11 +8126,11 @@
    * @param {String} string The Unicode input string (UCS-2).
    * @returns {Array} The new array of code points.
    */ function ucs2decode(string) {
-    var output = [],
-      counter = 0,
-      length = string.length,
-      value,
-      extra
+    var output = []
+    var counter = 0
+    var length = string.length
+    var value
+    var extra
     while (counter < length) {
       value = string.charCodeAt(counter++)
       if (value >= 55296 && value <= 56319 && counter < length) {
@@ -8226,22 +8226,22 @@
    * @returns {String} The resulting string of Unicode symbols.
    */ function decode$2(input) {
     // Don't use UCS-2
-    var output = [],
-      inputLength = input.length,
-      out,
-      i = 0,
-      n = initialN,
-      bias = initialBias,
-      basic,
-      j,
-      index,
-      oldi,
-      w,
-      k,
-      digit,
-      t,
-      /** Cached calculation results */
-      baseMinusT
+    var output = []
+    var inputLength = input.length
+    var out
+    var i = 0
+    var n = initialN
+    var bias = initialBias
+    var basic
+    var j
+    var index
+    var oldi
+    var w
+    var k
+    var digit
+    var t
+    /** Cached calculation results */
+    var baseMinusT
     // Handle the basic code points: let `basic` be the number of input code
     // points before the last delimiter, or `0` if there is none, then copy
     // the first basic code points to the output.
@@ -8304,24 +8304,24 @@
    * @param {String} input The string of Unicode symbols.
    * @returns {String} The resulting Punycode string of ASCII-only symbols.
    */ function encode$2(input) {
-    var n,
-      delta,
-      handledCPCount,
-      basicLength,
-      bias,
-      j,
-      m,
-      q,
-      k,
-      t,
-      currentValue,
-      output = [],
-      /** `inputLength` will hold the number of code points in `input`. */
-      inputLength,
-      /** Cached calculation results */
-      handledCPCountPlusOne,
-      baseMinusT,
-      qMinusT
+    var n
+    var delta
+    var handledCPCount
+    var basicLength
+    var bias
+    var j
+    var m
+    var q
+    var k
+    var t
+    var currentValue
+    var output = []
+    /** `inputLength` will hold the number of code points in `input`. */
+    var inputLength
+    /** Cached calculation results */
+    var handledCPCountPlusOne
+    var baseMinusT
+    var qMinusT
     // Convert the input in UCS-2 to Unicode
     input = ucs2decode(input)
     // Cache the length
@@ -8606,7 +8606,7 @@
   function validateLink(url) {
     // url should be normalized at this point, and existing entities are decoded
     var str = url.trim().toLowerCase()
-    return BAD_PROTO_RE.test(str) ? (GOOD_DATA_RE.test(str) ? true : false) : true
+    return BAD_PROTO_RE.test(str) ? !!GOOD_DATA_RE.test(str) : true
   }
   ////////////////////////////////////////////////////////////////////////////////
   var RECODE_HOSTNAME_FOR = ['http:', 'https:', 'mailto:']
@@ -8908,8 +8908,8 @@
    * We strongly recommend to use presets instead of direct config loads. That
    * will give better compatibility with next versions.
    **/ MarkdownIt.prototype.configure = function(presets) {
-    var self = this,
-      presetName
+    var self = this
+    var presetName
     if (utils.isString(presets)) {
       presetName = presets
       presets = config[presetName]

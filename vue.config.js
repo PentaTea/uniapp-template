@@ -1,6 +1,7 @@
 const path = require('path')
 const resolve = (dir) => path.join(__dirname, dir)
 const webpack = require('webpack')
+const TransformPages = require('uni-read-pages')
 
 module.exports = {
   lintOnSave: false,
@@ -26,6 +27,14 @@ module.exports = {
         app: resolve('src/utils/__provider'),
       }),
       require('unplugin-vue2-script-setup/webpack')({}),
+      new webpack.DefinePlugin({
+        ROUTES: webpack.DefinePlugin.runtimeValue(() => {
+          const tfPages = new TransformPages({
+            includes: ['path', 'name', 'style'],
+          })
+          return JSON.stringify(tfPages.routes)
+        }, true),
+      }),
       // require('unplugin-auto-import/webpack')({
       //   include: [
       //     /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx

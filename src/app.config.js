@@ -12,6 +12,11 @@ const packages = {
   },
   //生产环境禁用 playground 分包
   playground: process.env.NODE_ENV === 'production' ? false : {},
+  admin: {
+    index: { icon: 'ri-dashboard-3-line', name: '主页' },
+    dashboard: { icon: 'ri-dashboard-line', name: '控制台' },
+  },
+  oldadmin: false,
 }
 
 const loginPage = '/pages/user/login'

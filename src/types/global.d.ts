@@ -2,6 +2,7 @@ declare global {
   //全局属性
   interface App {}
   const app: App
+  const ROUTES: { path: string; style: Record<string, any> }[]
 
   namespace UniApp {
     interface Uni {

@@ -21,5 +21,20 @@
     //模式配置，仅开发期间生效
     "current": 0, //当前激活的模式(list 的索引项)
     "list": []
+  },
+  "topWindow": {
+    "path": "windows/topWindow",
+    "style": {
+      "height": "70px"
+    },
+    "matchMedia": {
+      "minWidth": 0
+    }
+  },
+  "leftWindow": {
+    "path": "windows/leftWindow",
+    "style": {
+      "width": "240px"
+    }
   }
 }

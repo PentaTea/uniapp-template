@@ -24,8 +24,15 @@ export default Vue.extend({
 })
 </script>
 
-<!-- 这个空style不能删,抑制报错 -->
-<style></style>
+<style>
+uni-left-window {
+  display: block !important;
+}
+
+body.sidebar-show::before {
+  content: none !important;
+}
+</style>
 
 <style lang="scss">
 // #ifndef APP-PLUS-NVUE

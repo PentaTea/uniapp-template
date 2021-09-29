@@ -255,24 +255,15 @@ export default async function() {
         uni.setStorageSync('uni_id_token_expired', tokenExpired)
       }
       switch (e.result.code) {
-        case 403:
-          uni.navigateTo({
-            url: CONFIG.loginPage,
-          })
+        case 401:
+          uni.navigateTo({ url: CONFIG.loginPage })
           break
-        case 30203:
-          uni.navigateTo({
-            url: CONFIG.loginPage,
-          })
-          break
-        case 50101:
+        default:
           uni.showToast({
-            title: e.result.msg,
+            title: e.result.message || e.result.msg || e.result.code,
             icon: 'none',
             duration: 2000,
           })
-          break
-        default:
           break
       }
       console.log(e.result)

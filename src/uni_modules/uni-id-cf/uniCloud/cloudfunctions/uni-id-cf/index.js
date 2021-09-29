@@ -51,7 +51,7 @@ exports.main = async (event, context) => {
 	if (!noCheckAction.includes(action)) {
 		if (!uniIdToken) {
 			return {
-				code: 403,
+				code: 401,
 				msg: '缺少token'
 			}
 		}
@@ -172,13 +172,13 @@ exports.main = async (event, context) => {
 			} = params
 			if (/^1\d{10}$/.test(username)) {
 				return {
-					code: 401,
+					code: 403,
 					msg: '用户名不能是手机号'
 				}
 			};
 			if (/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(username)) {
 				return {
-					code: 401,
+					code: 403,
 					msg: '用户名不能是邮箱'
 				}
 			}

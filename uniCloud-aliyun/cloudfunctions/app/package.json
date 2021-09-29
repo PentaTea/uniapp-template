@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon",
+    "build": "etsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "uni-cloud-router": "file:../common/uni-cloud-router"
+    "uni-cloud-router": "file:../common/uni-cloud-router",
+    "uni-id": "file:../../../src/uni_modules/uni-id/uniCloud/cloudfunctions/common/uni-id"
   }
 }

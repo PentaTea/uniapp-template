@@ -30,7 +30,7 @@
     "eslint": "^7.9.0",
     "jest": "^26.4.2",
     "koa-compose": "^4.1.0",
-    "noader": "^3.1.1",
+    "noader": "github:PentaTea/noader",
     "path-to-regexp": "^6.1.0",
     "prettier": "^2.1.2",
     "rollup": "^2.27.1",

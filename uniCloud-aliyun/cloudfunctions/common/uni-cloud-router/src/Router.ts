@@ -113,8 +113,8 @@ export class Router<
     if (!Array.isArray(middleware)) {
       return
     }
-    middleware.forEach(([mw, options]) => {
-      this.use(mw, options)
+    middleware.forEach(e => {
+      Array.isArray(e) ? this.use(...e) : this.use(e)
     })
   }
   private wrapMiddleware(
@@ -147,6 +147,8 @@ export class Router<
       return error('action must contain "/"')
     }
     const methodName = paths[len - 1]
+    console.log(ctx.controller.test)
+
     let controller = ctx.controller
     for (let i = 0; i < len - 1; i++) {
       controller = controller[paths[i]]

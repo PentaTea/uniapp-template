@@ -8025,6 +8025,35 @@ jstransformer@1.0.0:
     is-promise "^2.0.0"
     promise "^7.0.1"
 
+k8w-crypto@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.nlark.com/k8w-crypto/download/k8w-crypto-0.2.0.tgz#00e6f3027832eeade06fd79c9c3a1ebfb76c964f"
+  integrity sha1-AObzAngy7q3gb9ecnDoev7dslk8=
+
+k8w-extend-native@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.nlark.com/k8w-extend-native/download/k8w-extend-native-1.4.5.tgz#efbcea5ad127c8ac669bab1975a95da7f4119d4c"
+  integrity sha1-77zqWtEnyKxmm6sZdaldp/QRnUw=
+  dependencies:
+    k8w-linq-array "*"
+    k8w-super-date "*"
+    k8w-super-object "*"
+
+k8w-linq-array@*:
+  version "0.2.7"
+  resolved "https://registry.nlark.com/k8w-linq-array/download/k8w-linq-array-0.2.7.tgz#24a134265a99b46f5e8e3617d6dcf2cd4c395076"
+  integrity sha1-JKE0JlqZtG9ejjYX1tzyzUw5UHY=
+
+k8w-super-date@*:
+  version "0.1.3"
+  resolved "https://registry.nlark.com/k8w-super-date/download/k8w-super-date-0.1.3.tgz#4f53a39f2b74e21b11268926b710e5a7c27f8848"
+  integrity sha1-T1Ojnyt04hsRJokmtxDlp8J/iEg=
+
+k8w-super-object@*:
+  version "0.3.0"
+  resolved "https://registry.nlark.com/k8w-super-object/download/k8w-super-object-0.3.0.tgz#6430d14956aaf3a936fda7776b0897a04db331dd"
+  integrity sha1-ZDDRSVaq86k2/ad3awiXoE2zMd0=
+
 katex@^0.10.2:
   version "0.10.2"
   resolved "https://registry.nlark.com/katex/download/katex-0.10.2.tgz#39973edbb65eda5b6f9e7f41648781e557dd4932"
@@ -12249,6 +12278,22 @@ ts-pnp@^1.1.6:
   resolved "https://registry.nlark.com/ts-pnp/download/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha1-pQCtCEsHmPHDBxrzkeZZEshrypI=
 
+tsbuffer-proto-generator@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.nlark.com/tsbuffer-proto-generator/download/tsbuffer-proto-generator-1.4.2.tgz#6cfda46f2c1a493623062473a0a68139ec0a41f8"
+  integrity sha1-bP2kbywaSTYjBiRzoKaBOewKQfg=
+  dependencies:
+    k8w-crypto "^0.2.0"
+    k8w-extend-native "^1.4.5"
+    tsbuffer-schema "^2.0.2"
+    tslib "^2.3.0"
+    typescript "^4.3.2"
+
+tsbuffer-schema@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.nlark.com/tsbuffer-schema/download/tsbuffer-schema-2.0.2.tgz#3cd65a9954b8bb804aacc5d94b43ce642c2c0c94"
+  integrity sha1-PNZamVS4u4BKrMXZS0POZCwsDJQ=
+
 tsconfig-paths@^3.9.0:
   version "3.10.1"
   resolved "https://registry.nlark.com/tsconfig-paths/download/tsconfig-paths-3.10.1.tgz?cache=0&sync_timestamp=1625590552713&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ftsconfig-paths%2Fdownload%2Ftsconfig-paths-3.10.1.tgz#79ae67a68c15289fdf5c51cb74f397522d795ed7"
@@ -12408,6 +12453,11 @@ typescript@^4.2.3:
   version "4.3.5"
   resolved "https://registry.nlark.com/typescript/download/typescript-4.3.5.tgz?cache=0&sync_timestamp=1628205258808&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ftypescript%2Fdownload%2Ftypescript-4.3.5.tgz#4d1c37cc16e893973c45a06886b7113234f119f4"
   integrity sha1-TRw3zBbok5c8RaBohrcRMjTxGfQ=
+
+typescript@^4.3.2:
+  version "4.4.3"
+  resolved "https://registry.npmmirror.com/typescript/download/typescript-4.4.3.tgz?cache=0&sync_timestamp=1632986547425&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Ftypescript%2Fdownload%2Ftypescript-4.4.3.tgz#bdc5407caa2b109efd4f82fe130656f977a29324"
+  integrity sha1-vcVAfKorEJ79T4L+EwZW+XeikyQ=
 
 uglify-js@3.4.x:
   version "3.4.10"

@@ -1,3 +1,4 @@
+import uniID from 'uni-id'
 export default (options) => {
   return async function auth(ctx, next) {
     global.uniID = require('uni-id').createInstance({
@@ -14,7 +15,7 @@ export default (options) => {
     global.AUTH = auth // 设置当前请求的 auth 对象
     await next()
     const { token, tokenExpired } = auth || {}
-    if (token && tokenExpired && isObject(ctx.body)) {
+    if (token && tokenExpired && _.isObject(ctx.body)) {
       Object.assign(ctx.body, {
         token,
         tokenExpired,

@@ -1,0 +1,23 @@
+{
+  "test/Validate": {
+    "type": "Interface",
+    "properties": [
+      {
+        "id": 0,
+        "name": "title",
+        "type": {
+          "type": "Interface",
+          "properties": [
+            {
+              "id": 0,
+              "name": "a",
+              "type": {
+                "type": "Number"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "build": "etsc"
+    "build": "etsc",
+    "proto": "nodemon --config nodemon.proto.json"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +14,8 @@
   "dependencies": {
     "uni-cloud-router": "file:../common/uni-cloud-router",
     "uni-id": "file:../../../src/uni_modules/uni-id/uniCloud/cloudfunctions/common/uni-id"
+  },
+  "devDependencies": {
+    "tsbuffer-validator": "^2.0.4"
   }
 }

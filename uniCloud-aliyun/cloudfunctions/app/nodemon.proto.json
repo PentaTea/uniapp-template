@@ -1,0 +1,6 @@
+{
+  "watch": ["src"],
+  "ext": "ts",
+  "exec": "node src/schema/index.js",
+  "legacyWatch": true
+}

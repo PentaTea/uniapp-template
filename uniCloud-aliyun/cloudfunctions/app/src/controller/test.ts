@@ -1,15 +1,11 @@
-import { Controller } from 'uni-cloud-router'
-
 export default class extends Controller {
   echo() {
-    const { ctx, service } = this
-    console.log(ctx.data)
-    return service.test.echo(ctx.data)
+    console.log($data)
+    return $service.test.echo($data)
   }
 
   return() {
-    const { ctx, service } = this
-    return ctx.data
+    return $data
   }
 
   @debug('装饰器测试函数')
@@ -18,6 +14,16 @@ export default class extends Controller {
       setTimeout(resolve, 2333)
     })
     return 123
+  }
+
+  validate() {
+    return
+  }
+}
+
+export interface Validate {
+  title: {
+    a: number
   }
 }
 

@@ -1,3 +1,4 @@
+// @ts-ignore
 import schema from 'uniCloud-aliyun/cloudfunctions/app/src/schema/gen.json'
 
 function createContext(name: string, action = []) {
@@ -50,7 +51,7 @@ type MatchController<S extends { [key: string]: object }> = keyof S extends infe
         //控制器名
         [K in A]: {
           //方法名
-          [key in B]: (arg?: { [key in keyof S[L]]? }) => Promise<any> //创建异步函数类型,规定参数1的key映射为对应url的短签
+          [key in B]: (arg?: Record<string, any>) => Promise<any> //创建异步函数类型,规定参数1的key映射为对应url的短签
         } & { [key: string]: any }
       }
     : never

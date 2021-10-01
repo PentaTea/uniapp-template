@@ -6,7 +6,17 @@ export default () => {
       addGlobal('currentContext', ctx)
       addGlobal('$service', ctx.service)
       addGlobal('$controller', ctx.controller)
-      addGlobal('$data', ctx.data)
+      addGlobal(
+        '$data',
+        new Proxy(() => {}, {
+          get(target, property) {
+            return ctx.data[property]
+          },
+          apply() {
+            return ctx.data
+          },
+        })
+      )
       addGlobal('$db', ctx.db)
     }
   }
@@ -25,8 +35,8 @@ declare global {
   const currentContext: Context
   const $service: Context['service']
   const $controller: Context['controller']
-  const $data: Context['data']
-  const $db: Context['db']
 
+  const $db: Context['db']
+  const $data: Context['data'] & (<T = any>() => T)
   const $200: (s) => any
 }

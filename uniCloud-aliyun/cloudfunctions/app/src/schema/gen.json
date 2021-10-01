@@ -1,5 +1,5 @@
 {
-  "test/Validate": {
+  "test/validate": {
     "type": "Interface",
     "properties": [
       {
@@ -12,11 +12,12 @@
               "id": 0,
               "name": "a",
               "type": {
-                "type": "Number"
+                "type": "String"
               }
             }
           ]
-        }
+        },
+        "optional": true
       }
     ]
   }

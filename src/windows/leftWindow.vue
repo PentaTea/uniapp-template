@@ -46,7 +46,7 @@ export default class extends Vue {
   position: fixed;
   // top: var(--top-window-height);
   top: 0;
-  z-index: 10000;
+  z-index: 1000;
   width: 0;
   // height: calc(100vh - (var(--top-window-height)));
 
@@ -68,7 +68,7 @@ export default class extends Vue {
   #sidebar-wrapper {
     position: fixed;
     left: 0;
-    z-index: 10000;
+    z-index: 1000;
     width: 240px;
     height: 100vh;
     padding-bottom: 10px;

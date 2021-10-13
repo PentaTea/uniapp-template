@@ -19,8 +19,21 @@ export default class extends Controller {
   validate() {
     return $data.title
   }
+
+  question(data: {
+    title?: {
+      a: string
+    }
+  }) {
+    return data
+  }
 }
 export interface validate {
+  title?: {
+    a: string
+  }
+}
+export interface question {
   title?: {
     a: string
   }

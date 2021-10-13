@@ -20,5 +20,27 @@
         "optional": true
       }
     ]
+  },
+  "test/question": {
+    "type": "Interface",
+    "properties": [
+      {
+        "id": 0,
+        "name": "title",
+        "type": {
+          "type": "Interface",
+          "properties": [
+            {
+              "id": 0,
+              "name": "a",
+              "type": {
+                "type": "String"
+              }
+            }
+          ]
+        },
+        "optional": true
+      }
+    ]
   }
 }

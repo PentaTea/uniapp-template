@@ -9,17 +9,13 @@ module.exports = {
   chainWebpack: (config) => {
     config.resolve.alias.set('@app', resolve('src'))
     config.resolve.alias.set('@api', resolve('src/api'))
-    config.module
-      .rule('page')
-      .enforce('pre')
-      .test(/\.vue$/)
-      .use('addMeta')
-      .loader(resolve('loader/addMeta.loader.js')).end
-    config.module
-      .rule('md')
-      .test(/\.md$/)
-      .use('text-loader')
-      .loader('text-loader').end
+    // config.module
+    //   .rule('page')
+    //   .enforce('pre')
+    //   .test(/\.vue$/)
+    //   .use('addMeta')
+    //   .loader(resolve('loader/addMeta.loader.js')).end
+    config.module.rule('md').test(/\.md$/).use('text-loader').loader('text-loader').end
   },
   configureWebpack: {
     plugins: [

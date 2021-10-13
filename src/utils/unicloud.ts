@@ -25,10 +25,12 @@ function createContext(name: string, action = []) {
     },
   })
 }
+
 const cloudfunctionsAlias = {
   user: 'uni-id-cf',
   controller: 'app',
 }
+//调用普通云函数
 export const cloud = new Proxy(cloudfunctionsAlias, {
   get: (target, property) => createContext(target[property] || property),
 }) as unknown as Record<keyof typeof cloudfunctionsAlias, CF> & { [key: string]: CF }
@@ -38,6 +40,7 @@ type CF = {
   [key: string]: CF
 }
 
+//调用 app 云函数
 export const controller = new Proxy(
   {},
   { get: (target, property) => createContext('app', [property]) }

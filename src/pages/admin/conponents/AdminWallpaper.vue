@@ -28,19 +28,36 @@ export default class extends Vue {}
 
 .main-wrapper {
   position: relative;
+  height: 100%;
   padding-top: 0.1px;
+  background: #fff;
 
-  &::before {
-    position: absolute;
-    bottom: auto;
-    height: 70px;
-    background-color: #42b883;
-    content: '';
-    inset: 0;
-  }
+  // &::before {
+  //   position: absolute;
+  //   bottom: auto;
+  //   height: 70px;
+  //   background-color: #42b883;
+  //   content: '';
+  //   inset: 0;
+  // }
 }
 
 .main-content {
+  top: 0;
+  height: 100%;
   padding: 0;
+  margin: 0;
+}
+
+.section {
+  height: calc(100vh - 70px);
+
+  > uni-view {
+    height: 100%;
+  }
+
+  > *:first-child {
+    margin: 0;
+  }
 }
 </style>

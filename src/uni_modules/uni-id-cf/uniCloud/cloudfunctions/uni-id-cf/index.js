@@ -212,7 +212,8 @@ exports.main = async (event, context) => {
 			}
 
 			let passed = false;
-			let needCaptcha = await getNeedCaptcha();
+			// let needCaptcha = await getNeedCaptcha();
+			let needCaptcha = false
 			console.log('needCaptcha', needCaptcha);
 			if (needCaptcha) {
 				res = await uniCaptcha.verify({

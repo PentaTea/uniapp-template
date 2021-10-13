@@ -13,13 +13,7 @@
           <div class="dropdown-menu dropdown-menu-right" @click.stop>
             <div class="dropdown-title">
               Logged in
-              {{
-                app &&
-                  app
-                    .time(userInfo.last_login_date)
-                    .locale('en')
-                    .fromNow()
-              }}
+              {{ app && app.time(userInfo.last_login_date).locale('en').fromNow() }}
             </div>
             <a href="features-profile.html" class="dropdown-item has-icon">
               <i class="far fa-user"></i> Profile
@@ -71,7 +65,7 @@ export default class extends Vue {
   //   }
   openUserMenu() {
     document.querySelector('.user-menu').classList.add('active')
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       if (e.target['className'] != 'user-menu') {
         document.querySelector('.user-menu').classList.remove('active')
       }
@@ -151,10 +145,13 @@ export default class extends Vue {
 
     &::after {
       position: absolute;
-      top: -30px;
-      bottom: 100%;
-      content: '';
       inset: 0;
+      top: -30px;
+      content: '';
+    }
+
+    .dropdown-divider {
+      margin: 10px 0;
     }
   }
 

@@ -58,5 +58,9 @@ body.sidebar-show::before {
 #webpack-dev-server-client-overlay {
   display: none;
 }
+
+uni-page-body {
+  height: 100%;
+}
 // #endif
 </style>

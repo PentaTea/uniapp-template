@@ -5,7 +5,7 @@ import store from '@app/store'
 import interceptorChooseImage from '@app/uni_modules/json-interceptor-chooseImage/js_sdk/main.js'
 // #endif
 const db = uniCloud.database()
-export default async function() {
+export default async function () {
   let loginConfig = CONFIG.router.login
   //清除有配置但设备环境不支持的登陆项
   // #ifdef APP-PLUS
@@ -89,7 +89,7 @@ export default async function() {
 
   // 解绑clientDB错误事件
   //db.off('error', onDBError)
-  db.on('refreshToken', function({ token, tokenExpired }) {
+  db.on('refreshToken', function ({ token, tokenExpired }) {
     console.log('监听到clientDB的refreshToken', {
       token,
       tokenExpired,
@@ -118,7 +118,7 @@ export default async function() {
                 callBack(e.oaid)
                 console.log('getOAID success: ' + JSON.stringify(e))
               },
-              fail: function(e) {
+              fail: function (e) {
                 callBack(false)
                 console.log('getOAID failed: ' + JSON.stringify(e))
               },
@@ -131,11 +131,11 @@ export default async function() {
         const imei = await new Promise((callBack, fail) => {
           if (uni.getSystemInfoSync().platform == 'android') {
             ;(plus as any).device.getInfo({
-              success: function(e) {
+              success: function (e) {
                 callBack(e.imei)
                 // console.log('getOAID success: '+JSON.stringify(e));
               },
-              fail: function(e) {
+              fail: function (e) {
                 callBack(false)
                 console.log('getOAID failed: ' + JSON.stringify(e))
               },
@@ -172,7 +172,7 @@ export default async function() {
         //注册可能不仅仅走register接口，还有登陆并注册的接口
         option.data.inviteCode = await new Promise((callBack) => {
           uni.getClipboardData({
-            success: function(res) {
+            success: function (res) {
               if (res.data.slice(0, 18) == 'uniInvitationCode:') {
                 const uniInvitationCode = res.data.slice(18, 38)
                 console.log('当前用户是其他用户推荐下载的,推荐者的code是：' + uniInvitationCode)

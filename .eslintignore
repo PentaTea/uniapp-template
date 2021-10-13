@@ -4,6 +4,8 @@ unpackage
 components/uni-**
 
 src/common/*.js
+*.min.js
+*-min.js
 test
 dist
 public

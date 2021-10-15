@@ -27,6 +27,12 @@ export default Vue.extend({
 <style>
 uni-left-window {
   display: block !important;
+  overflow: unset;
+}
+
+uni-main {
+  width: calc(100% - var(--window-left)) !important;
+  transition: width 0.5s cubic-bezier(0.18, 0.89, 0.32, 1);
 }
 
 body.sidebar-show::before {

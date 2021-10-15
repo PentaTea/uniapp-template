@@ -38,7 +38,7 @@
       "@api/*": ["./src/api/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "outDir": "./"
+    "outDir": "./dist/"
   },
   "exclude": [
     "node_modules",

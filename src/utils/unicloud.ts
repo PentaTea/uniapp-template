@@ -44,7 +44,9 @@ type CF = {
 export const controller = new Proxy(
   {},
   { get: (target, property) => createContext('app', [property]) }
-) as UnionToIntersection<MatchController<typeof schema>> & { [key: string]: { [key: string]: any } }
+) as UnionToIntersection<MatchController<typeof schema>> & {
+  [key: string]: { [key: string]: (arg?: Record<string, any>) => Promise<any> }
+}
 
 //工具类型 将url与长短参表的映射转换为流式调用异步函数类型
 // a['/b/c'] = {d:e} =>> a.b.c({d?:any}).then
@@ -55,7 +57,7 @@ type MatchController<S extends { [key: string]: object }> = keyof S extends infe
         [K in A]: {
           //方法名
           [key in B]: (arg?: Record<string, any>) => Promise<any> //创建异步函数类型,规定参数1的key映射为对应url的短签
-        } & { [key: string]: any }
+        } & { [key: string]: (arg?: Record<string, any>) => Promise<any> }
       }
     : never
   : never
@@ -65,3 +67,13 @@ type MatchController<S extends { [key: string]: object }> = keyof S extends infe
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void
   ? I
   : never
+
+export const db = uniCloud.database().action('app')
+
+declare global {
+  namespace UniCloud {
+    interface DocumentReference {
+      remove(type?: boolean): any
+    }
+  }
+}

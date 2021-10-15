@@ -3,9 +3,7 @@ unpackage
 # 忽略uni-app官方的组件库错误和警告
 components/uni-**
 
-src/common/*.js
-*.min.js
-*-min.js
+*.js
 test
 dist
 public

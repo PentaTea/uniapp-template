@@ -5,7 +5,7 @@ import page from './page'
 import modal from './modal'
 import randomcolor from 'randomcolor'
 import md2html from './md2html'
-import { cloud, controller } from './unicloud'
+import { cloud, controller, db } from './unicloud'
 import './__helper'
 
 export const utils = {
@@ -20,6 +20,7 @@ export const utils = {
   ...modal,
   cloud,
   controller,
+  db,
 }
 
 Object.assign(app, utils)

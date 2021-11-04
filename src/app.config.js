@@ -15,8 +15,8 @@ const packages = {
   admin: {
     index: { icon: 'ri-dashboard-3-line', name: '主页' },
     dashboard: { icon: 'ri-dashboard-line', name: '控制台' },
+    user: { icon: 'ri-account-circle-line', name: '用户管理' },
     role: { icon: 'ri-group-line', name: '角色管理' },
-    user: { icon: 'ri-user-settings-fill', name: '用户管理' },
   },
   oldadmin: false,
 }

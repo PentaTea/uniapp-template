@@ -1,4 +1,4 @@
-import { Vue, Component, Prop, PropSync, Watch } from 'vue-property-decorator'
+import { Vue, Component, Prop, PropSync, Watch, InjectReactive } from 'vue-property-decorator'
 @Component({})
 export default class extends Vue {
   /** 自定义api,具体实现需要重写custom的fetch方法 */
@@ -7,25 +7,6 @@ export default class extends Vue {
   @Prop({ default: '' }) title?: string
   /** 外部数据,传入则放弃使用内部fetch */
   @Prop({ default: null }) data?: Record<string, any>[]
-  /** 请求参数,不包括页码 */
-  @PropSync('params', { default: () => ({}) }) rawParams: Record<string, any>
-  /** 页码数据处理 */
-  @PropSync('pages', {
-    default: () => ({
-      total: 0,
-      current: 1,
-      size: 10,
-    }),
-  })
-  rawPages: {
-    total: number
-    current: number
-    size: number
-  }
-  setPages(p) {
-    this.rawPages = { ...this.rawPages, ...p }
-  }
-
   /** 表格结构 */
   @Prop({ default: null }) schema?: Record<string, any>
   /** 加载状态 */
@@ -45,9 +26,16 @@ export default class extends Vue {
    * 暴露数据,保存公开状态
    */
   currentPageNow = 1
+  selection = []
+  pages = { total: 0, current: 1, size: 10 }
+  params = {}
+  setPages(p) {
+    this.pages = { ...this.pages, ...p }
+  }
 
   action = {}
   header = {}
+  actionWidth = 200
   actionStyle = {}
   headerStyle = {}
   columnStyle = {}
@@ -68,6 +56,8 @@ export default class extends Vue {
   protected rawActiveForm = ''
 
   //内部请求函数
+  @Watch('pages.current')
+  @Watch('pages.size')
   protected async rawFetch() {
     this.$emit('fetch', this)
     if (this.data) return //我们认为如果传了dataProp则由外部代理请求,不应由内部发起请求
@@ -75,14 +65,14 @@ export default class extends Vue {
     const { data, pages } = await this.fetch()
     this.rawData = data
     this.setPages(pages)
-    this.currentPageNow = this.rawPages.current
+    this.currentPageNow = this.pages.current
     this.rawLoading = false
   }
 
   //由外部更新data,要同步更新页码
-  @Watch('data')
+  @Watch('data', { immediate: true })
   updateFromOutter() {
-    this.currentPageNow = this.rawPages.current
+    this.currentPageNow = this.pages.current
     this.rawData = this.data
   }
 
@@ -90,7 +80,8 @@ export default class extends Vue {
     const option = this.init?.(this)
     if (option) {
       for (const key in option) {
-        this[key] = option[key]
+        if (typeof option[key] == 'object') this[key] = { ...this[key], ...option[key] }
+        else this[key] = option[key]
       }
     }
     this.rawFetch()

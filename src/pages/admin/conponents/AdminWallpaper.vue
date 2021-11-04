@@ -26,6 +26,16 @@ export default class extends Vue {}
   --bs-gutter-x: 20px;
 }
 
+::v-deep pre {
+  margin: 0;
+  user-select: text;
+}
+
+// ::v-deep .el-table td,
+// ::v-deep .el-table th.is-leaf {
+//   border-bottom: 1px dashed #d7d7d7;
+// }
+
 .main-wrapper {
   position: relative;
   height: 100%;

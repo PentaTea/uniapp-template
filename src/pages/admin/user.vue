@@ -1,15 +1,20 @@
 <template>
   <AdminWallpaper>
     <unicloud-db
-      #default="{ data, loading, pagination }"
+      #default="{ data, loading }"
       collection="uni-id-users,uni-id-roles"
-      field="avatar,username,username_raw,mobile,status,email,role,dcloud_appid,register_date"
+      field="avatar,username,username_raw,mobile,status,email,role{role_id,role_name,comment},dcloud_appid,register_date,last_login_date,delete_at"
       style="height: 100%"
-      :page-size="pageSize"
+      :page-size="size"
       page-data="replace"
       getcount
+      orderby="delete_at desc"
       :where="log(where)"
       ref="db"
+      @load="
+        (data, ended, { count: total, current, size }) =>
+          $refs.list.setPages({ total, current, size })
+      "
     >
       <UniList
         :init="init"
@@ -17,30 +22,34 @@
         :schema="schema"
         :loading="loading"
         input:用户名
-        :pages="{ current: pagination.current, total: pagination.count, size: pagination.size }"
-        @update:pages="
-          () => {
-            pageSize != $event.size
-              ? (pageSize = $event.size)
-              : $refs.db &&
-                $refs.db.loadData({
-                  current: $event.current,
-                })
+        角色
+        @fetch="
+          (e) => {
+            size = e.pages.size
+            current = e.pages.current
+            getWhere(e.params)
           }
         "
-        @fetch="getWhere($event.params)"
         ref="list"
         expand
       >
+        <template #search>
+          <el-checkbox v-model="displayDelete" border size="small">显示已删除</el-checkbox>
+        </template>
         <template #expand="{ row }">
           <div class="padding padding-lr-xl">
             <pre v-html="obj2html(row)"></pre>
           </div>
         </template>
         <template #avatar="{ value }"><img :src="value" /></template>
-        <template #username="{ row }">{{ row.username_raw || row.username }}</template>
+        <template #username="{ row }">
+          {{ row.username_raw || row.username }}
+          <el-tag v-if="row.delete_at" type="danger" size="mini" style="margin-left: 15px">
+            删除于 {{ app.time(row.delete_at).fromNow() }}
+          </el-tag>
+        </template>
         <template #role="{ value }">
-          <div>
+          <div class="role">
             <el-popover
               v-for="item in value"
               :class="[item.role_id]"
@@ -49,26 +58,30 @@
               trigger="hover"
               placement="top-start"
               :content="item.comment"
+              :disabled="!item.comment"
             >
-              <el-tag slot="reference" type="success">
+              <el-tag slot="reference" type="info">
                 {{ item.role_name }}
               </el-tag>
             </el-popover>
           </div>
         </template>
-        <template #register_date="{ value }">{{ app.time(value).fromNow() }}</template>
-        <template #last_login_date="{ value }">{{ app.time(value).fromNow() }}</template>
+        <template #register_date="{ value }">{{ value && app.time(value).fromNow() }}</template>
+        <template #last_login_date="{ value }">{{ value && app.time(value).fromNow() }}</template>
       </UniList>
     </unicloud-db>
   </AdminWallpaper>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from '@app/mixins'
+import { Vue, Component, Watch } from '@app/mixins'
 import AdminWallpaper from './conponents/AdminWallpaper.vue'
 import UniList from './conponents/UniList/index.vue'
 import stringifyObject from 'stringify-object'
 import hanabi from '@app/common/hanabi'
+
+import userFromAdd from './userAdd.json'
+import userFromEdit from './userEdit.json'
 @Component({
   components: {
     AdminWallpaper,
@@ -76,197 +89,136 @@ import hanabi from '@app/common/hanabi'
   },
 })
 export default class extends Vue {
-  pageSize = 10
-  where = ''
+  size = 10
+  current = 1
+  @Watch('current') fetch() {
+    this.$refs.db &&
+      this.$refs['db']['loadData']({
+        current: this.current,
+      })
+  }
+  where = 'delete_at==null'
+  displayDelete = false
   getWhere(e) {
-    const arr = []
-    Object.entries(e || {}).forEach(([k, v]) => {
-      v && arr.push(`/${v}/i.test(${k})`)
+    const arr = this.displayDelete ? [] : ['delete_at==null']
+    Object.entries(e || {}).forEach(([k, v]: [any, any]) => {
+      if (this.is.empty(v)) return
+      // arr.push(
+      //   Array.isArray(v)
+      //     ? `${k}.role_id==${v.map((e) => `'${e}'`).join(',')}`
+      //     : `/${v}/i.test(${k})`
+      // )
+      // arr.push(`${k} in [${v.map((e) => `'${e}'`).join(',')}]`)
+      switch (k) {
+        case 'role':
+          return v.forEach((e) => arr.push(`role.role_id=='${e}'`))
+        default:
+          return arr.push(`/${v}/i.test(${k})`)
+      }
     })
     this.where = arr.join('&&')
   }
 
   init(page) {
     return {
+      actionStyle: {
+        删除: { type: 'warning' },
+        永久删除: { type: 'danger' },
+      },
       action: {
-        删除: ({ row }) => {
-          page.dialog({ text: '确认删除?' }).then(() => {
-            console.log('执行删除')
-          })
+        编辑: {
+          show: ({ row }) => !row.delete_at,
+          fn: ({ row: { ...row } }) => {
+            if (row.username_raw) row.username = row.username_raw
+            if (row.role)
+              row.role = row.role.map((e) => {
+                console.log(e, e.role_id)
+
+                return e.role_id
+              })
+            console.log(row)
+            page
+              .dialog({
+                form: userFromEdit,
+                data: row,
+                use: {
+                  role: '角色',
+                },
+              })
+              .then((res) => ({ id: row._id, ...res }))
+              .then((res) => app.cloud.user.updateUser(res))
+              .then(() => page.reload())
+          },
+        },
+        删除: {
+          show: ({ row }) => !row.delete_at,
+          fn: ({ row }) => {
+            page
+              .dialog({ text: '确认删除?' })
+              .then(() => app.db.collection('uni-id-users').doc(row._id).remove('admin'))
+              .then(() => page.reload())
+          },
+        },
+        永久删除: {
+          show: ({ row }) => !!row.delete_at,
+          fn: ({ row }) => {
+            page
+              .dialog({ text: '操作不可逆,确认永久删除?' })
+              .then(() => app.db.collection('uni-id-users').doc(row._id).remove('force'))
+              .then(() => page.reload())
+          },
         },
       },
-
+      headerStyle: {
+        删除: { type: 'warning' },
+        永久删除: { type: 'danger' },
+      },
       header: {
-        测试文本: () =>
-          page.dialog({ text: '确认删除?' }).then(() => {
-            console.log('执行删除')
-          }),
-        测试表单: () =>
+        删除选中内容: {
+          show: (selection) =>
+            selection && selection.length && !selection.every((e) => e.delete_at),
+          fn(selection) {
+            const $ = uniCloud.database().command
+            page.dialog({ text: '确认删除?' }).then(() =>
+              app.db
+                .collection('uni-id-users')
+                .where({ _id: $.or(selection.filter((e) => !e.delete_at).map((e) => $.eq(e._id))) })
+                .remove()
+                .then(() => page.reload())
+            )
+          },
+        },
+        永久删除选中内容: {
+          show: (selection) => selection && selection.length && selection.every((e) => e.delete_at),
+          fn(selection: any[]) {
+            const $ = uniCloud.database().command
+            page.dialog({ text: '操作不可逆,确认永久删除?' }).then(() =>
+              app.db
+                .collection('uni-id-users')
+                .where({ _id: $.or(selection.map((e) => $.eq(e._id))) })
+                .remove('force')
+                .then(() => page.reload())
+            )
+          },
+        },
+        添加用户: () =>
           page
             .dialog({
-              form: {
-                fields: [
-                  {
-                    __config__: {
-                      label: '级联选择',
-                      url: 'https://www.fastmock.site/mock/f8d7a54fb1e60561e2f720d5a810009d/fg/cascaderList',
-                      method: 'get',
-                      dataKey: 'list',
-                      showLabel: true,
-                      labelWidth: null,
-                      tag: 'el-cascader',
-                      tagIcon: 'cascader',
-                      layout: 'colFormItem',
-                      defaultValue: [],
-                      dataType: 'dynamic',
-                      span: 24,
-                      required: true,
-                      regList: [],
-                      changeTag: true,
-                      document: 'https://element.eleme.cn/#/zh-CN/component/cascader',
-                      formId: 101,
-                      renderKey: 1633771737751,
-                    },
-                    options: [
-                      {
-                        id: 1,
-                        value: 1,
-                        label: '选项1',
-                        children: [
-                          {
-                            id: 2,
-                            value: 2,
-                            label: '选项1-1',
-                          },
-                        ],
-                      },
-                    ],
-                    placeholder: '请选择级联选择级联选择',
-                    style: {
-                      width: '100%',
-                    },
-                    props: {
-                      props: {
-                        multiple: false,
-                        label: 'label',
-                        value: 'value',
-                        children: 'children',
-                      },
-                    },
-                    'show-all-levels': true,
-                    disabled: false,
-                    clearable: true,
-                    filterable: false,
-                    separator: '/',
-                    __vModel__: 'field101',
-                  },
-                  {
-                    __config__: {
-                      label: '多行文本',
-                      labelWidth: null,
-                      showLabel: true,
-                      tag: 'el-input',
-                      tagIcon: 'textarea',
-                      required: true,
-                      layout: 'colFormItem',
-                      span: 24,
-                      regList: [],
-                      changeTag: true,
-                      document: 'https://element.eleme.cn/#/zh-CN/component/input',
-                      formId: 102,
-                      renderKey: 1633771739130,
-                    },
-                    type: 'textarea',
-                    placeholder: '请输入多行文本',
-                    autosize: {
-                      minRows: 4,
-                      maxRows: 4,
-                    },
-                    style: {
-                      width: '100%',
-                    },
-                    maxlength: null,
-                    'show-word-limit': false,
-                    readonly: false,
-                    disabled: false,
-                    __vModel__: 'field102',
-                  },
-                  {
-                    __config__: {
-                      label: '多行文本',
-                      labelWidth: null,
-                      showLabel: true,
-                      tag: 'el-input',
-                      tagIcon: 'textarea',
-                      required: true,
-                      layout: 'colFormItem',
-                      span: 24,
-                      regList: [],
-                      changeTag: true,
-                      document: 'https://element.eleme.cn/#/zh-CN/component/input',
-                      formId: 103,
-                      renderKey: 1633771739283,
-                    },
-                    type: 'textarea',
-                    placeholder: '请输入多行文本',
-                    autosize: {
-                      minRows: 4,
-                      maxRows: 4,
-                    },
-                    style: {
-                      width: '100%',
-                    },
-                    maxlength: null,
-                    'show-word-limit': false,
-                    readonly: false,
-                    disabled: false,
-                    __vModel__: 'field103',
-                  },
-                  {
-                    __config__: {
-                      label: '计数器',
-                      showLabel: true,
-                      changeTag: true,
-                      labelWidth: null,
-                      tag: 'el-input-number',
-                      tagIcon: 'number',
-                      span: 24,
-                      layout: 'colFormItem',
-                      required: true,
-                      regList: [],
-                      document: 'https://element.eleme.cn/#/zh-CN/component/input-number',
-                      formId: 104,
-                      renderKey: 1633771740534,
-                    },
-                    placeholder: '计数器',
-                    step: 1,
-                    'step-strictly': false,
-                    'controls-position': '',
-                    disabled: false,
-                    __vModel__: 'field104',
-                  },
-                ],
-                formRef: 'elForm',
-                formModel: 'formData',
-                size: 'medium',
-                labelPosition: 'right',
-                labelWidth: 100,
-                formRules: 'rules',
-                gutter: 15,
-                disabled: false,
-                span: 24,
-                formBtns: true,
-                unFocusedComponentBorder: false,
+              form: userFromAdd,
+              use: {
+                username: 'input',
+                role: '角色',
               },
             })
-            .then((res) => console.log(res)),
-        添加角色: () => page.view({}),
+            .then((res) => app.cloud.user.registerUser(res))
+            .then(() => page.reload()),
       },
     }
   }
   schema = {
+    $selection: '多选',
     avatar: { label: '', width: 100 },
-    username: { label: '用户名', align: 'left', width: 200 },
+    username: { label: '用户名', align: 'left', minWidth: 300 },
     role: '角色',
     gender: { label: '性别', formatter: ({ cellValue }) => Gender[cellValue] },
     register_date: '注册时间',
@@ -289,8 +241,18 @@ enum Gender {
 </script>
 
 <style lang="scss" scoped>
-pre {
-  margin: 0;
-  user-select: text;
+.role {
+  display: flex;
+  flex-wrap: wrap;
+
+  > * {
+    margin: 5px;
+  }
+
+  .admin span {
+    color: #f16262;
+    background-color: #f9ebeb;
+    border-color: #f3d8d8;
+  }
 }
 </style>

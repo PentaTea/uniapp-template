@@ -1,4 +1,5 @@
 import config from '@app/app.config'
+import './addon'
 import { dayjs } from './time'
 import * as chroma from 'chroma.ts'
 import page from './page'

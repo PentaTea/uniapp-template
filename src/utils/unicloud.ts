@@ -73,7 +73,15 @@ export const db = uniCloud.database().action('app')
 declare global {
   namespace UniCloud {
     interface DocumentReference {
-      remove(type?: boolean): any
+      remove(form?: string): any
+      remove(type?: 'hard' | 'force'): any
+    }
+    interface CollectionReference {
+      where(obj: Record<string, LogicCommand>): Query
+    }
+    interface Query {
+      remove(form?: string): any
+      remove(type?: 'hard' | 'force'): any
     }
   }
 }

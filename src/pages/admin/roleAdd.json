@@ -1,0 +1,150 @@
+{
+    "fields": [
+        {
+            "__config__": {
+                "label": "角色",
+                "labelWidth": null,
+                "showLabel": true,
+                "changeTag": true,
+                "tag": "el-input",
+                "tagIcon": "input",
+                "required": true,
+                "layout": "colFormItem",
+                "span": 24,
+                "document": "https://element.eleme.cn/#/zh-CN/component/input",
+                "regList": [],
+                "formId": 101,
+                "renderKey": 1634735198367
+            },
+            "__slot__": {
+                "prepend": "",
+                "append": ""
+            },
+            "placeholder": "角色标识,不可修改,不允许重复",
+            "style": {
+                "width": "100%"
+            },
+            "clearable": true,
+            "prefix-icon": "",
+            "suffix-icon": "",
+            "maxlength": null,
+            "show-word-limit": false,
+            "readonly": false,
+            "disabled": false,
+            "__vModel__": "role_id"
+        },
+        {
+            "__config__": {
+                "label": "名称",
+                "labelWidth": null,
+                "showLabel": true,
+                "changeTag": true,
+                "tag": "el-input",
+                "tagIcon": "input",
+                "required": true,
+                "layout": "colFormItem",
+                "span": 24,
+                "document": "https://element.eleme.cn/#/zh-CN/component/input",
+                "regList": [],
+                "formId": 102,
+                "renderKey": 1634735201351
+            },
+            "__slot__": {
+                "prepend": "",
+                "append": ""
+            },
+            "placeholder": "请输入角色名称",
+            "style": {
+                "width": "100%"
+            },
+            "clearable": true,
+            "prefix-icon": "",
+            "suffix-icon": "",
+            "maxlength": null,
+            "show-word-limit": false,
+            "readonly": false,
+            "disabled": false,
+            "__vModel__": "role_name"
+        },
+        {
+            "__config__": {
+                "label": "权限",
+                "showLabel": true,
+                "labelWidth": null,
+                "tag": "el-select",
+                "tagIcon": "select",
+                "layout": "colFormItem",
+                "span": 24,
+                "required": false,
+                "regList": [],
+                "changeTag": true,
+                "document": "https://element.eleme.cn/#/zh-CN/component/select",
+                "formId": 104,
+                "renderKey": 1634735455515
+            },
+            "__slot__": {
+                "options": [
+                    {
+                        "label": "选项一",
+                        "value": 1
+                    },
+                    {
+                        "label": "选项二",
+                        "value": 2
+                    }
+                ]
+            },
+            "placeholder": "请选择权限",
+            "style": {
+                "width": "100%"
+            },
+            "clearable": true,
+            "disabled": false,
+            "filterable": false,
+            "multiple": false,
+            "__vModel__": "permission"
+        },
+        {
+            "__config__": {
+                "label": "注释",
+                "labelWidth": null,
+                "showLabel": true,
+                "tag": "el-input",
+                "tagIcon": "textarea",
+                "required": false,
+                "layout": "colFormItem",
+                "span": 24,
+                "regList": [],
+                "changeTag": true,
+                "document": "https://element.eleme.cn/#/zh-CN/component/input",
+                "formId": 106,
+                "renderKey": 1634735570552
+            },
+            "type": "textarea",
+            "placeholder": "请输入注释",
+            "autosize": {
+                "minRows": 4,
+                "maxRows": 4
+            },
+            "style": {
+                "width": "100%"
+            },
+            "maxlength": null,
+            "show-word-limit": false,
+            "readonly": false,
+            "disabled": false,
+            "__vModel__": "comment"
+        }
+    ],
+    "formRef": "elForm",
+    "formModel": "formData",
+    "size": "medium",
+    "labelPosition": "right",
+    "labelWidth": 100,
+    "formRules": "rules",
+    "gutter": 15,
+    "disabled": false,
+    "span": 24,
+    "formBtns": true,
+    "unFocusedComponentBorder": false
+}

@@ -9,7 +9,25 @@
       "description": "存储文档 ID（用户 ID），系统自动生成"
     },
     "delete_at": {
-      "description": "删除时间戳"
+      "description": "删除时间戳",
+      "bsonType": "timestamp",
+      "permission": {
+        "update": false
+      }
+    },
+    "delete_from": {
+      "description": "删除来源",
+      "bsonType": "string",
+      "permission": {
+        "update": false
+      }
+    },
+    "delete_uid": {
+      "description": "删除操作人",
+      "bsonType": "string",
+      "permission": {
+        "update": false
+      }
     },
     "username": {
       "bsonType": "string",

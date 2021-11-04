@@ -1,8 +1,8 @@
-import { Component } from 'vue-property-decorator'
+import { Component, Mixins } from 'vue-property-decorator'
 import Base from './base'
 
 @Component({})
-export default class extends Base {
+export default class extends Mixins(Base) {
   /**
    * 请求方法,返回当前页数据和页码数据
    * @return {{pages: {current: number, total: number}, data: any[]}}
@@ -24,20 +24,25 @@ export default class extends Base {
    * 刷新方法
    */
   reload() {}
-  //
+  /**
+   * 样式覆盖
+   */
+  actionWidth = 200
   /**
    * 按钮样式
-   * key为按钮名称(可以使用标准glob通配符) value为attr对象,将会被绑定到对应组件
-   * 注: '*' 匹配所有
+   * key为按钮名称(可以使用标准正则) value为attrs对象,将会被绑定到对应组件
+   * 注: '.*' 匹配所有
    * 也可以在init函数中覆盖本配置
    */
   actionStyle = {
-    '*': { size: 'mini', plain: true },
+    '.*': { size: 'mini', plain: true },
     删除: { type: 'danger' },
+    编辑: { type: 'primary' },
   }
   headerStyle = {
-    '*': { size: 'small', type: 'primary' },
-    '测试*': { type: 'warning', icon: 'ri-flask-fill', style: 'width:100px' },
+    '.*': { size: 'small', type: 'primary' },
+    测试: { type: 'warning', icon: 'ri-flask-fill', style: 'width:100px' },
+    删除: { type: 'danger' },
   }
   /**
    * 列样式
@@ -53,7 +58,11 @@ export default class extends Base {
    */
   searchDropdown = {
     清空查询条件: () => {
-      this.rawParams = this['params'] = {}
+      console.log(123)
+      // this.params = {}
+      // this.$set(this, 'params', {})
+      console.log(this)
+
       this.runSearch()
     },
   }

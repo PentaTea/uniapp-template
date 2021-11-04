@@ -1,0 +1,186 @@
+{
+  "fields": [
+    {
+      "__config__": {
+        "label": "用户名",
+        "labelWidth": null,
+        "showLabel": true,
+        "changeTag": true,
+        "tag": "el-input",
+        "tagIcon": "input",
+        "required": true,
+        "layout": "colFormItem",
+        "span": 24,
+        "document": "https://element.eleme.cn/#/zh-CN/component/input",
+        "regList": [],
+        "formId": 101,
+        "renderKey": 1634203034957
+      },
+      "__slot__": {
+        "prepend": "",
+        "append": ""
+      },
+      "placeholder": "请输入用户名",
+      "style": {
+        "width": "100%"
+      },
+      "clearable": true,
+      "prefix-icon": "",
+      "suffix-icon": "",
+      "maxlength": null,
+      "show-word-limit": false,
+      "readonly": false,
+      "disabled": false,
+      "__vModel__": "username"
+    },
+    {
+      "__config__": {
+        "label": "密码",
+        "labelWidth": null,
+        "showLabel": true,
+        "changeTag": true,
+        "tag": "el-input",
+        "tagIcon": "input",
+        "required": true,
+        "layout": "colFormItem",
+        "span": 24,
+        "document": "https://element.eleme.cn/#/zh-CN/component/input",
+        "regList": [],
+        "formId": 102,
+        "renderKey": 1634203060622
+      },
+      "__slot__": {
+        "prepend": "",
+        "append": ""
+      },
+      "placeholder": "请输入密码",
+      "style": {
+        "width": "100%"
+      },
+      "clearable": true,
+      "prefix-icon": "",
+      "suffix-icon": "",
+      "maxlength": null,
+      "show-word-limit": false,
+      "readonly": false,
+      "disabled": false,
+      "__vModel__": "password"
+    },
+    {
+      "__config__": {
+        "label": "手机号码",
+        "labelWidth": null,
+        "showLabel": true,
+        "changeTag": true,
+        "tag": "el-input",
+        "tagIcon": "input",
+        "required": false,
+        "layout": "colFormItem",
+        "span": 24,
+        "document": "https://element.eleme.cn/#/zh-CN/component/input",
+        "regList": [
+          {
+            "pattern": "/^1[3-9]\\d{9}$/",
+            "message": "请输入正确的手机号码"
+          }
+        ],
+        "formId": 103,
+        "renderKey": 1634203103117
+      },
+      "__slot__": {
+        "prepend": "",
+        "append": ""
+      },
+      "placeholder": "请输入手机号码",
+      "style": {
+        "width": "100%"
+      },
+      "clearable": true,
+      "prefix-icon": "",
+      "suffix-icon": "",
+      "maxlength": null,
+      "show-word-limit": false,
+      "readonly": false,
+      "disabled": false,
+      "__vModel__": "mobile"
+    },
+    {
+      "__config__": {
+        "label": "邮箱",
+        "labelWidth": null,
+        "showLabel": true,
+        "changeTag": true,
+        "tag": "el-input",
+        "tagIcon": "input",
+        "required": false,
+        "layout": "colFormItem",
+        "span": 24,
+        "document": "https://element.eleme.cn/#/zh-CN/component/input",
+        "regList": [
+          {
+            "pattern": "/[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+/",
+            "message": "请输入正确的邮箱地址"
+          }
+        ],
+        "formId": 104,
+        "renderKey": 1634203137205
+      },
+      "__slot__": {
+        "prepend": "",
+        "append": ""
+      },
+      "placeholder": "请输入邮箱",
+      "style": {
+        "width": "100%"
+      },
+      "clearable": true,
+      "prefix-icon": "",
+      "suffix-icon": "",
+      "maxlength": null,
+      "show-word-limit": false,
+      "readonly": false,
+      "disabled": false,
+      "__vModel__": "email"
+    },
+    {
+      "__config__": {
+        "label": "角色",
+        "showLabel": true,
+        "labelWidth": null,
+        "tag": "el-select",
+        "tagIcon": "select",
+        "layout": "colFormItem",
+        "span": 24,
+        "required": false,
+        "regList": [],
+        "changeTag": true,
+        "document": "https://element.eleme.cn/#/zh-CN/component/select",
+        "formId": 110,
+        "renderKey": 1634386553139
+      },
+      "__slot__": {
+        "options": []
+      },
+      "placeholder": "请选择角色",
+      "style": {
+        "width": "100%"
+      },
+      "clearable": true,
+      "disabled": false,
+      "filterable": false,
+      "multiple": false,
+      "__vModel__": "role"
+    }
+  ],
+  "formRef": "elForm",
+  "formModel": "formData",
+  "size": "medium",
+  "labelPosition": "right",
+  "labelWidth": 100,
+  "formRules": "rules",
+  "gutter": 15,
+  "disabled": false,
+  "span": 24,
+  "formBtns": true,
+  "unFocusedComponentBorder": false
+}

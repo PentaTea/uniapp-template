@@ -48,8 +48,6 @@ export default class extends Vue {
   top: 0;
   z-index: 1000;
   width: 0;
-  // height: calc(100vh - (var(--top-window-height)));
-
   box-sizing: border-box;
 
   &::before {

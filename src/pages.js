@@ -49,7 +49,9 @@ module.exports = hot((pagesJson) => {
     const mainPackages = pages[mainKey]
     for (const key in mainPackages) {
       mainPackages[key] &&
-        config.pages.push(PackPage([root, mainKey, key].join('/'), mainPackages[key], config))
+        config.pages[key.includes('index') ? 'unshift' : 'push'](
+          PackPage([root, mainKey, key].join('/'), mainPackages[key], config)
+        )
     }
 
     //分包配置
